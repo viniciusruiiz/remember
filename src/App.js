@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Slick from 'react-slick';
-import img11 from './img11.jpg'
+// import img11 from './img11.jpg'
 
 class App extends React.Component {
 
@@ -93,8 +93,8 @@ class App extends React.Component {
             <div className="timeline-nav__item">2016</div>
           </Slick>
           <div className="timeline-wrapper">
-            <Slick className="timeline-slider" {...settingsSlider}>
-              <div className="timeline-slider">
+            <Slick {...settingsSlider}>
+              {/* <div className="timeline-slider">
                 <div className="timeline-slide" style={{ backgroundImage: 'red' }} data-year="1985">      <span className="timeline-year">1985</span>
                   <div className="timeline-slide__content">
                     <h4 className="timeline-title">Our first project</h4>
@@ -155,13 +155,17 @@ class App extends React.Component {
                     <p className="timeline-text">Lorem ipsum dolor site amet, consectetur adipscing elit, sed do eisumod tempor incididut ut labore et dolore magna aliqua. Ut enim ad mimim venjam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                   </div>
                 </div>
-              </div>
-              {/* <h1>top</h1>
-              <h1>top</h1>
-              <h1>top</h1>
-              <h1>top</h1>
-              <h1>top</h1>
-              <h1>top</h1> */}
+              </div> */}
+              <h1>Memória 1</h1>
+              <h1>Memória 2</h1>
+              <h1>Memória 3</h1>
+              <h1>Memória 4</h1>
+              <h1>Memória 5</h1>
+              <h1>Memória 6</h1>
+              <h1>Memória 7</h1>
+              <h1>Memória 8</h1>
+              <h1>Memória 9</h1>
+              <h1>Memória 10</h1>
             </Slick>
           </div>
         </div>
