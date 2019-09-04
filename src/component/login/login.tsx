@@ -56,11 +56,11 @@ export default class Login extends Component<{}, LoginRequest> {
                     <br/>
                     <input type="password" placeholder="Senha" onChange={this.handlePassword}></input>
                     <br/>
-                    <Link to="/forgotpassword">Esqueci minha senha</Link>
+                    {/* <Link to="">Esqueci minha senha</Link> */}
                     <br/>
                     <input type="submit" value="Entrar"></input>
                     <br/>
-                    <Link to="/singup">Criar conta</Link>
+                    <Link to="/signup">Criar conta</Link>
                 </form>
             </div>
         );
