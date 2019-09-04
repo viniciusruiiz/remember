@@ -3,10 +3,15 @@ import './login.css'
 import LoginRequest from '../../model/request/loginRequest';
 import LoginService from '../../service/loginService';
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 export default class Login extends Component<{}, LoginRequest> {
 
     _ls: LoginService;
+
+    static contextTypes = {
+        router: PropTypes.object
+      }
 
     constructor() {
         super({});
@@ -32,9 +37,9 @@ export default class Login extends Component<{}, LoginRequest> {
         this._ls.login(this.state)
             .then((res) => {
                 if (res.data.success) {
-                    console.log('logado com sucesso!')
-                    alert('logou!');
-                    this._ls.setToken(res.data.id_token as string)
+                    console.log('logado com sucesso!');
+                    this._ls.setToken(res.data.id_token as string);
+                    this.context.router.history.push('/secret');
                 } else {
                     console.log('logou n');
                     alert('logou n')
