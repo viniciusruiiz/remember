@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import './signup.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import SignUpRequest from '../../model/request/signUpRequest';
 import SignUpService from '../../service/signUpService';
-import PropTypes from 'prop-types'
 import MaskedInput from 'react-text-mask';
 
-export default class SignUp extends Component<{}, SignUpRequest> {
+class SignUp extends Component<any, SignUpRequest> {
 
-    _ss: SignUpService;
+    private _ss: SignUpService;
 
-    static contextTypes = {
-        router: PropTypes.object
-    }
-
-    constructor() {
-        super({});
+    constructor(o : any = {}) {
+        super(o);
         this.state = { username: '', password: '', name: '', nickname: '', phone_number: '' } // validate birthdate
         this._ss = new SignUpService();
 
@@ -52,10 +47,11 @@ export default class SignUp extends Component<{}, SignUpRequest> {
 
         this._ss.signUp(this.state).then((res) => {
             if (res.data.success) {
-                alert("cadastrado com sucesso");
-                this.context.router.history.push('/secret');
+                this.props.history.push('/singupconfirmation');
+            } else {
+                alert('Erro: ' + res.data.msg);
             }
-        });
+        }).catch(err => { throw err });
     }
 
     render() {
@@ -64,20 +60,26 @@ export default class SignUp extends Component<{}, SignUpRequest> {
                 <h2>Tela de Cadastros</h2>
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="Email" onChange={this.handleUsername}></input>
-                    <br/>
+                    <br />
                     <input type="password" placeholder="Senha" onChange={this.handlePassword}></input>
-                    <br/>
+                    <br />
                     <input placeholder="Nome" onChange={this.handleName}></input>
-                    <br/>
+                    <br />
                     <input placeholder="Apelido" onChange={this.handleNickname}></input>
-                    <br/>
-                    <MaskedInput mask={["/[+]/", "/\g/", " ", "(", "/\g/", "/\g/", ")", "/\g/","/\g/","/\g/","/\g/","/\g/","-","/\g/","/\g/","/\g/","/\g/",]} placeholder="Telefone" onChange={this.handlePhone}></MaskedInput>
-                    <br/>
-                    <br/>
+                    <br />
+                    <MaskedInput
+                        mask={['+', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/,]}
+                        placeholder="Telefone"
+                        onChange={this.handlePhone}>
+                    </MaskedInput>
+                    <br />
                     <input type="submit" value="Cadastrar"></input>
+                    <br />
                     <Link to="/">Já tenho uma conta</Link>
                 </form>
             </div>
         );
     }
 }
+
+export default withRouter(SignUp);

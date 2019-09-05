@@ -3,7 +3,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 export default class BaseService {
 
     private _getAxiosConfig(): AxiosRequestConfig | undefined {
-
         if (BaseService._token) {
             return {
                 headers: {
@@ -17,9 +16,13 @@ export default class BaseService {
 
     private static _token: string | null;
 
-    public setToken(token: string | null): void {
+    protected setToken(token: string | null): void {
         BaseService._token = token;
     }
+
+    public static isAuthenticated() : boolean {
+        return !!this._token;
+    };
 
     protected get(url: string): Promise<AxiosResponse<any>> {
         return axios.get(url, this._getAxiosConfig());

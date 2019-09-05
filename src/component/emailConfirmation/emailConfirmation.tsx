@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import './login.css'
 import LoginRequest from '../../model/request/loginRequest';
-import LoginService from '../../service/loginService';
-import { Link, withRouter } from 'react-router-dom'
+import SignUpService from '../../service/signUpService';
+import { withRouter } from 'react-router';
+import './emailConfirmation.css';
 
-class Login extends Component<any, LoginRequest> {
+class EmailConfirmation extends Component<any, LoginRequest> {
 
-    private _ls: LoginService;
+    private _ss: SignUpService;
 
-    constructor(o: any = {}) {
+    constructor(o : any = {}) {
         super(o);
-        this.state = { password: "", username: "" };
-        this._ls = new LoginService();
+        this.state = { username: '', password: '', code: '' };
+        this._ss = new SignUpService();
 
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
+        this.handleCode = this.handleCode.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleUsername(event: React.ChangeEvent<HTMLInputElement>) {
@@ -26,38 +27,40 @@ class Login extends Component<any, LoginRequest> {
         this.setState({ password: event.target.value });
     }
 
+    handleCode(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({ code: event.target.value });
+    }
+
     handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
+
         event.preventDefault();
 
-        this._ls.login(this.state)
-            .then(res => {
-                if (res.data.success) {
-                    this._ls.setAuthenticationToken(res.data.id_token as string);
-                    this.props.history.push('/secret');
-                } else {
-                    alert('Erro: '+ res.data.msg);
-                }
-            }).catch(err => { throw err });
+        this._ss.confirmSignUp(this.state).then(res => {
+            if (res.data.success) {
+                this.props.history.push('/secret');
+            } else {
+                alert('Erro: ' + res.data.msg);
+            }
+        }).catch(err => { throw err });
     }
 
     render() {
         return (
             <div>
-                <h2>Tela de Login</h2>
+                <h2>Confirmar cadastro</h2>
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="Email" onChange={this.handleUsername}></input>
                     <br />
                     <input type="password" placeholder="Senha" onChange={this.handlePassword}></input>
                     <br />
-                    {/* <Link to="">Esqueci minha senha</Link> */}
+                    <input placeholder="Código de confirmação" onChange={this.handleCode}></input>
                     <br />
                     <input type="submit" value="Entrar"></input>
-                    <br />
-                    <Link to="/signup">Criar conta</Link>
                 </form>
             </div>
         );
     }
 }
 
-export default withRouter(Login);
+
+export default withRouter(EmailConfirmation);

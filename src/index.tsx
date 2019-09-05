@@ -6,13 +6,16 @@ import Login from './component/login/login';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import Secret from './component/secret';
 import SignUp from './component/signup/signup';
+import EmailConfirmation from './component/emailConfirmation/emailConfirmation';
+import SignUpConfirmation from './component/signup/signupConfirmation';
 
 const routing = (
     <Router>
-        <Route path="/" component={Login} />
-        {/*adionar novas rotas da mesma maneira. Exemplo: <Route path="/home" component={Home} />*/}
+        <Route exact path="/" component={Login} />
         <Route path="/secret" component={Secret} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/singupconfirmation" component={SignUpConfirmation} />
+        <Route path="/emailconfirmation" component={EmailConfirmation} />
     </Router>
   )
 

@@ -12,4 +12,8 @@ export default class LoginService extends BaseService {
     logout(): void {
         super.setToken(null);
     }
+
+    setAuthenticationToken(token: string){
+        super.setToken(token);
+    }
 }

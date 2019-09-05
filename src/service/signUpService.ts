@@ -12,6 +12,6 @@ export default class SignUpService extends BaseService {
 
     //TODO: Validar response
     confirmSignUp(data: LoginRequest): Promise<AxiosResponse<LoginResponse>> {
-        return super.post("https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta/confirmationsignup", data);
+        return super.post("https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta/confirmsignup", data);
     }
 }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import './login.css'
+import { withRouter } from 'react-router';
 
-export default class Secret extends Component {
+class Secret extends Component {
 
     render() {
-        return <h2>logou ou criou conta</h2>;
+        return <h1>logooooooooooooooooooo</h1>;
     }
 }
+
+export default withRouter(Secret);
