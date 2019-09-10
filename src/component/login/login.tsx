@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './login.css'
+import { withStyles } from '@material-ui/core/styles'
 import LoginRequest from '../../model/request/loginRequest';
 import LoginService from '../../service/loginService';
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import styles from './loginStyles';
 
 class Login extends Component<any, LoginRequest> {
 
@@ -41,8 +42,9 @@ class Login extends Component<any, LoginRequest> {
     }
 
     render() {
+        const { classes } = this.props
         return (
-            <div>
+            <div className={classes.popo}>
                 <h2>Tela de Login</h2>
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="Email" onChange={this.handleUsername}></input>
@@ -60,4 +62,4 @@ class Login extends Component<any, LoginRequest> {
     }
 }
 
-export default withRouter(Login);
+export default withStyles(styles)(Login);

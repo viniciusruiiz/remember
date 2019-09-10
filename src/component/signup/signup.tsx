@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './signup.css';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import SignUpRequest from '../../model/request/signUpRequest';
 import SignUpService from '../../service/signUpService';
 import MaskedInput from 'react-text-mask';
