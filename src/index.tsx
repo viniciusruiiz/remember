@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Login from './component/login/login';
+import Login from './page/login/login';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
-import Secret from './component/secret';
-import SignUp from './component/signup/signup';
-import EmailConfirmation from './component/emailConfirmation/emailConfirmation';
-import SignUpConfirmation from './component/signup/signupConfirmation';
+import Secret from './page/secret';
+import SignUp from './page/signup/signup';
+import EmailConfirmation from './page/emailConfirmation/emailConfirmation';
+import SignUpConfirmation from './page/signup/signupConfirmation';
 
 const routing = (
     <Router>
