@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
-import './signup.css';
+import styles from './signupStyles';
 import { Link, withRouter } from 'react-router-dom';
 import SignUpRequest from '../../model/request/signUpRequest';
+import logo from './../../images/logo-icon.png';
+import logoText from './../../images/logo-text.png';
 import SignUpService from '../../service/signUpService';
 import MaskedInput from 'react-text-mask';
+import { withStyles, Grid, Paper, Button, Typography, TextField } from '@material-ui/core';
+
+const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: '#38B49D',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: '#38B49D',
+      },
+    },
+  })(TextField);
 
 class SignUp extends Component<any, SignUpRequest> {
 
@@ -55,31 +69,30 @@ class SignUp extends Component<any, SignUpRequest> {
     }
 
     render() {
+        const { classes } = this.props
         return (
             <div>
-                <h2>Tela de Cadastros</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <input placeholder="Email" onChange={this.handleUsername}></input>
-                    <br />
-                    <input type="password" placeholder="Senha" onChange={this.handlePassword}></input>
-                    <br />
-                    <input placeholder="Nome" onChange={this.handleName}></input>
-                    <br />
-                    <input placeholder="Apelido" onChange={this.handleNickname}></input>
-                    <br />
-                    <MaskedInput
-                        mask={['+', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/,]}
-                        placeholder="Telefone"
-                        onChange={this.handlePhone}>
-                    </MaskedInput>
-                    <br />
-                    <input type="submit" value="Cadastrar"></input>
-                    <br />
-                    <Link to="/">Já tenho uma conta</Link>
-                </form>
+                <Grid className={classes.fullHeight} container >
+                    <Grid container className={classes.container} justify="center" alignItems="center">
+                        <Paper className={classes.paper}>
+                            <Grid container justify="center">
+                            <Typography className={classes.title}>Cadastre-se!</Typography>
+                            <CssTextField fullWidth className={classes.inputEsquerda} label="Nome" onChange={this.handleName} />
+                            <CssTextField fullWidth className={classes.inputDireita} label="Sobrenome" onChange={this.handleName} />
+                            <CssTextField fullWidth className={classes.inputLogin} label="E-mail" onChange={this.handleUsername} />
+                            <CssTextField fullWidth className={classes.inputLogin} label="Senha" onChange={this.handlePassword} />
+                            <CssTextField fullWidth className={classes.inputSenha} label="Confirmar Senha" onChange={this.handlePassword} />
+                            <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit">
+                                CADASTRAR
+                            </Button>
+                            <Typography className={classes.type}>Já tem uma conta? <Link className={classes.link} to="/">Faça login!</Link></Typography>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+                </Grid>
             </div>
-        );
+        )
     }
 }
 
-export default withRouter(SignUp);
+export default withStyles(styles)(SignUp);

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles'
 import LoginRequest from '../../model/request/loginRequest';
 import LoginService from '../../service/loginService';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styles from './loginStyles';
-import logo from './logo-icon.png';
-import logoText from './logo-text.png';
+import logo from './../../images/logo-icon.png';
+import logoText from './../../images/logo-text.png';
 import { Button, Paper, Grid, Typography, TextField, Divider } from '@material-ui/core';
 
 const CssTextField = withStyles({
@@ -80,3 +80,4 @@ class Login extends Component<any, LoginRequest> {
 }
 
 export default withStyles(styles)(Login);
+// export default withRouter((withStyles(styles)(Login)));
