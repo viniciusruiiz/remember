@@ -25,14 +25,11 @@ class SignUp extends Component<any, SignUpRequest> {
 
     constructor(o : any = {}) {
         super(o);
-        this.state = { username: '', password: '', name: '', nickname: '', phone_number: '' } // validate birthdate
+        this.state = { username: '', password: '', first_name: '', last_name: ''} // validate birthdate
         this._ss = new SignUpService();
 
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
-        this.handleName = this.handleName.bind(this);
-        this.handleNickname = this.handleNickname.bind(this);
-        this.handlePhone = this.handlePhone.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -44,17 +41,17 @@ class SignUp extends Component<any, SignUpRequest> {
         this.setState({ password: event.target.value });
     }
 
-    handleName(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({ name: event.target.value });
-    }
+    // handleName(event: React.ChangeEvent<HTMLInputElement>) {
+    //     this.setState({ name: event.target.value });
+    // }
 
-    handleNickname(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({ nickname: event.target.value });
-    }
+    // handleNickname(event: React.ChangeEvent<HTMLInputElement>) {
+    //     this.setState({ nickname: event.target.value });
+    // }
 
-    handlePhone(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({ phone_number: event.target.value });
-    }
+    // handlePhone(event: React.ChangeEvent<HTMLInputElement>) {
+    //     this.setState({ phone_number: event.target.value });
+    // }
 
     handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -63,7 +60,7 @@ class SignUp extends Component<any, SignUpRequest> {
             if (res.data.success) {
                 this.props.history.push('/singupconfirmation');
             } else {
-                alert('Erro: ' + res.data.msg);
+                alert('Erro: ' + res.data.error);
             }
         }).catch(err => { throw err });
     }
@@ -77,12 +74,12 @@ class SignUp extends Component<any, SignUpRequest> {
                         <Paper className={classes.paper}>
                             <Grid container justify="center">
                             <Typography className={classes.title}>Cadastre-se!</Typography>
-                            <CssTextField fullWidth className={classes.inputEsquerda} label="Nome" onChange={this.handleName} />
-                            <CssTextField fullWidth className={classes.inputDireita} label="Sobrenome" onChange={this.handleName} />
+                            <CssTextField fullWidth className={classes.inputEsquerda} label="Nome" onChange={this.handleUsername} />
+                            <CssTextField fullWidth className={classes.inputDireita} label="Sobrenome" onChange={this.handleUsername} />
                             <CssTextField fullWidth className={classes.inputLogin} label="E-mail" onChange={this.handleUsername} />
                             <CssTextField fullWidth className={classes.inputLogin} label="Senha" onChange={this.handlePassword} />
-                            <CssTextField fullWidth className={classes.inputSenha} label="Confirmar Senha" onChange={this.handlePassword} />
-                            <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit">
+                            <CssTextField fullWidth className={classes.inputSenha} label="Confirmar Senha" />
+                            <Button fullWidth className={classes.loginButton} onClick={this.handleSubmit} color="primary" variant="contained" type="submit">
                                 CADASTRAR
                             </Button>
                             <Typography className={classes.type}>Já tem uma conta? <Link className={classes.link} to="/">Faça login!</Link></Typography>

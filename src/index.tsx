@@ -6,7 +6,7 @@ import Login from './page/login/login';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import Secret from './page/secret';
 import SignUp from './page/signup/signup';
-import EmailConfirmation from './page/emailConfirmation/emailConfirmation';
+// import EmailConfirmation from './page/emailConfirmation/emailConfirmation';
 import SignUpConfirmation from './page/signup/signupConfirmation';
 import Error from './page/error/error';
 
@@ -17,7 +17,7 @@ const routing = (
           <Route path="/secret" component={Secret} />
           <Route path="/signup" component={SignUp} />
           <Route path="/singupconfirmation" component={SignUpConfirmation} />
-          <Route path="/emailconfirmation" component={EmailConfirmation} />
+          {/* <Route path="/emailconfirmation" component={EmailConfirmation} /> */}
           <Route component={Error} />
       </Switch>
   </Router>

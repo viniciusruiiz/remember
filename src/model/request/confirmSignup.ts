@@ -1,4 +1,4 @@
-export default class SignupRequest {
+export default class ConfirmSignUpRequest {
     public username: string;
     public password: string;
     public code: string; //TODO: validar nome do campo para a API
