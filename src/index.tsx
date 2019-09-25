@@ -9,6 +9,7 @@ import SignUp from './page/signup/signup';
 import EmailConfirmation from './page/emailConfirmation/emailConfirmation';
 import SignUpConfirmation from './page/signup/signupConfirmation';
 import Error from './page/error/error';
+import UserHome from './page/userHome/userHome';
 
 const routing = (
   <Router>
@@ -16,6 +17,7 @@ const routing = (
           <Route exact path="/" component={Login} />
           <Route path="/secret" component={Secret} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/userhome" component={UserHome} />
           <Route path="/singupconfirmation" component={SignUpConfirmation} />
           <Route path="/emailconfirmation" component={EmailConfirmation} />
           <Route component={Error} />
