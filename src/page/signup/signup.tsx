@@ -79,9 +79,9 @@ class SignUp extends Component<any, SignUpRequest> {
                             <CssTextField fullWidth className={classes.inputLogin} label="E-mail" onChange={this.handleUsername} />
                             <CssTextField fullWidth className={classes.inputLogin} label="Senha" onChange={this.handlePassword} />
                             <CssTextField fullWidth className={classes.inputSenha} label="Confirmar Senha" />
-                            <Button fullWidth className={classes.loginButton} onClick={this.handleSubmit} color="primary" variant="contained" type="submit">
+                            {/* <Button fullWidth className={classes.loginButton} onClick={this.handleSubmit} color="primary" variant="contained" type="submit">
                                 CADASTRAR
-                            </Button>
+                            </Button> */}
                             <Typography className={classes.type}>Já tem uma conta? <Link className={classes.link} to="/">Faça login!</Link></Typography>
                             </Grid>
                         </Paper>
