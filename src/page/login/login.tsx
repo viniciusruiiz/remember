@@ -47,10 +47,11 @@ class Login extends Component<any, LoginRequest> {
         this._ls.login(this.state)
             .then(res => {
                 if (res.data.success) {
-                    this._ls.setAuthenticationToken(res.data.id_token as string);
+                    this._ls.setAuthenticationToken(res.data.data.access_token as string);
                     this.props.history.push('/secret');
+                    console.log('ok, token setado');
                 } else {
-                    alert('Erro: ' + res.data.msg);
+                    alert('Erro: ' + res.data.error);
                 }
             }).catch(err => { throw err });
     }
