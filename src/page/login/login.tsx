@@ -64,7 +64,11 @@ class Login extends Component<any, LoginRequest> {
                     <Grid container justify="center" alignItems="center">
                         <Paper className={classes.paper}>
                             <Grid container justify="center">
-                            <img alt="remember" className={classes.logoIcon} src={logo}/><img alt="remember" className={classes.logoText} src={logoText}/>
+                            <div>
+                                <img alt="remember" className={classes.logoIcon} src={logo}/>   
+                                <span className={classes.logoText}>remember</span>
+                            </div>
+                            {/* <img alt="remember" className={classes.logoIcon} src={logo}/><img alt="remember" className={classes.logoText} src={logoText}/> */}
                             <CssTextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" onChange={this.handleUsername} />
                             <CssTextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handleUsername} />
                             <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit">

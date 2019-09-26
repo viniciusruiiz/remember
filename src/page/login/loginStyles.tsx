@@ -13,10 +13,13 @@ const styles = (theme: Theme) => createStyles({
     logoIcon: {
         height: theme.spacing(12),
         marginRight: theme.spacing(2),
+        verticalAlign: "middle",
+        paddingBottom: "20px",
     },
     logoText: {
-        height: theme.spacing(5),
-        marginTop: theme.spacing(3.3),
+        fontFamily: 'Major Mono Display',
+        fontSize: 40,
+        lineHeight: "100%",
     },
     inputLogin: {
         margin: theme.spacing(1,6,3,6),
