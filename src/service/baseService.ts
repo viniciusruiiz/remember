@@ -1,3 +1,5 @@
+'use strict'
+
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export default class BaseService {
@@ -6,7 +8,7 @@ export default class BaseService {
         if (BaseService._token) {
             return {
                 headers: {
-                    access_token: BaseService._token
+                    access_token: BaseService._getToken()
                 }
             };
         }
@@ -16,8 +18,17 @@ export default class BaseService {
 
     private static _token: string | null;
 
+    private static _getToken() : string | null {
+        if(!BaseService._token)
+            BaseService._token = localStorage.getItem("access_token")
+
+        return BaseService._getToken();
+    }
+
     protected setToken(token: string | null): void {
         BaseService._token = token;
+        if(token)
+            localStorage.setItem("access_token", token as string);
     }
 
     public static isAuthenticated() : boolean {
@@ -39,18 +50,4 @@ export default class BaseService {
     protected delete(url: string): Promise<AxiosResponse<any>> {
         return axios.delete(url, this._getAxiosConfig());
     }
-
-    //(validar se será ou não feito um sessionID)
-
-    //public storeOnCookie(item : string, value : string) {
-    //    document.cookie = `${item}=${value}; expires=${this._getCookieExpirationTime()}`;
-    //}
-
-    //private _getCookieExpirationTime() : Date {
-    //    let dateNow = new Date();
-
-    //    dateNow.setDate(dateNow.getDate() + 1);
-
-    //    return dateNow;
-    //}
 }

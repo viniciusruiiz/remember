@@ -6,7 +6,8 @@ import { Link, withRouter } from 'react-router-dom';
 import styles from './loginStyles';
 import logo from './../../images/logo-icon.png';
 import logoText from './../../images/logo-text.png';
-import { Button, Paper, Grid, Typography, TextField, Divider } from '@material-ui/core';
+import { Button, Paper, Grid, Typography, TextField, Divider, FormControl } from '@material-ui/core';
+import compose from 'recompose/compose'
 
 const CssTextField = withStyles({
     root: {
@@ -48,12 +49,17 @@ class Login extends Component<any, LoginRequest> {
             .then(res => {
                 if (res.data.success) {
                     this._ls.setAuthenticationToken(res.data.data.access_token as string);
+                    this._ls.setAuthenticationToken(res.data.data.user_id as string);
                     this.props.history.push('/secret');
-                    console.log('ok, token setado');
                 } else {
-                    alert('Erro: ' + res.data.error);
+                    console.log('Erro: ' + res.data.error);
+                    alert("Setar mensagem de erro")
                 }
-            }).catch(err => { throw err });
+            }).catch(err => { alert("Setar mensagem de erro inesperado") });
+
+        // console.log(this.state);
+
+        // this.props.history.push('/userhome');
     }
 
     render() {
@@ -65,9 +71,10 @@ class Login extends Component<any, LoginRequest> {
                         <Paper className={classes.paper}>
                             <Grid container justify="center">
                             <img alt="remember" className={classes.logoIcon} src={logo}/><img alt="remember" className={classes.logoText} src={logoText}/>
+                            <form onSubmit={this.handleSubmit} id="loginForm" style={{display: "none"}}></form>
                             <CssTextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" onChange={this.handleUsername} />
-                            <CssTextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handleUsername} />
-                            <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit">
+                            <CssTextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handlePassword} />
+                            <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit" form="loginForm">
                                 Entrar
                             </Button>
                             <Typography className={classes.type}>Não tem uma conta? <Link className={classes.link} to="/signup">Cadastre-se!</Link></Typography>
@@ -80,5 +87,6 @@ class Login extends Component<any, LoginRequest> {
     }
 }
 
-export default withStyles(styles)(Login);
+export default compose(withRouter, withStyles(styles))(Login)
+//withStyles(styles)(Login);
 // export default withRouter((withStyles(styles)(Login)));
