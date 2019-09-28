@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, withStyles } from '@material-ui/core';
 import styles from './navbarStyles';
-import logo from './../images/logo-icon.png';
-import perfil from './../images/perfil.jpg';
+import logo from './../../images/logo-icon.png';
+import perfil from './../../images/perfil.jpg';
 
 class NavBar extends Component {
     render() {

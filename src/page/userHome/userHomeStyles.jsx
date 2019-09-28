@@ -14,9 +14,6 @@ const styles = (theme) => createStyles({
         verticalAlign: "middle",
         marginLeft: 8,
     },
-    paper: {
-        height: 200,
-    }
 });
 
 export default styles
