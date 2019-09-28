@@ -2,26 +2,47 @@ import { createStyles } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
-  paper: {
-    height: 200,
-  },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    maxHeight: '60%',
   },
-  expand: {
-    transform: 'rotate(0deg)',
+  content: {
+    alignItems: 'center',
+    position: 'relative',
+    paddingRight: 0,
+  },
+  title: {
+    fontSize: 16,
+  },
+  subtitle: {
+    fontSize: 12,
+  },
+  options: {
+    alignItems: 'center',
+  },
+  bigImage: {
+    padding: 'none',
+    objectFit: 'cover',
+    width: '100%',
+    height: 198,
+  },
+  tinyImage: {
+    padding: 'none',
+    display: 'inline-block',
+    objectFit: 'cover',
+    width: '100%',
+    height: 66,
+  },
+  member: {
+    height: theme.spacing(4),
+    margin: 5,
+    borderRadius: 50,
+  },
+  right: {
+    alignItems: 'center',
     marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
+    alignItems: 'right',
+    alignItems: 'right',
+  }
 });
 
 export default styles

@@ -11,7 +11,7 @@ class NavBar extends Component {
         return (
         <>
          <div>
-            <AppBar position="static" className={classes.bar} position="static">
+            <AppBar className={classes.bar} position="fixed">
                 <Toolbar variant="dense">
                     <img src={logo} className={classes.logoIcon}/>
                     <Typography className={classes.logoText}>remember</Typography>

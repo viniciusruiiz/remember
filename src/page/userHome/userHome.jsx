@@ -14,9 +14,18 @@ class UserHome extends Component {
             <NavBar />
             <div className={classes.root}>
                 <Typography className={classes.hideCompartilhadas}>Memorylines compartilhadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
+                <Grid container spacing={4}>
                     <LineBox />
+                    <LineBox />
+                    <LineBox />
+                    <LineBox />
+                </Grid>
                 <Typography className={classes.hideCompartilhadas}>Memorylines privadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
+                <Grid container spacing={4}>
                     <LineBox />
+                    <LineBox />
+                    <LineBox />
+                </Grid>
             </div>
         </>
         )
