@@ -2,6 +2,7 @@ import { createStyles } from "@material-ui/core";
 
 const styles = (theme) => createStyles({
     root: {
+        marginTop: 56 + 20,
         color: "white",
         paddingLeft: 20,
         paddingRight: 20,
@@ -14,9 +15,6 @@ const styles = (theme) => createStyles({
         verticalAlign: "middle",
         marginLeft: 8,
     },
-    paper: {
-        height: 200,
-    }
 });
 
 export default styles

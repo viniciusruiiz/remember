@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, withStyles } from '@material-ui/core';
 import styles from './navbarStyles';
-import logo from './../images/logo-icon.png';
-import perfil from './../images/perfil.jpg';
+import logo from './../../images/logo-icon.png';
+import perfil from './../../images/perfil.jpg';
 
 class NavBar extends Component {
     render() {
@@ -11,7 +11,7 @@ class NavBar extends Component {
         return (
         <>
          <div>
-            <AppBar position="static" className={classes.bar} position="static">
+            <AppBar className={classes.bar} position="fixed">
                 <Toolbar variant="dense">
                     <img src={logo} className={classes.logoIcon}/>
                     <Typography className={classes.logoText}>remember</Typography>

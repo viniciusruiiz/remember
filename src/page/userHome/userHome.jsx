@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Icon, Paper, Grid } from '@material-ui/core';
-import NavBar from './../../components/navbar';
+import NavBar from '../../components/navbar/navbar';
 import styles from './userHomeStyles.jsx';
 import { withStyles } from '@material-ui/styles';
+import LineBox from '../../components/lineBox/lineBox';
 
 
 class UserHome extends Component {
@@ -10,21 +11,22 @@ class UserHome extends Component {
         const { classes } = this.props
         return (
         <>
-         <NavBar />
-        <div className={classes.root}>
-            <Typography className={classes.hideCompartilhadas}>Memorylines compartilhadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
-            <Grid container spacing={3}>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}></Paper>
+            <NavBar />
+            <div className={classes.root}>
+                <Typography className={classes.hideCompartilhadas}>Memorylines compartilhadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
+                <Grid container spacing={4}>
+                    <LineBox />
+                    <LineBox />
+                    <LineBox />
+                    <LineBox />
                 </Grid>
-            </Grid>
-            <Typography className={classes.hideCompartilhadas}>Memorylines privadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
-            <Grid container spacing={3}>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}></Paper>
+                <Typography className={classes.hideCompartilhadas}>Memorylines privadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
+                <Grid container spacing={4}>
+                    <LineBox />
+                    <LineBox />
+                    <LineBox />
                 </Grid>
-            </Grid>
-        </div>
+            </div>
         </>
         )
     }
