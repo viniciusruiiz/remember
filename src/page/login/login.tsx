@@ -5,7 +5,7 @@ import LoginService from '../../service/loginService';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './loginStyles';
 import logo from './../../images/logo-icon.png';
-import logoText from './../../images/logo-text.png'
+import logoText from './../../images/logo-text.png';
 import { Button, Paper, Grid, Typography, TextField, Divider, FormControl } from '@material-ui/core';
 import compose from 'recompose/compose'
 
