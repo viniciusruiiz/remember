@@ -1,7 +1,10 @@
 import { createStyles } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
+import { red, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
+  card: {
+    position: 'relative',
+  },
   media: {
     maxHeight: '60%',
   },
@@ -42,7 +45,21 @@ const styles = (theme) => createStyles({
     marginLeft: 'auto',
     alignItems: 'right',
     alignItems: 'right',
-  }
+  },
+  notification: {
+    position: 'absolute',
+    color: 'white',
+    fontSize: 12,
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    background: purple[300],
+    right: 3,
+    top: 3,
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    lineHeight: '30px',
+  },
 });
 
 export default styles

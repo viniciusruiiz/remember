@@ -5,37 +5,59 @@ import styles from './lineBoxStyles';
 import perfil from './../../images/perfil.jpg';
 
 class LineBox extends Component {
-    render() {
+  
+  constructor(props) {
+    super(props)
+    this.state = {
+      relativeChangeMinutes: Math.abs((new Date().getTime() - this.props.lastChangeInTimestamp) / 60000)
+    }
+  }
+  
+  render() {
         const { classes } = this.props
 
         return (
         <>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card className={classes.card}>
-              <div >
+          <Grid item xs={12} sm={6} md={4} className={classes.card}>
+            {this.props.notificationCount > 0 &&
+              <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
+            }
+            <Card>
               <Grid className={classes.media} container>
-              <Grid container xs={9} >
-              <img alt='' className={classes.bigImage} src={perfil} />
+                <Grid container xs={9} >
+                <img alt='' className={classes.bigImage} src={perfil} />
+                </Grid>
+                <Grid container xs={3} >
+                <img alt='' className={classes.tinyImage} align='top' src={perfil} />
+                <img alt='' className={classes.tinyImage} align='top' src={perfil} />
+                <img alt='' className={classes.tinyImage} align='top' src={perfil} />
+                </Grid>
               </Grid>
-              <Grid container xs={3} >
-              <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-              <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-              <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-              </Grid>
-              </Grid>
-              </div>
               <CardContent className={classes.content}>
                 <Grid container>
                   <Grid container xs={5} >
                     <Grid container xs={12} >
                       <Typography className={classes.title} color="textPrimary">
-                        Título
+                      { this.props.title }
                       </Typography>
                     </Grid>
                     <Grid container xs={12} >
-                      <Typography className={classes.subtitle} color="textSecondary">
-                        Alterado Xh atrás
-                      </Typography>
+                      { 
+                        this.state.relativeChangeMinutes >= 1440 ?
+                        <Typography className={classes.subtitle} color="textSecondary">
+                          Alterado {Math.floor(this.state.relativeChangeMinutes / 1440)} dia(s) atrás
+                        </Typography>
+                        : (
+                        this.state.relativeChangeMinutes >= 60 && this.state.relativeChangeMinutes < 1440 ?
+                        <Typography className={classes.subtitle} color="textSecondary">
+                          Alterado {Math.floor(this.state.relativeChangeMinutes / 60)}h atrás
+                        </Typography>
+                        :
+                        <Typography className={classes.subtitle} color="textSecondary">
+                          Alterado {Math.floor(this.state.relativeChangeMinutes)} min atrás
+                        </Typography>
+                        )
+                      }
                     </Grid>
                   </Grid>
                   <Grid container xs={7} alignItems="flex-end" justify="flex-end" className={classes.right} >
