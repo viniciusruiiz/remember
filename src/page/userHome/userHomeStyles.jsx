@@ -14,7 +14,11 @@ const styles = (theme) => createStyles({
     iconArrow: {
         verticalAlign: "middle",
         marginLeft: 8,
+        transition: '0.1s',
     },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    }
 });
 
 export default styles
