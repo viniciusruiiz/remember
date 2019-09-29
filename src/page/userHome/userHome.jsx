@@ -15,9 +15,9 @@ class UserHome extends Component {
             <div className={classes.root}>
                 <Typography className={classes.hideCompartilhadas}>Memorylines compartilhadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
                 <Grid container spacing={4}>
-                    <LineBox />
-                    <LineBox />
-                    <LineBox />
+                    <LineBox title='HxHLine' lastChangeInTimestamp='1569726044000' notificationCount='3'/>
+                    <LineBox title='Familia <3' lastChangeInTimestamp='1569685477000' notificationCount='1'/>
+                    <LineBox title='Amigos!' lastChangeInTimestamp='1569638677000' notificationCount='0'/>
                     <LineBox />
                 </Grid>
                 <Typography className={classes.hideCompartilhadas}>Memorylines privadas<Icon className={classes.iconArrow}>keyboard_arrow_down</Icon> </Typography>
