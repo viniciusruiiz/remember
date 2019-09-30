@@ -21,7 +21,12 @@ const styles = (theme) => createStyles({
         flexGrow: 1,
     },
     user: {
-    }
+    },
+    button: {
+        padding: theme.spacing(0,1,0,2),
+        height: 56,
+        textTransform: 'none',
+    },
 });
 
 export default styles
