@@ -1,8 +1,9 @@
 import { createStyles } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     root: {
-        marginTop: 56 + 20,
+        marginTop: 56,
         color: "white",
         paddingLeft: 20,
         paddingRight: 20,
@@ -18,7 +19,27 @@ const styles = (theme) => createStyles({
     },
     expandOpen: {
         transform: 'rotate(180deg)',
-    }
+    },
+    btnExpand: {
+        color: 'white',
+        textTransform: 'none',
+        padding: 0,
+    },
+    fab: {
+        position: 'fixed',
+        right: 20,
+        bottom: 20,
+        background: green[500],
+        '&:hover': {
+            background: green[600],  
+          },
+          '&:active': {
+            background: green[500],  
+          },
+          '&:focus': {
+            background: green[500],              
+          },
+    },
 });
 
 export default styles
