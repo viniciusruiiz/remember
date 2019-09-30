@@ -9,7 +9,7 @@ class LineBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      relativeChangeMinutes: Math.abs((new Date().getTime() - this.props.lastChangeInTimestamp) / 60000)
+      relativeChangeMinutes: Math.abs((new Date().getTime() - this.props.lastChangeInTimestamp) / 60000) || 0
     }
   }
   
@@ -18,7 +18,7 @@ class LineBox extends Component {
 
         return (
         <>
-          <Grid item xs={12} sm={6} md={4} className={classes.card}>
+          <Grid item xs={12} sm={6} md={4} lg={3} className={classes.card}>
             {this.props.notificationCount > 0 &&
               <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
             }
@@ -38,7 +38,7 @@ class LineBox extends Component {
                   <Grid container xs={5} >
                     <Grid container xs={12} >
                       <Typography className={classes.title} color="textPrimary">
-                      { this.props.title }
+                      { this.props.title || 'Sem título' }
                       </Typography>
                     </Grid>
                     <Grid container xs={12} >
