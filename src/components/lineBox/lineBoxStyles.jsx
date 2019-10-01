@@ -47,6 +47,7 @@ const styles = (theme) => createStyles({
     alignItems: 'right',
   },
   notification: {
+    zIndex:2,
     position: 'absolute',
     color: 'white',
     fontSize: 12,
@@ -60,6 +61,10 @@ const styles = (theme) => createStyles({
     verticalAlign: 'middle',
     lineHeight: '30px',
   },
+  mediaButton: {
+    padding: 0,
+    margin: 0,
+  }
 });
 
 export default styles

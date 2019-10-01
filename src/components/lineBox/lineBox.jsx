@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, withStyles, Grid, Paper, Card, CardHeader, Avatar, CardMedia, CardContent, CardActions, Collapse, Hidden } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, withStyles, Grid, Paper, Card, CardHeader, Avatar, CardMedia, CardContent, CardActions, Collapse, Hidden, Button } from '@material-ui/core';
 import { Favorite, MoreVert, Share ,ExpandMore } from '@material-ui/icons';
 import styles from './lineBoxStyles';
 import perfil from './../../images/perfil.jpg';
@@ -23,6 +23,7 @@ class LineBox extends Component {
               <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
             }
             <Card>
+            <Button className={classes.mediaButton}> 
               <Grid className={classes.media} container>
                 <Grid container xs={9} >
                 <img alt='' className={classes.bigImage} src={perfil} />
@@ -33,6 +34,7 @@ class LineBox extends Component {
                 <img alt='' className={classes.tinyImage} align='top' src={perfil} />
                 </Grid>
               </Grid>
+              </Button>
               <CardContent className={classes.content}>
                 <Grid container>
                   <Grid container xs={5} >
