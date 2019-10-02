@@ -19,14 +19,10 @@ export default class LoginService extends BaseService {
     }
 
     logout(): void {
-        super.setToken(null);
+        super.setTokenOnLocalStorage(null);
     }
 
-    setAuthenticationToken(token: string){
-        super.setToken(token);
-    }
-
-    setUserId(userId : string){
-        localStorage.setItem("user_id", userId);
+    setAuthenticationToken(token: string) : void {
+        super.setTokenOnLocalStorage(token);
     }
 }

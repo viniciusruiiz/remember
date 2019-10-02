@@ -5,10 +5,13 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 export default class BaseService {
 
     private _getAxiosConfig(): AxiosRequestConfig | undefined {
-        if (BaseService._token) {
+        
+        let token = localStorage.getItem("access_token")
+    
+        if (token) {
             return {
                 headers: {
-                    access_token: BaseService._getToken()
+                    access_token: token
                 }
             };
         }
@@ -16,24 +19,9 @@ export default class BaseService {
         return undefined;
     }
 
-    private static _token: string | null;
-
-    private static _getToken() : string | null {
-        if(!BaseService._token)
-            BaseService._token = localStorage.getItem("access_token")
-
-        return BaseService._getToken();
+    protected setTokenOnLocalStorage(token: string | null): void {
+        localStorage.setItem("access_token", token as string);
     }
-
-    protected setToken(token: string | null): void {
-        BaseService._token = token;
-        if(token)
-            localStorage.setItem("access_token", token as string);
-    }
-
-    public static isAuthenticated() : boolean {
-        return !!this._token;
-    };
 
     protected get(url: string): Promise<AxiosResponse<any>> {
         return axios.get(url, this._getAxiosConfig());
@@ -49,5 +37,9 @@ export default class BaseService {
 
     protected delete(url: string): Promise<AxiosResponse<any>> {
         return axios.delete(url, this._getAxiosConfig());
+    }
+
+    protected patch(url: string, data?: any) : Promise<AxiosResponse<any>> {
+        return axios.patch(url, data, this._getAxiosConfig());
     }
 }
