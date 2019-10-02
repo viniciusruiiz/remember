@@ -6,12 +6,16 @@ const styles = (theme) => createStyles({
     position: 'relative',
   },
   media: {
-    maxHeight: '60%',
+    maxHeight: '40%',
   },
   content: {
     alignItems: 'center',
     position: 'relative',
+    padding: 10,
     paddingRight: 0,
+    "&:last-child": {
+      paddingBottom: 10,
+    },
   },
   title: {
     fontSize: 16,
@@ -26,14 +30,14 @@ const styles = (theme) => createStyles({
     padding: 'none',
     objectFit: 'cover',
     width: '100%',
-    height: 198,
+    height: 48 * 3,
   },
   tinyImage: {
     padding: 'none',
     display: 'inline-block',
     objectFit: 'cover',
     width: '100%',
-    height: 66,
+    height: 48,
   },
   member: {
     height: theme.spacing(4),
