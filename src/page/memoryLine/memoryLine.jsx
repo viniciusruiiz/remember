@@ -3,7 +3,6 @@ import NavBar from '../../components/navbar/navbar';
 import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/styles';
 import Line from '../../components/memoryLine/line';
-import Moment from '../../components/moment/moment';
 
 class MemoryLine extends Component {
     constructor(props) {
