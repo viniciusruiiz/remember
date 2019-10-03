@@ -23,7 +23,7 @@ class MemoryLine extends Component {
 
     //     this._fs.getPreSignedUrl(this.state.file).then(res => {
     //         if(res.data.success)
-    //            this._fs.uploadFile(res.data.data.presigned_url, this.state.file).then(uploadRes => {
+    //            this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
     //                alert(res.data)
     //            }).catch(err => console.log('erro no put:', err))
     //     }).catch(err => console.log(err));
