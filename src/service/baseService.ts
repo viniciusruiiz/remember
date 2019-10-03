@@ -4,20 +4,22 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export default class BaseService {
 
-    private _getAxiosConfig(): AxiosRequestConfig | undefined {
+    protected _getAxiosConfig(): AxiosRequestConfig | undefined {
         
         let token = localStorage.getItem("access_token")
     
         if (token) {
             return {
                 headers: {
-                    access_token: token
+                    Authorization: token
                 }
             };
         }
 
         return undefined;
     }
+
+    protected readonly baseUrl : string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta'
 
     protected setTokenOnLocalStorage(token: string | null): void {
         localStorage.setItem("access_token", token as string);
@@ -31,8 +33,8 @@ export default class BaseService {
         return axios.post(url, data, this._getAxiosConfig());
     }
 
-    protected put(url: string, data: any): Promise<AxiosResponse<any>> {
-        return axios.put(url, data, this._getAxiosConfig());
+    protected put(url: string, data: any, newConfig? : AxiosRequestConfig): Promise<AxiosResponse<any>> {
+        return axios.put(url, data, newConfig || this._getAxiosConfig());
     }
 
     protected delete(url: string): Promise<AxiosResponse<any>> {
