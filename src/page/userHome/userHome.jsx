@@ -6,15 +6,26 @@ import { withStyles } from '@material-ui/styles';
 import LineBox from '../../components/lineBox/lineBox';
 import clsx from 'clsx';
 import { ArrowDownwardRounded, ArrowDropDown, KeyboardArrowDownRounded, Add } from '@material-ui/icons';
+import MemoryLineService from '../../service/memoryLineService';
 
 
 class UserHome extends Component {
+
+    _mls = new MemoryLineService();
+
     constructor(props) {
         super(props)
         this.state = {
             expanded1: true,
             expanded2: true,
+            publicMemoryLines: [],
+            privateMemoryLines: []
         }
+
+        this._mls.getAllMemoryLine().then(res => {
+            this.setState({publicMemoryLines:res.data.data.public});
+            this.setState({privateMemoryLines:res.data.data.private});
+        })
     }
 
     handleExpandClick1 = () => {
@@ -38,10 +49,15 @@ class UserHome extends Component {
                 </Button>
                 <Collapse in={this.state.expanded1} timeout="auto" unmountOnExit>
                     <Grid container spacing={4}>
-                        <LineBox title='HxHLine' lastChangeInTimestamp='1569726044000' notificationCount='3'/>
+                        {/* <LineBox title='HxHLine' lastChangeInTimestamp='1569726044000' notificationCount='3'/>
                         <LineBox title='Familia <3' lastChangeInTimestamp='1569685477000' notificationCount='1'/>
                         <LineBox title='Amigos!' lastChangeInTimestamp='1569638677000' notificationCount='0'/>
-                        <LineBox />
+                        <LineBox /> */}
+                        {
+                            this.state.privateMemoryLines.map(line => (
+                                <LineBox title='HxHLine' lastChangeInTimestamp='1569726044000' notificationCount='3'/> //TODO: linebox
+                            ))
+                        }
                     </Grid>
                 </Collapse><br></br>
                 <Button className={classes.btnExpand}>
@@ -51,9 +67,11 @@ class UserHome extends Component {
                 </Button>
                 <Collapse in={this.state.expanded2} timeout="auto" unmountOnExit>
                     <Grid container spacing={4}>
-                        <LineBox />
-                        <LineBox />
-                        <LineBox />
+                        {
+                            this.state.privateMemoryLines.map(line => (
+                                <LineBox title={line.name} lastChangeInTimestamp='1569726044000' notificationCount='3'/> //TODO: linebox
+                            ))
+                        }
                     </Grid>
                 </Collapse>
 

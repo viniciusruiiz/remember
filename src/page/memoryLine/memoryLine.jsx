@@ -5,12 +5,25 @@ import { withStyles } from '@material-ui/styles';
 import { Controller, Scene } from 'react-scrollmagic';
 import Line from '../../components/memoryLine/line';
 import Moment from '../../components/moment/moment';
+import FileService from '../../service/fileService';
+import MomentService from '../../service/momentService';
 
 class MemoryLine extends Component {
+    
+    _fs = new FileService();
+    _ms = new MomentService();
+    //_mls = new MemoryLineService();
+    
     constructor(props) {
         super(props)
         this.state = {
+            moments: [],
+            string: ''
         }
+
+        this._ms.getAllMoments().then(res => {
+            this.setState({moments:res.data.data});
+        })
     }
 
     // handleFile = (e) => {
@@ -41,7 +54,7 @@ class MemoryLine extends Component {
         <>
             <NavBar />
             <div className={classes.root}>
-                <Line data={['a','b','a','b']} />
+                { this.state.moments.length > 0  && <Line data={this.state.moments} /> }
             </div>
         </>
         )
