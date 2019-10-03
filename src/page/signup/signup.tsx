@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import styles from './signupStyles';
 import { Link, withRouter } from 'react-router-dom';
 import SignUpRequest from '../../model/request/signUpRequest';
-import logo from './../../images/logo-icon.png';
-import logoText from './../../images/logo-text.png';
 import SignUpService from '../../service/signUpService';
-import MaskedInput from 'react-text-mask';
 import { withStyles, Grid, Paper, Button, Typography, TextField } from '@material-ui/core';
 
 const CssTextField = withStyles({
@@ -53,7 +50,7 @@ class SignUp extends Component<any, SignUpRequest> {
     //     this.setState({ phone_number: event.target.value });
     // }
 
-    handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
+    handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
         this._ss.signUp(this.state).then((res) => {
@@ -79,9 +76,9 @@ class SignUp extends Component<any, SignUpRequest> {
                             <CssTextField fullWidth className={classes.inputLogin} label="E-mail" onChange={this.handleUsername} />
                             <CssTextField fullWidth className={classes.inputLogin} label="Senha" onChange={this.handlePassword} />
                             <CssTextField fullWidth className={classes.inputSenha} label="Confirmar Senha" />
-                            {/* <Button fullWidth className={classes.loginButton} onClick={this.handleSubmit} color="primary" variant="contained" type="submit">
+                            <Button fullWidth className={classes.loginButton} onClick={this.handleSubmit} color="primary" variant="contained" type="submit">
                                 CADASTRAR
-                            </Button> */}
+                            </Button>
                             <Typography className={classes.type}>Já tem uma conta? <Link className={classes.link} to="/">Faça login!</Link></Typography>
                             </Grid>
                         </Paper>
