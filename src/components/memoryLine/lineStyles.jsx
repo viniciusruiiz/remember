@@ -1,11 +1,10 @@
 import { createStyles } from "@material-ui/core";
+import { red, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
-    root: {
-        color: 'white',
-        width: '3000px',
-        height: '100%',
-    },
+  root:{
+    
+  }
 });
 
 export default styles
