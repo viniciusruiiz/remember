@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import NavBar from '../../components/navbar/navbar';
 import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/styles';
-import { Controller, Scene } from 'react-scrollmagic';
 import Line from '../../components/memoryLine/line';
 import Moment from '../../components/moment/moment';
 
