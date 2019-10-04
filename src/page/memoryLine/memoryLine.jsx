@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import NavBar from '../../components/navbar/navbar';
 import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/styles';
-import { Controller, Scene } from 'react-scrollmagic';
-import Line from '../../components/memoryLine/line';
-import Moment from '../../components/moment/moment';
+import Line from '../../components/line/line';
+import perfil from './../../images/perfil.jpg';
 
 class MemoryLine extends Component {
     constructor(props) {
@@ -18,6 +17,7 @@ class MemoryLine extends Component {
         document.body.style.height = '100vh'
         document.body.style.paddingTop = 56
         document.body.style.overflowY = 'hidden'
+        document.body.style.paddingRight = 200
 
         document.title = 'Line Title' // passar o nome da memory line
 
@@ -25,7 +25,7 @@ class MemoryLine extends Component {
         <>
             <NavBar />
             <div className={classes.root}>
-                <Line data={['a','b','a','b']} />
+                <Line data={[{urlBucket:'https://statici.behindthevoiceactors.com/behindthevoiceactors/_img/chars/rikka-takanashi--8.05.jpg'},'b','a','b','a','b','a','b']} />
             </div>
         </>
         )

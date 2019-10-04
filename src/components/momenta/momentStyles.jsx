@@ -24,16 +24,6 @@ const styles = (theme) => createStyles({
       left: -200,
       top: 17.5,
     },
-    '&::after': {
-      display: 'inline-block',
-      content: `''`,
-      borderRight: '.2rem dashed white',
-      position: 'absolute',
-      width: 200,
-      height: 80,
-      left: -167.5,
-      top: -66,
-    },
   },
 
   img: {

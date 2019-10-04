@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import styles from './momentStyles';
+import styles from './momentDownStyles';
 import { withStyles } from '@material-ui/styles';
-class moment extends Component {
+class MomentDown extends Component {
   
   constructor(props) {
     super(props)
@@ -23,4 +23,4 @@ class moment extends Component {
     }
 }
 
-export default withStyles(styles)(moment)
+export default withStyles(styles)(MomentDown)
