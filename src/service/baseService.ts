@@ -1,5 +1,3 @@
-'use strict'
-
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export default class BaseService {

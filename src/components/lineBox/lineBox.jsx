@@ -3,6 +3,7 @@ import { AppBar, Toolbar, IconButton, Typography, withStyles, Grid, Paper, Card,
 import { Favorite, MoreVert, Share ,ExpandMore } from '@material-ui/icons';
 import styles from './lineBoxStyles';
 import perfil from './../../images/perfil.jpg';
+import { Link } from 'react-router-dom';
 
 class LineBox extends Component {
   
@@ -23,18 +24,20 @@ class LineBox extends Component {
               <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
             }
             <Card>
-            <Button className={classes.mediaButton}> 
-              <Grid className={classes.media} container>
-                <Grid container xs={9} >
-                <img alt='' className={classes.bigImage} src={perfil} />
+            <Link to={`memoryline/?ref=${this.props.reference}&title=${this.props.title}`}>
+              <Button className={classes.mediaButton}> 
+                <Grid className={classes.media} container>
+                  <Grid container xs={9} >
+                  <img alt='' className={classes.bigImage} src={perfil} />
+                  </Grid>
+                  <Grid container xs={3} >
+                  <img alt='' className={classes.tinyImage} align='top' src={perfil} />
+                  <img alt='' className={classes.tinyImage} align='top' src={perfil} />
+                  <img alt='' className={classes.tinyImage} align='top' src={perfil} />
+                  </Grid>
                 </Grid>
-                <Grid container xs={3} >
-                <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-                <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-                <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-                </Grid>
-              </Grid>
-              </Button>
+                </Button>
+              </Link>
               <CardContent className={classes.content}>
                 <Grid container>
                   <Grid container xs={5} >

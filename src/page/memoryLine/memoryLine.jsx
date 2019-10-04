@@ -3,12 +3,28 @@ import NavBar from '../../components/navbar/navbar';
 import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/styles';
 import Line from '../../components/memoryLine/line';
+import MomentService from '../../service/momentService';
 
 class MemoryLine extends Component {
+    
+    _ms = new MomentService()
+    _queryString;
+
     constructor(props) {
         super(props)
         this.state = {
+            moments: []
         }
+
+        console.log(this.props)
+        console.log(this.props.location.search)
+        this._queryString = new URLSearchParams(this.props.location.search)
+        console.log(this._queryString.get("ref"))
+        console.log(this._queryString.get("title"))
+        
+        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
+            this.setState({"moments": res.data.data})
+        })
     }
 
     // handleFile = (e) => {
@@ -33,13 +49,13 @@ class MemoryLine extends Component {
         document.body.style.paddingTop = 56
         document.body.style.overflowY = 'hidden'
 
-        document.title = 'Line Title' // passar o nome da memory line
+        document.title = this._queryString.get("title") // passar o nome da memory line
 
         return (
         <>
             <NavBar />
             <div className={classes.root}>
-                <Line data={['a','b','a','b']} />
+                <Line data={this.state.moments} />
             </div>
         </>
         )
