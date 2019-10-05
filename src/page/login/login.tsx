@@ -49,17 +49,12 @@ class Login extends Component<any, LoginRequest> {
             .then(res => {
                 if (res.data.success) {
                     this._ls.setAuthenticationToken(res.data.data.access_token as string);
-                    this._ls.setAuthenticationToken(res.data.data.user_id as string);
-                    this.props.history.push('/secret');
+                    this.props.history.push('/userhome');
                 } else {
                     console.log('Erro: ' + res.data.error);
                     alert("Setar mensagem de erro")
                 }
             }).catch(err => { alert("Setar mensagem de erro inesperado") });
-
-        // console.log(this.state);
-
-        // this.props.history.push('/userhome');
     }
 
     render() {
@@ -91,5 +86,3 @@ class Login extends Component<any, LoginRequest> {
 }
 
 export default compose(withRouter, withStyles(styles))(Login)
-//withStyles(styles)(Login);
-// export default withRouter((withStyles(styles)(Login)));
