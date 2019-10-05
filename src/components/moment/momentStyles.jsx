@@ -18,7 +18,7 @@ const styles = (theme) => createStyles({
     '&::before': {
       display: 'inline-block',
       content: `''`,
-      borderTop: '.2rem dashed white',
+      borderTop: '.2rem dashed rgba(255,255,255,0.8)',
       position: 'absolute',
       width: 200,
       left: -200,
@@ -27,12 +27,12 @@ const styles = (theme) => createStyles({
     '&::after': {
       display: 'inline-block',
       content: `''`,
-      borderRight: '.2rem dashed white',
+      borderRight: '.2rem dashed rgba(255,255,255,0.5)',
       position: 'absolute',
       width: 200,
-      height: 80,
-      left: -167.5,
-      top: -66,
+      height: 65,
+      left: -184,
+      top: -65,
     },
   },
 

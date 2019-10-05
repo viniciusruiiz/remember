@@ -18,11 +18,21 @@ const styles = (theme) => createStyles({
     '&::before': {
       display: 'inline-block',
       content: `''`,
-      borderTop: '.2rem dashed white',
+      borderTop: '.2rem dashed rgba(255,255,255,0.8)',
       position: 'absolute',
       width: 200,
       left: -200,
       top: 17.5,
+    },
+    '&::after': {
+      display: 'inline-block',
+      content: `''`,
+      borderRight: '.2rem dashed rgba(255,255,255,0.5)',
+      position: 'absolute',
+      width: 200,
+      height: 65,
+      left: -184,
+      top: 35,
     },
   },
 

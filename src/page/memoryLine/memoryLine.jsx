@@ -25,7 +25,14 @@ class MemoryLine extends Component {
         <>
             <NavBar />
             <div className={classes.root}>
-                <Line data={[{urlBucket:'https://statici.behindthevoiceactors.com/behindthevoiceactors/_img/chars/rikka-takanashi--8.05.jpg'},'b','a','b','a','b','a','b']} />
+                <Line data={[{urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'},
+                                {urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'},
+                                {urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'},
+                                {urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'},
+                                {urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'},
+                                {urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'},
+                                {urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'},
+                                {urlBucket:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP6edQdep0kijNWpPDL6Ki06BYNr4V1LJnD_QsBS7ij5v_EeAw_w'}]} />
             </div>
         </>
         )
