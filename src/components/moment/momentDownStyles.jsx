@@ -32,7 +32,7 @@ const styles = (theme) => createStyles({
       width: 200,
       height: 65,
       left: -184,
-      top: -65,
+      top: 35,
     },
   },
 
@@ -41,7 +41,7 @@ const styles = (theme) => createStyles({
     objectFit: 'cover',
     width: 300,
     height: 180,
-    bottom: 100,
+    top: 100,
     left: -132.5,
   },
 });

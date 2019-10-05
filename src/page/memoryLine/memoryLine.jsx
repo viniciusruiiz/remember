@@ -48,6 +48,7 @@ class MemoryLine extends Component {
         document.body.style.height = '100vh'
         document.body.style.paddingTop = 56
         document.body.style.overflowY = 'hidden'
+        document.body.style.paddingRight = 200
 
         document.title = this._queryString.get("title") // passar o nome da memory line
 
