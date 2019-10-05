@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../../components/navbar/navbar';
 import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/styles';
-import Line from '../../components/memoryLine/line';
+import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
 
 class MemoryLine extends Component {
