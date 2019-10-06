@@ -4,6 +4,8 @@ import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
+import { Fab } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 
 class MemoryLine extends Component {
     
@@ -58,6 +60,9 @@ class MemoryLine extends Component {
             <div className={classes.root}>
                 <Line data={this.state.moments} />
             </div>
+            <Fab color="primary" aria-label="add" className={classes.fab} >
+                <Add />
+            </Fab>
         </>
         )
     }
