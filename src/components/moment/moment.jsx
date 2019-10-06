@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './momentStyles';
 import { withStyles } from '@material-ui/styles';
 import { CircularProgress } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 class Moment extends Component {
   
@@ -37,7 +38,9 @@ class Moment extends Component {
         <>
         <div className={classes.circle}>
         {this.renderSpinner()}
+        <Link to={`#`}>
           <img alt='' onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
+        </Link>
         </div>
         </>
         )
