@@ -37,12 +37,29 @@ const styles = (theme) => createStyles({
   },
 
   img: {
+    zIndex: 2,
     position: 'absolute',
     objectFit: 'cover',
     width: 300,
     height: 180,
     bottom: 100,
     left: -132.5,
+  },
+
+  filter: {
+    zIndex: 3,
+    position: 'absolute',
+    backgroundColor: 'rgba(30,30,30,0.3)',
+    width: 300,
+    height: 180,
+    bottom: 100,
+    left: -132.5,
+  },
+
+  load: {
+    zIndex: 4,
+    position: 'absolute',
+    bottom: 175,
   },
 });
 

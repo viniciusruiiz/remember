@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
 import styles from './momentStyles';
 import { withStyles } from '@material-ui/styles';
-class moment extends Component {
+import { CircularProgress } from '@material-ui/core';
+
+class Moment extends Component {
   
   constructor(props) {
     super(props)
     this.state = {
-      
+      loading: true
     }
+  }
+
+  handleImageLoaded = () => {
+    this.setState({ loading: false });
+  }
+
+  renderSpinner() {
+    const { classes } = this.props
+
+    if (!this.state.loading) {
+      return null;
+    }
+    return (
+      <>
+        <span className={classes.filter} />
+        <CircularProgress className={classes.load}/>
+      </>
+    );
   }
   
   render() {
@@ -16,11 +36,12 @@ class moment extends Component {
         return (
         <>
         <div className={classes.circle}>
-          <img src={this.props.urlBucket} className={classes.img} />
+        {this.renderSpinner()}
+          <img alt='' onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
         </div>
         </>
         )
     }
 }
 
-export default withStyles(styles)(moment)
+export default withStyles(styles)(Moment)
