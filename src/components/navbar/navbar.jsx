@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, withStyles, Button, Menu, MenuItem } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, withStyles, Button, MenuItem, Paper, MenuList, ClickAwayListener } from '@material-ui/core';
 import styles from './navbarStyles';
 import logo from './../../images/logo-icon.png';
 import perfil from './../../images/perfil.jpg';
@@ -9,17 +9,21 @@ class NavBar extends Component {
         super(props)
         this.state = {
             anchorEl: null,
-            setAnchorEl: null,
+            open: false
         }
     }
 
     handleClick = (event) => {
         this.setState({anchorEl: event.currentTarget})
-        console.log('oi')
+        this.setState({open: !this.state.open})
     };
 
     handleClose = () => {
         this.setState({anchorEl: null})
+    };
+
+    handleClickAway = () => {
+        this.setState({open: false})
     };
 
     render() {
@@ -30,22 +34,22 @@ class NavBar extends Component {
          <div>
             <AppBar className={classes.bar} position="fixed">
                 <Toolbar variant="dense">
-                    <img src={logo} className={classes.logoIcon}/>
+                    <img alt='' src={logo} className={classes.logoIcon}/>
                     <Typography className={classes.logoText}>remember</Typography>
+                    <ClickAwayListener onClickAway={this.handleClickAway}>
                     <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
                         <Typography className={classes.user}>Lucas</Typography>
-                        <img src={perfil} className={classes.perfil}/>
+                        <img alt='' src={perfil} className={classes.perfil}/>
+                        {this.state.open && 
+                        <Paper className={classes.paper}>
+                            <MenuList>
+                                <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
+                                <MenuItem onClick={this.handleClose}>Sair</MenuItem>
+                            </MenuList>
+                        </Paper>
+                        }
                     </Button>
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={this.state.anchorEl}
-                        keepMounted
-                        open={Boolean(this.state.anchorEl)}
-                        onClose={this.handleClose}
-                    >
-                        <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
-                        <MenuItem onClick={this.handleClose}>Sair</MenuItem>
-                    </Menu>
+                    </ClickAwayListener>
                 </Toolbar>
             </AppBar>
         </div>
