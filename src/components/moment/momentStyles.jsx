@@ -38,6 +38,7 @@ const styles = (theme) => createStyles({
 
   img: {
     zIndex: 2,
+    border: '3px solid rgba(0,0,0,0.2)',
     position: 'absolute',
     objectFit: 'cover',
     width: 300,
@@ -50,8 +51,8 @@ const styles = (theme) => createStyles({
     zIndex: 3,
     position: 'absolute',
     backgroundColor: 'rgba(30,30,30,0.3)',
-    width: 300,
-    height: 180,
+    width: 306,
+    height: 186,
     bottom: 100,
     left: -132.5,
   },
