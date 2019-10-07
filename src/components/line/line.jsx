@@ -20,7 +20,7 @@ class Line extends Component {
         return (
         <Grid alignItems="center" className={classes.root}>
         {this.props.data.map((moment) => (
-                i++ % 2 == 0 ?
+                i++ % 2 === 0 ?
                 <Moment urlBucket={moment.urlBucket} />
                 :
                 <MomentDown urlBucket={moment.urlBucket}/>

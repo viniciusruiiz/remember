@@ -2,9 +2,6 @@ import { createStyles } from "@material-ui/core";
 import { red, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
-  root: {
-    // position: 'relative',
-  },
   circle: {
     display: 'inline-block',
     width: 35,
@@ -35,7 +32,6 @@ const styles = (theme) => createStyles({
       top: -65,
     },
   },
-
   img: {
     zIndex: 2,
     border: '3px solid rgba(0,0,0,0.2)',
@@ -46,7 +42,6 @@ const styles = (theme) => createStyles({
     bottom: 100,
     left: -132.5,
   },
-
   filter: {
     zIndex: 3,
     position: 'absolute',
@@ -56,12 +51,22 @@ const styles = (theme) => createStyles({
     bottom: 100,
     left: -132.5,
   },
-
   load: {
     zIndex: 4,
     position: 'absolute',
     bottom: 175,
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '5%',
+    outline: 'none',
+  },
+  imgLightBox: {
+    maxWidth:'70%',
+    maxHeight: '120vh',
+  }
 });
 
 export default styles

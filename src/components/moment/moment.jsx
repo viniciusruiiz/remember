@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './momentStyles';
 import { withStyles } from '@material-ui/styles';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Modal, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 class Moment extends Component {
@@ -9,8 +9,17 @@ class Moment extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: true
+      loading: true,
+      open: false,
     }
+  }
+
+  handleOpen = () => {
+    this.setState({open: true})
+  }
+
+  handleClose = () => {
+    this.setState({open: false})
   }
 
   handleImageLoaded = () => {
@@ -38,9 +47,12 @@ class Moment extends Component {
         <>
         <div className={classes.circle}>
         {this.renderSpinner()}
-        <Link to={`#`}>
-          <img alt='' onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
-        </Link>
+        <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
+        <Modal className={classes.modal} open={this.state.open} onClose={this.handleClose}>
+          <div>
+            <img alt='' src={this.props.urlBucket} className={classes.imgLightBox}/>
+          </div>
+        </Modal>
         </div>
         </>
         )
