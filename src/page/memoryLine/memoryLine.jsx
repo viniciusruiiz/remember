@@ -4,7 +4,7 @@ import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
-import { Fab } from '@material-ui/core';
+import { Fab, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
 class MemoryLine extends Component {
@@ -58,11 +58,14 @@ class MemoryLine extends Component {
         <>
             <NavBar />
             <div className={classes.root}>
+                <Typography contentEditable={true} className={classes.title}>
+                    { this._queryString.get("title") || 'Memoryline Title' }
+                </Typography>
                 <Line data={this.state.moments} />
+                <Fab color="primary" aria-label="add" className={classes.fab} >
+                    <Add />
+                </Fab>
             </div>
-            <Fab color="primary" aria-label="add" className={classes.fab} >
-                <Add />
-            </Fab>
         </>
         )
     }

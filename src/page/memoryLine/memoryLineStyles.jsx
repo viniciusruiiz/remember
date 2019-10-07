@@ -5,6 +5,8 @@ const styles = (theme) => createStyles({
     root: {
         color: 'white',
         height: '100%',
+        marginTop: 20,
+        display: 'inline-block',
     },
     fab: {
         position: 'fixed',
@@ -21,6 +23,14 @@ const styles = (theme) => createStyles({
             background: green[500],              
           },
     },
+    title: {
+      position: 'fixed',
+      top: 86,
+      left: 30,
+      fontSize: 28,
+      whiteSpace: 'pre-wrap'
+      // fontFamily: 'Roboto',
+    }
 });
 
 export default styles
