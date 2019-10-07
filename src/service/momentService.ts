@@ -7,6 +7,6 @@ export default class MomentService extends BaseService {
 
         if (!memoryLineId) memoryLineId = '5d8a444ba074aeff45f72308' //debug purposes
 
-        return super.get(`${this.baseUrl}/moment/${memoryLineId}`);
+        return super.get(`${this.baseUrl}/moment/memory-line/${memoryLineId}`);
     }
 }

@@ -24,6 +24,7 @@ const styles = (theme) => createStyles({
           },
     },
     title: {
+      zIndex: '10',
       position: 'fixed',
       top: 86,
       left: 30,

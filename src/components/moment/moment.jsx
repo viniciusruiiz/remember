@@ -20,6 +20,9 @@ class Moment extends Component {
 
   handleClose = () => {
     this.setState({open: false})
+    setTimeout(() => {
+      document.body.style.overflowY = 'hidden'      
+    },100)
   }
 
   handleImageLoaded = () => {

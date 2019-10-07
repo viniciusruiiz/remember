@@ -18,6 +18,9 @@ class MomentDown extends Component {
 
   handleClose = () => {
     this.setState({open: false})
+    setTimeout(() => {
+      document.body.style.overflowY = 'hidden'      
+    },100)
   }
 
   handleImageLoaded = () => {
@@ -46,7 +49,7 @@ class MomentDown extends Component {
         <div className={classes.circle}>
         {this.renderSpinner()}
           <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
-        <Modal className={classes.modal} open={this.state.open} onClose={this.handleClose}>
+        <Modal className={classes.modal} open={this.state.open} onChange={(e) => {e.preventDefault()}} onClose={this.handleClose}>
           <div>
             <img alt='' src={this.props.urlBucket} className={classes.imgLightBox}/>
           </div>
