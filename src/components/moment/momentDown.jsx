@@ -3,6 +3,7 @@ import styles from './momentDownStyles';
 import { withStyles } from '@material-ui/core/styles';
 import { CircularProgress, Modal } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import MomentModal from '../momentModal/momentModal';
 class MomentDown extends Component {
   
   constructor(props) {
@@ -49,11 +50,7 @@ class MomentDown extends Component {
         <div className={classes.circle}>
         {this.renderSpinner()}
           <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
-        <Modal className={classes.modal} open={this.state.open} onChange={(e) => {e.preventDefault()}} onClose={this.handleClose}>
-          <div>
-            <img alt='' src={this.props.urlBucket} className={classes.imgLightBox}/>
-          </div>
-        </Modal>
+          <MomentModal handleClose={this.handleClose} urlBucket={this.props.urlBucket} open={this.state.open} />
         </div>
         </>
         )
