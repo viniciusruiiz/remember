@@ -18,7 +18,7 @@ const styles = (theme) => createStyles({
     '&::before': {
       display: 'inline-block',
       content: `''`,
-      borderTop: '.2rem dashed rgba(255,255,255,0.8)',
+      borderTop: '2px dashed rgba(255,255,255,0.8)',
       position: 'absolute',
       width: 200,
       left: -200,
@@ -27,21 +27,22 @@ const styles = (theme) => createStyles({
     '&::after': {
       display: 'inline-block',
       content: `''`,
-      borderRight: '.2rem dashed rgba(255,255,255,0.5)',
+      borderRight: '2px dashed rgba(255,255,255,0.5)',
       position: 'absolute',
       width: 200,
-      height: 65,
+      height: 25,
       left: -184,
       top: 35,
     },
   },
   img: {
+    zIndex: 2,
     position: 'absolute',
     border: '3px solid rgba(0,0,0,0.2)',
     objectFit: 'cover',
     width: 300,
     height: 180,
-    top: 100,
+    top: 60,
     left: -132.5,
   },
   filter: {
@@ -50,13 +51,16 @@ const styles = (theme) => createStyles({
     backgroundColor: 'rgba(30,30,30,0.3)',
     width: 306,
     height: 186,
-    top: 100,
+    top: 60,
     left: -132.5,
+    [theme.breakpoints.down('md')]: {
+      top: 60,
+    },   
   },
   load: {
     zIndex: 4,
     position: 'absolute',
-    bottom: -175,
+    bottom: -135,
   },
   modal: {
     display: 'flex',

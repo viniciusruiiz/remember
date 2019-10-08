@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../../components/navbar/navbar';
 import styles from './memoryLineStyles.jsx';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
 import { Fab, Typography } from '@material-ui/core';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './momentDownStyles';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { CircularProgress, Modal } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 class MomentDown extends Component {
