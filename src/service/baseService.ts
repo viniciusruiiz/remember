@@ -17,6 +17,13 @@ export default class BaseService {
         return undefined;
     }
 
+/**
+ * TODO: implement refresh token
+ */
+    // refreshToken() : void {
+    //     this.get()
+    // }
+
     protected readonly baseUrl : string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta'
 
     protected setTokenOnLocalStorage(token: string | null): void {

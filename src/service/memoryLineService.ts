@@ -12,4 +12,12 @@ export default class MemoryLineService extends BaseService {
     add() : Promise<AxiosResponse<MemoryLineEntity>> {
         return super.post(`${this.baseUrl}/memory-line`, undefined);
     }
+
+    changeName(memoryLineId: string, newName: string) : Promise<AxiosResponse<any>> {
+        return super.put(`${this.baseUrl}/memory-line/${memoryLineId}`, newName);
+    }
+
+    delete(memoryLineId: string) : Promise<AxiosResponse<any>> {
+        return super.delete(`${this.baseUrl}/memory-line/${memoryLineId}`);
+    }
 }

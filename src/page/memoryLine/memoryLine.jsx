@@ -18,11 +18,7 @@ class MemoryLine extends Component {
             moments: []
         }
 
-        console.log(this.props)
-        console.log(this.props.location.search)
         this._queryString = new URLSearchParams(this.props.location.search)
-        console.log(this._queryString.get("ref"))
-        console.log(this._queryString.get("title"))
         
         this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
             this.setState({"moments": res.data.data})
