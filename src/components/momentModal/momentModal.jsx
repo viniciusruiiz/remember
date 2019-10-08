@@ -18,9 +18,9 @@ class MomentModal extends Component {
     // document.body.style.overflowY = "visible"
     return (
       <>
-        <Modal className={classes.modal} classes={{ focused: classes.modalFocused}} open={this.props.open} onClose={this.props.handleClose}>
-          <Grid container >
-            <Grid xs={9} style={{ textAlign: 'center', backgroundColor: "rgba(240, 240, 240, 0.2)" }}>
+        <Modal className={classes.modal} classes={{ focused: classes.modalFocused }} open={this.props.open} onClose={this.props.handleClose}>
+          <Grid justify='center' container >
+            <Grid style={{ textAlign: 'center', backgroundColor: "rgba(240, 240, 240, 0.2)" }}>
               <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
             </Grid>
             <Grid alignItems='center' xs={3}>
@@ -35,19 +35,21 @@ class MomentModal extends Component {
               </div>
 
               <div style={{ paddingRight: "20px", paddingBottom: "5px", borderRadius: "0 40px 40px 0", marginBottom: '15px', display: "inline-block", backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
-                <img alt='' src={perfil} className={classes.donoImg} />
-                <div className={classes.donoDetail}>
-                  <p className={classes.donoName}>Vinicius Ruiz</p>
-                  <p className={classes.commentContent}>Foi demais!</p>
+                <img alt='' src={perfil} className={classes.commentOwnerPhoto} />
+                <div className={classes.comment}>
+                  <p className={classes.commentOwner}>Vinicius Ruiz</p>
                 </div>
+                <p className={classes.commentContent}>Foi demais!</p>
               </div>
 
-              <div style={{ paddingRight: "20px", paddingBottom: "15px", borderRadius: "0 40px 40px 0", marginBottom: '15px', display: "inline-block", backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
-                <img alt='' src={perfil} className={classes.donoImg} />
-                <div className={classes.comment}>
-                  <p className={classes.donoName}>Vinicius Ruiz</p>
-                  <p className={classes.commentContent}>Foi demais! demaisdemais demais demais demais demais demais demais demais demais demais demaisdemais demais demais </p>
+              <div style={{ paddingRight: "20px", paddingBottom: "5px", borderRadius: "0 40px 40px 0", marginBottom: '15px', display: "inline-block", backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
+                <div>
+                  <img alt='' src={perfil} className={classes.commentOwnerPhoto} />
+                  <div className={classes.comment}>
+                    <p className={classes.commentOwner}>Vinicius Ruiz</p>
+                  </div>
                 </div>
+                <p className={classes.commentContent}>Foi demais! demaisdemais demais demais demais demais demais demais demais demais demais demaisdemais demais demais </p>
               </div>
 
               {/* <div style={{ paddingRight: "20px", paddingBottom: "15px", borderRadius: "0 40px 40px 0", marginBottom: '15px', display: "inline-block", backgroundColor: "rgba(0, 0, 0, 0.8)" }}>

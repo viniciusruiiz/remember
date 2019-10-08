@@ -53,6 +53,7 @@ const styles = (theme) => createStyles({
   },
   commentContent: {
     fontSize: 16,
+    marginLeft: 10, 
     fontWeight: 1,
     color: "white",
     margin: 0
@@ -61,7 +62,24 @@ const styles = (theme) => createStyles({
     maxHeight: 60,
     marginBottom: "1vh",
     display: "inline-block",
-    position: "static"
+    position: "static",
+    overflow: "hidden",
+  },
+  commentOwner: {
+    fontSize: 20,
+    fontWeight: 1,
+    color: "white",
+    margin: "2vh 0 5px 0"
+  },
+  commentOwnerPhoto: {
+    width: 60,
+    height: 60,
+    borderRadius: '50%',
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    display: "inline-block",
+    verticalAlign: "middle"  
   }
 });
 
