@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styles from './momentStyles';
-import { withStyles } from '@material-ui/styles';
-import { CircularProgress, Modal, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { CircularProgress, Modal, Typography, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import perfil from './../../images/perfil.jpg'
+import MomentModal from '../momentModal/momentModal';
 
 class Moment extends Component {
   
@@ -51,11 +53,7 @@ class Moment extends Component {
         <div className={classes.circle}>
         {this.renderSpinner()}
         <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
-        <Modal className={classes.modal} open={this.state.open} onClose={this.handleClose}>
-          <div>
-            <img alt='' src={this.props.urlBucket} className={classes.imgLightBox}/>
-          </div>
-        </Modal>
+        <MomentModal handleClose={this.handleClose} urlBucket={this.props.urlBucket} open={this.state.open} />
         </div>
         </>
         )

@@ -26,12 +26,12 @@ const styles = (theme) => createStyles({
     title: {
       zIndex: '10',
       position: 'fixed',
-      top: 86,
-      left: 30,
-      fontSize: 28,
-      whiteSpace: 'pre-wrap'
-      // fontFamily: 'Roboto',
-    }
+      top: 76,
+      left: 25,
+      fontSize: 26,
+      fontWeight: 100,
+      whiteSpace: 'pre-wrap',
+    },
 });
 
 export default styles
