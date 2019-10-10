@@ -9,6 +9,7 @@ const styles = (theme) => createStyles({
         display: 'inline-block',
     },
     fab: {
+        zIndex: 3,
         position: 'fixed',
         right: 20,
         bottom: 20,
