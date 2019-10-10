@@ -15,12 +15,14 @@ class MomentModal extends Component {
 
   render() {
     const { classes } = this.props
+    var modalStyle = {focus: {outline: 'none'}}
+
 
     return (
       <>
-        <Modal className={classes.modal} classes={{ focused: classes.modalFocused }} open={this.props.open} onClose={this.props.handleClose}>
-          <Grid justify='center' container >
-            <Grid style={{ textAlign: 'center', backgroundColor: "rgba(240, 240, 240, 0.2)" }}>
+        <Modal BackdropProps = {{style: {background: 'rgba(0,0,0,0.8)'}}} style={modalStyle} className={classes.modal} open={this.props.open} onClose={this.props.handleClose}>
+          <Grid style={{outline: 'none'}} justify='center' container >
+            <Grid style={{ textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
               <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
             </Grid>
             <Grid alignItems='center' xs={3}>

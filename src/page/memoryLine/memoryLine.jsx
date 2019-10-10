@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
 import { Fab, Typography } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import { Add, NavigateBefore } from '@material-ui/icons';
 
 class MemoryLine extends Component {
     
@@ -54,7 +54,8 @@ class MemoryLine extends Component {
         <>
             <NavBar />
             <div className={classes.root}>
-                <Typography contentEditable={true} className={classes.title}>
+                <Typography className={classes.title}>
+                    <NavigateBefore className={classes.back}/> 
                     { this._queryString.get("title") || 'Memoryline Title' }
                 </Typography>
                 <Line data={this.state.moments} />

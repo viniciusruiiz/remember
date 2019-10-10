@@ -7,10 +7,6 @@ const styles = (theme) => createStyles({
     alignItems: 'center',
     justifyContent: 'center',
     margin: '5%',
-    outline: "none",
-    '&:focus':{
-      outline: "none" // não funciona
-    }
   },
   imgLightBox: {
     maxWidth:'100%',

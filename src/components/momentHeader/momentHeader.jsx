@@ -4,6 +4,7 @@ import styles from './momentStyles'
 import Moment from '../moment/moment';
 import perfil from './../../images/perfil.jpg'
 import MomentDown from '../moment/momentDown';
+import { Typography, Grid } from '@material-ui/core';
 
 class MomentHeader extends Component {
   
@@ -20,13 +21,17 @@ class MomentHeader extends Component {
         return (
         <>
         <div className={classes.root}>
-          <img alt='' src={perfil} className={classes.donoImg} />
-          <div className={classes.donoDetail}>
-            <p className={classes.donoName}>{this.props.person}</p>
-            <p className={classes.momentDate}>{this.props.date}</p>
-          </div>
-          <p className={classes.description}>{this.props.description}</p>
-          <p style={{ margin: "20px 0 20px 10px", color: "whitesmoke" }}>TODO: implement reações</p>
+          <Grid container>          
+            <Grid>
+              <img alt='' src={perfil} className={classes.donoImg} />
+            </Grid>
+            <Grid>
+              <Typography display='inline' className={classes.donoName}>{this.props.person}</Typography>
+              <Typography className={classes.momentDate}>{this.props.date}</Typography>
+            </Grid>
+          </Grid>
+          <Typography className={classes.description}>{this.props.description}</Typography>
+          <Typography>TODO: implement reações</Typography>
         </div>
         </>
         )

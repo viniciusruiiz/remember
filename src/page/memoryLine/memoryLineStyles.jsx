@@ -23,13 +23,18 @@ const styles = (theme) => createStyles({
             background: green[500],              
           },
     },
+    back: {
+      marginRight: theme.spacing(2),
+      verticalAlign: 'middle',
+      marginBottom: 5,
+    },
     title: {
       zIndex: '10',
       position: 'fixed',
       top: 76,
       left: 25,
       fontSize: 26,
-      fontWeight: 100,
+      fontWeight: '100',
       whiteSpace: 'pre-wrap',
     },
 });

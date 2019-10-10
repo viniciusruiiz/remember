@@ -5,43 +5,28 @@ const styles = (theme) => createStyles({
     width: "100%",
     marginBottom: '15px',
     borderRadius: "0 30px 30px 0",
-    display: "inline-block",
-    backgroundColor: "rgba(0, 0, 0, 0.8)"
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    color: 'rgb(230,230,230)',
+    padding: theme.spacing(2),
+    fontWeight: 100,
   },
   donoImg: {
     width: 60,
     height: 60,
     borderRadius: '50%',
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
     display: "inline-block",
+    verticalAlign: 'top',
+    margin: theme.spacing(0,2,2,0),
   },
-  donoDetail: {
-    maxHeight: 60,
-    marginBottom: "1vh",
-    display: "inline-block",
-    position: "static",
-    overflow: "hidden",
-    
-  },
-  donoName: {
-    fontSize: 20,
-    fontWeight: 1,
-    color: "white",
-    margin: "0 0 5px 0"
+  donoName: { 
+    fontSize: 18,
+    fontWeight: 300,
   },
   momentDate: {
     fontSize: 13,
-    fontWeight: 1,
-    color: "white",
-    margin: 0
   },
   description: {
-    fontSize: 20,
-    color: "white",
-    marginLeft: 10,
-    fontWeight: 1,
+    fontSize: 16,
   },
 });
 
