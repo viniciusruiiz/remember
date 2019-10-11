@@ -25,10 +25,13 @@ class MomentModal extends Component {
             <Grid style={{ textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
               <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
             </Grid>
-            <Grid alignItems='center' xs={3}>
+            <Grid className={classes.content} alignItems='center' xs={3}>
               <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description='Saudades desse dia! s2 s2 s2' />
-              <Comment person='Vinicius Ruiz' content='Foi demais mano!'/>
-              <Comment person='Lucas Yudi' content='Foi demais mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano'/>
+              <div className={classes.commentsBox}>
+                <Comment person='Vinicius Ruiz' content='Foi demais mano!'/>
+                <Comment person='Lucas Yudi' content='Foi demais mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano'/>
+                <Comment person='Lucas Yudi' content='Foi demais mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano'/>
+              </div>
             </Grid>
           </Grid>
         </Modal>

@@ -4,6 +4,7 @@ import styles from './commentStyles'
 import Moment from '../moment/moment';
 import perfil from './../../images/perfil.jpg'
 import MomentDown from '../moment/momentDown';
+import { Typography } from '@material-ui/core';
 
 class Comment extends Component {
   
@@ -21,10 +22,8 @@ class Comment extends Component {
         <>
         <div className={classes.root}>
           <img alt='' src={perfil} className={classes.commentOwnerPhoto} />
-          <div className={classes.comment}>
-            <p className={classes.commentOwner}>{this.props.person}</p>
-          </div>
-          <p className={classes.commentContent}>{this.props.content}</p>
+          <Typography display='inline' className={classes.commentOwner}>{this.props.person}</Typography>
+          <Typography className={classes.commentContent}>{this.props.content}</Typography>
         </div>
         </>
         )

@@ -13,6 +13,13 @@ const styles = (theme) => createStyles({
     maxHeight: '80vh',
     minHeight: '100%',
   },
+  content: {
+    height: '80vh'
+  },
+  commentsBox: {
+    height: '55vh',
+    overflow:'auto',
+  },
 });
 
 export default styles

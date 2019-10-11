@@ -19,14 +19,15 @@ const styles = (theme) => createStyles({
     margin: theme.spacing(0,2,2,0),
   },
   donoName: { 
-    fontSize: 18,
-    fontWeight: 300,
+    fontSize: 16,
   },
   momentDate: {
     fontSize: 13,
+    fontWeight: 100,
   },
   description: {
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: 100,
   },
 });
 
