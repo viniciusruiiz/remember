@@ -13,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Link } from 'react-router-dom';
 
 class MemoryLine extends Component {
 
@@ -39,6 +40,9 @@ class MemoryLine extends Component {
 
     handleClose = () => {
         this.setState({ "openModal": false })
+        setTimeout(() => {
+            document.body.style.overflowY = 'hidden'      
+          },100)
     };
 
     // handleFile = (e) => {
@@ -72,7 +76,7 @@ class MemoryLine extends Component {
 
                 <div className={classes.root}>
                     <Typography className={classes.title}>
-                        <NavigateBefore className={classes.back} />
+                        <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
                         {this._queryString.get("title") || 'Memoryline Title'}
                     </Typography>
                     <Line data={this.state.moments} />

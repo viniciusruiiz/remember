@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import styles from './momentStyles'
+import styles from './momentHeaderStyles'
 import Moment from '../moment/moment';
 import perfil from './../../images/perfil.jpg'
 import MomentDown from '../moment/momentDown';

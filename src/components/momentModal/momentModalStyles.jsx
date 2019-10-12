@@ -11,14 +11,11 @@ const styles = (theme) => createStyles({
   imgLightBox: {
     maxWidth:'100%',
     maxHeight: '80vh',
-    minHeight: '100%',
+    // borderRight:
   },
   content: {
-    height: '80vh'
-  },
-  commentsBox: {
-    height: '55vh',
     overflow:'auto',
+    height: '80vh'
   },
 });
 

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import perfil from './../../images/perfil.jpg'
 import Comment from './../comment/comment'
 import MomentHeader from '../momentHeader/momentHeader';
+import RSC from "react-scrollbars-custom";
 
 class MomentModal extends Component {
 
@@ -25,13 +26,15 @@ class MomentModal extends Component {
             <Grid style={{ textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
               <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
             </Grid>
-            <Grid className={classes.content} alignItems='center' xs={3}>
-              <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description='Saudades desse dia! s2 s2 s2' />
-              <div className={classes.commentsBox}>
-                <Comment person='Vinicius Ruiz' content='Foi demais mano!'/>
-                <Comment person='Lucas Yudi' content='Foi demais mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano'/>
-                <Comment person='Lucas Yudi' content='Foi demais mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano'/>
-              </div>
+            <Grid className={classes.content} xs={3}>
+              <RSC>
+                <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description='Saudades desse dia! s2 s2 s2' />
+                <Comment person='Vinicius Ruiz' date='2 de março de 2019' content='Foi demais mano!'/>
+                <Comment person='Lucas Yudi' date='2 de março de 2019' content='Foi demais mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano'/>
+                <Comment person='Lucas Yudi' date='2 de março de 2019' content='Foi demais manovelho, curti muito!'/>
+                <Comment person='Lucas Yudi' date='2 de março de 2019' content='Ameeeei esse dia com voces! amo voces velho serio! nossa que legal'/>
+                <Comment person='Lucas Yudi' date='2 de março de 2019' content='Diversao!'/>
+              </RSC>
             </Grid>
           </Grid>
         </Modal>

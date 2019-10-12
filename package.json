@@ -13,6 +13,7 @@
     "@types/react-text-mask": "^5.4.6",
     "@types/recompose": "^0.30.7",
     "axios": "^0.19.0",
+    "browser-image-compression": "^1.0.6",
     "clsx": "^1.0.4",
     "install": "^0.13.0",
     "material-ui-dropzone": "^2.4.1",
@@ -23,6 +24,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "react-scroll-box": "^0.3.5",
+    "react-scrollbars-custom": "^4.0.20",
     "react-text-mask": "^5.4.3",
     "recompose": "^0.30.0",
     "typescript": "3.6.2"

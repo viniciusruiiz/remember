@@ -8,6 +8,9 @@ const styles = (theme) => createStyles({
         marginTop: 20,
         display: 'inline-block',
     },
+    link: {
+      color: 'white',
+    },
     fab: {
         zIndex: 3,
         position: 'fixed',

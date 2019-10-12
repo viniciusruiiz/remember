@@ -2,12 +2,10 @@ import { createStyles } from "@material-ui/core";
 
 const styles = (theme) => createStyles({
   root: {
-    width: "100%",
-    marginBottom: '15px',
-    borderRadius: "0 30px 30px 0",
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
-    color: 'rgb(230,230,230)',
-    padding: theme.spacing(2),
+    borderRadius: "0 10px 10px 0",
+    backgroundColor: "rgb(240,240,240)",
+    borderLeft: '1px solid black',
+    padding: theme.spacing(2,3,2,2),
     fontWeight: 100,
   },
   donoImg: {
@@ -20,6 +18,7 @@ const styles = (theme) => createStyles({
   },
   donoName: { 
     fontSize: 16,
+    fontWeight: 600,
   },
   momentDate: {
     fontSize: 13,

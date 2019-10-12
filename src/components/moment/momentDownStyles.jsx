@@ -46,8 +46,10 @@ const styles = (theme) => createStyles({
     height: 180,
     top: 50,
     left: -140,
+    transition: 'all 0.2s ease-in-out',
     '&:hover': {
-      transform: 'scale(1.02)',
+      cursor: 'pointer',
+      transform: 'scale(1.05)',
       transition: 'all 0.2s ease-in-out',
     },
   },
@@ -59,9 +61,6 @@ const styles = (theme) => createStyles({
     height: 186,
     top: 50,
     left: -140,
-    [theme.breakpoints.down('md')]: {
-      top: 60,
-    },   
   },
   load: {
     zIndex: 4,

@@ -4,7 +4,7 @@ import styles from './commentStyles'
 import Moment from '../moment/moment';
 import perfil from './../../images/perfil.jpg'
 import MomentDown from '../moment/momentDown';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 
 class Comment extends Component {
   
@@ -21,9 +21,16 @@ class Comment extends Component {
         return (
         <>
         <div className={classes.root}>
-          <img alt='' src={perfil} className={classes.commentOwnerPhoto} />
-          <Typography display='inline' className={classes.commentOwner}>{this.props.person}</Typography>
-          <Typography className={classes.commentContent}>{this.props.content}</Typography>
+          <Grid container>
+            <Grid>
+              <img alt='' src={perfil} className={classes.commentOwnerPhoto} />
+            </Grid>
+            <Grid>
+              <Typography display='inline' className={classes.commentOwner}>{this.props.person}</Typography>
+              <Typography className={classes.date}>{this.props.date}</Typography>
+            </Grid>
+          </Grid>
+            <Typography className={classes.commentContent}>{this.props.content}</Typography>
         </div>
         </>
         )
