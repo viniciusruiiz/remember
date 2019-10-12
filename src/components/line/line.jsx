@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles, Grid, Typography } from '@material-ui/core';
 import styles from './lineStyles'
 import Moment from '../moment/moment';
 import MomentDown from '../moment/momentDown';
@@ -19,12 +19,12 @@ class Line extends Component {
 
         return (
         <Grid alignItems="center" className={classes.root}>
-        {this.props.data.map((moment) => (
+        {this.props.data.length > 0 ? this.props.data.map((moment) => (
                 i++ % 2 === 0 ?
                 <Moment urlBucket={moment.urlBucket} />
                 :
                 <MomentDown urlBucket={moment.urlBucket}/>
-            ))}
+            )) : <Typography className={classes.not}>Nenhum momento salvo.</Typography>}
         </Grid>
         )
     }

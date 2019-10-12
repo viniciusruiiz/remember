@@ -40,7 +40,7 @@ class LineBox extends Component {
               </Link>
               <CardContent className={classes.content}>
                 <Grid container>
-                  <Grid container xs={5} >
+                  <Grid container xs={6} >
                     <Grid container xs={12} >
                       <Typography className={classes.title} color="textPrimary">
                       { this.props.title || 'Sem título' }
@@ -65,7 +65,7 @@ class LineBox extends Component {
                       }
                     </Grid>
                   </Grid>
-                  <Grid container xs={7} alignItems="flex-end" justify="flex-end" className={classes.right} >
+                  <Grid container xs={6} alignItems="flex-end" justify="flex-end" className={classes.right} >
                     <img alt='' src={perfil} className={classes.member}/>
                     <img alt='' src={perfil} className={classes.member}/>
                     <IconButton className={classes.options} aria-label="settings">
