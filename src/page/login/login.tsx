@@ -9,17 +9,6 @@ import logoText from './../../images/logo-text.png';
 import { Button, Paper, Grid, Typography, TextField, Divider, FormControl } from '@material-ui/core';
 import compose from 'recompose/compose'
 
-const CssTextField = withStyles({
-    root: {
-      '& label.Mui-focused': {
-        color: '#38B49D',
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: '#38B49D',
-      },
-    },
-  })(TextField);
-
 class Login extends Component<any, LoginRequest> {
 
     private _ls: LoginService;
@@ -70,8 +59,8 @@ class Login extends Component<any, LoginRequest> {
                                 <span className={classes.logoText}>remember</span>
                             </div>
                             <form onSubmit={this.handleSubmit} id="loginForm" style={{display: "none"}}></form>
-                            <CssTextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" onChange={this.handleUsername} />
-                            <CssTextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handlePassword} />
+                            <TextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" onChange={this.handleUsername} />
+                            <TextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handlePassword} />
                             <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit" form="loginForm">
                                 Entrar
                             </Button>

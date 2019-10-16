@@ -22,9 +22,21 @@ const styles = (theme: Theme) => createStyles({
         lineHeight: "100%",
     },
     inputLogin: {
+        '& label.Mui-focused': {
+            color: '#38B49D',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#38B49D',
+        },
         margin: theme.spacing(1,6,3,6),
     },
     inputSenha: {
+        '& label.Mui-focused': {
+            color: '#38B49D',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#38B49D',
+        },
         margin: theme.spacing(0,6,6,6),
     },
     loginButton: {

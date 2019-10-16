@@ -1,5 +1,5 @@
 import { createStyles } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import { green, grey } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     root: {
@@ -41,6 +41,32 @@ const styles = (theme) => createStyles({
       fontWeight: '100',
       whiteSpace: 'pre-wrap',
     },
+    membros: {
+      position: 'fixed',
+      right: 20,
+      top: 76,
+    },
+    adicionar: {
+      '& .MuiFilledInput-underline:after': {
+        borderBottomColor: green[300],
+      },
+      marginRight: theme.spacing(2),
+    },
+    adicionarInput: {
+      color: 'white',
+    },
+    membersIcons: {
+      marginTop: 11,
+      width: 35,
+      height: 35,
+      borderRadius: '50%',
+      top: 20,
+      margin: theme.spacing(0,2,0,0),  
+    },
+    options: {
+      marginBottom: 28,
+      color: grey[100],
+    }
 });
 
 export default styles

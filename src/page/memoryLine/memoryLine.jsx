@@ -4,14 +4,15 @@ import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
-import { Fab, Typography } from '@material-ui/core';
-import { Add, NavigateBefore } from '@material-ui/icons';
+import { Fab, Typography, InputAdornment, IconButton } from '@material-ui/core';
+import { Add, NavigateBefore, PersonAdd, MoreVert } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import perfil from './../../images/perfil.jpg'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link } from 'react-router-dom';
 
@@ -80,6 +81,26 @@ class MemoryLine extends Component {
                         {this._queryString.get("title") || 'Memoryline Title'}
                     </Typography>
                     <Line data={this.state.moments} />
+                    <div className={classes.membros}>
+                        <TextField
+                            className={classes.adicionar}
+                            margin="dense"
+                            hiddenLabel
+                            variant="filled"
+                            placeholder="Adicionar"
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                                className: classes.adicionarInput,
+                                }}
+                        />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <IconButton className={classes.options} aria-label="settings">
+                            <MoreVert/>
+                        </IconButton>
+                    </div>
 
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
                         <Add />
