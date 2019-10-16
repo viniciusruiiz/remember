@@ -65,6 +65,7 @@ const styles = (theme) => createStyles({
   load: {
     zIndex: 4,
     position: 'absolute',
+    left: -10,
     bottom: 135,
   },
   modal: {
