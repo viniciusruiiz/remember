@@ -35,7 +35,7 @@ const styles = (theme) => createStyles({
     title: {
       zIndex: '10',
       position: 'fixed',
-      top: 76,
+      top: 68,
       left: 25,
       fontSize: 26,
       fontWeight: '100',
@@ -44,7 +44,7 @@ const styles = (theme) => createStyles({
     membros: {
       position: 'fixed',
       right: 20,
-      top: 76,
+      top: 68,
     },
     adicionar: {
       '& .MuiFilledInput-underline:after': {

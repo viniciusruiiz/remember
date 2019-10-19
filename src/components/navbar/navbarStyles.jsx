@@ -13,7 +13,7 @@ const styles = (theme) => createStyles({
     },
     logoIcon: {
         height: theme.spacing(5),
-        margin: theme.spacing(1,1,1,0),
+        margin: (8, 4, 8, 4),
     },
     logoText: {
         fontFamily: 'Major Mono Display',
@@ -31,7 +31,7 @@ const styles = (theme) => createStyles({
     },
     button: {
         padding: theme.spacing(0,1,0,2),
-        height: 56,
+        height: 48,
         textTransform: 'none',
     },
 });

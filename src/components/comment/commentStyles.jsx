@@ -30,6 +30,7 @@ const styles = (theme) => createStyles({
   commentContent: {
     fontSize: 14,
     fontWeight: 100,
+    color: 'black'
   },
 });
 
