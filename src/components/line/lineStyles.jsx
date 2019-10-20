@@ -9,7 +9,6 @@ const styles = (theme) => createStyles({
     [theme.breakpoints.down('lg')]: {
       transform: 'scale(0.8)',
       transformOrigin: 'left',
-      marginTop: '4%',
   },
   },
   not: {

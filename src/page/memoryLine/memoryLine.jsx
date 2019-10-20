@@ -35,6 +35,20 @@ class MemoryLine extends Component {
         })
     }
 
+    componentWillMount = () => {
+        document.body.style.height = '100vh'
+        document.body.style.paddingTop = '6%'
+        document.body.style.overflowY = 'hidden'
+        document.body.style.paddingRight = 200
+    }
+    
+    componentWillUnmount = ()=> {
+        document.body.style.height = null
+        document.body.style.paddingTop = null
+        document.body.style.overflowY = null
+        document.body.style.paddingRight = null
+    }
+
     handleClickOpen = () => {
         this.setState({ "openModal": true })
     };
@@ -64,10 +78,6 @@ class MemoryLine extends Component {
 
     render() {
         const { classes } = this.props
-        document.body.style.height = '100vh'
-        document.body.style.paddingTop = 56
-        document.body.style.overflowY = 'hidden'
-        document.body.style.paddingRight = 200
 
         document.title = this._queryString.get("title") // passar o nome da memory line
 
