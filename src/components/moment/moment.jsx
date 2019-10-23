@@ -51,9 +51,10 @@ class Moment extends Component {
         return (
         <>
         <div className={classes.circle}>
-        {this.renderSpinner()}
-        <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
-        <MomentModal handleClose={this.handleClose} urlBucket={this.props.urlBucket} open={this.state.open} />
+          {this.renderSpinner()}
+          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
+          <Typography className={classes.date}>2 Mar</Typography>
+          <MomentModal handleClose={this.handleClose} urlBucket={this.props.urlBucket} open={this.state.open} />
         </div>
         </>
         )

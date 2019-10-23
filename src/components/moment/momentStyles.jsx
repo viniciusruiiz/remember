@@ -78,7 +78,12 @@ const styles = (theme) => createStyles({
   imgLightBox: {
     maxWidth:'70%',
     maxHeight: '120vh',
-  }
+  },
+  date: {
+    position: 'absolute',
+    left: -150,
+    top: -20,
+  },
 });
 
 export default styles
