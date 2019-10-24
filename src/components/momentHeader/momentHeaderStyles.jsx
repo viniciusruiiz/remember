@@ -9,24 +9,24 @@ const styles = (theme) => createStyles({
     fontWeight: 100,
   },
   donoImg: {
-    width: 60,
-    height: 60,
+    width: 45,
+    height: 45,
     borderRadius: '50%',
     display: "inline-block",
     verticalAlign: 'top',
     margin: theme.spacing(0,2,2,0),
   },
   donoName: { 
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 600,
   },
   momentDate: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: 100,
   },
   description: {
-    fontSize: 14,
-    fontWeight: 100,
+    fontSize: 13,
+    fontWeight: 300,
   },
 });
 

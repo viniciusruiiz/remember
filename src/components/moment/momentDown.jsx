@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './momentDownStyles';
 import { withStyles } from '@material-ui/core/styles';
-import { CircularProgress, Modal } from '@material-ui/core';
+import { CircularProgress, Modal, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import MomentModal from '../momentModal/momentModal';
 class MomentDown extends Component {
@@ -50,6 +50,7 @@ class MomentDown extends Component {
         <div className={classes.circle}>
         {this.renderSpinner()}
           <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
+          <Typography className={classes.date}>2 Mar 2019</Typography>
           <MomentModal handleClose={this.handleClose} urlBucket={this.props.urlBucket} open={this.state.open} />
         </div>
         </>

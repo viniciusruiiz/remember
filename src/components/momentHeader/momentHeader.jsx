@@ -31,7 +31,6 @@ class MomentHeader extends Component {
             </Grid>
           </Grid>
           <Typography className={classes.description}>{this.props.description}</Typography>
-          <Typography>TODO: implement reações</Typography>
         </div>
         </>
         )

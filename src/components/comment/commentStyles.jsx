@@ -28,8 +28,8 @@ const styles = (theme) => createStyles({
     margin: theme.spacing(0,2,2,0),  
   },
   commentContent: {
-    fontSize: 14,
-    fontWeight: 100,
+    fontSize: 13,
+    fontWeight: 300,
     color: 'black'
   },
 });

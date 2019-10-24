@@ -15,7 +15,7 @@ const styles = (theme) => createStyles({
     '&::before': {
       display: 'inline-block',
       content: `''`,
-      borderTop: '2px solid rgba(255,255,255,0.8)',
+      borderTop: '2px solid rgba(255,255,255,0.4)',
       position: 'absolute',
       width: 200,
       left: -200,
@@ -81,8 +81,10 @@ const styles = (theme) => createStyles({
   },
   date: {
     position: 'absolute',
-    left: -150,
-    top: -20,
+    top: -30,
+    left: -138,
+    fontWeight: 100,
+    fontSize: 18,
   },
 });
 

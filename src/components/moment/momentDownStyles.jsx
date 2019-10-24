@@ -18,7 +18,7 @@ const styles = (theme) => createStyles({
     '&::before': {
       display: 'inline-block',
       content: `''`,
-      borderTop: '2px solid rgba(255,255,255,0.8)',
+      borderTop: '2px solid rgba(255,255,255,0.4)',
       position: 'absolute',
       width: 200,
       left: -200,
@@ -78,7 +78,14 @@ const styles = (theme) => createStyles({
   imgLightBox: {
     maxWidth:'70%',
     maxHeight: '120vh',
-  }
+  },
+  date: {
+    position: 'absolute',
+    top: 24,
+    left: -138,
+    fontWeight: 100,
+    fontSize: 18,
+  },
 });
 
 export default styles
