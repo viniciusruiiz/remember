@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import styles from './momentModalStyles';
 import { withStyles } from '@material-ui/core/styles';
-import { CircularProgress, Modal, Typography, Grid } from '@material-ui/core';
+import { CircularProgress, Modal, Typography, Grid, TextField, InputAdornment, Grow } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import perfil from './../../images/perfil.jpg'
 import Comment from './../comment/comment'
 import MomentHeader from '../momentHeader/momentHeader';
 import RSC from "react-scrollbars-custom";
+import { PersonAdd } from '@material-ui/icons';
 
 class MomentModal extends Component {
 
@@ -27,7 +28,7 @@ class MomentModal extends Component {
               <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
             </Grid>
             <Grid className={classes.content} xs={3}>
-              <RSC>
+              <RSC className={classes.RSC}>
                 <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description='Saudades desse dia! s2 s2 s2' />
                 <Comment person='Vinicius Ruiz' date='2 de março de 2019' content='Foi demais mano!'/>
                 <Comment person='Lucas Yudi' date='2 de março de 2019' content='Foi demais mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano mano'/>
@@ -35,6 +36,11 @@ class MomentModal extends Component {
                 <Comment person='Lucas Yudi' date='2 de março de 2019' content='Ameeeei esse dia com voces! amo voces velho serio! nossa que legal'/>
                 <Comment person='Lucas Yudi' date='2 de março de 2019' content='Diversao!'/>
               </RSC>
+              <TextField  className={classes.input}
+                            margin="dense"
+                            hiddenLabel
+                            variant="filled"
+                            placeholder="Comentário..." />
             </Grid>
           </Grid>
         </Modal>

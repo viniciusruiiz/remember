@@ -6,15 +6,11 @@ const styles = (theme) => createStyles({
     whiteSpace: 'nowrap',
     width: '100%',
     height: '100%',
-    [theme.breakpoints.down('lg')]: {
-      transform: 'scale(0.8)',
-      transformOrigin: 'left',
-  },
   },
   not: {
     zIndex: '10',
     position: 'fixed',
-    top: 136,
+    top: 160,
     left: 25,
     fontSize: 18,
     fontWeight: '100',

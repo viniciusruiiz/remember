@@ -17,6 +17,19 @@ const styles = (theme) => createStyles({
     overflow:'auto',
     height: '80vh'
   },
+  input: {
+    bottom: -10,
+    left: 0,
+    width: '100%',
+    position: 'relative',
+    background: 'white',
+    margin: 0,
+    '& .MuiFilledInput-underline:after': {
+    },
+  },
+  RSC: {
+    height: '72.5vh!important',
+  },
 });
 
 export default styles

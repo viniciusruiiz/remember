@@ -9,7 +9,7 @@ const styles = (theme) => createStyles({
     borderRadius: '50%',
     backgroundColor: purple[300],
     position: 'relative',
-    top: '50vh',
+    top: '40vh',
     left: 200,
     marginRight: 200,
     '&::before': {
@@ -42,10 +42,10 @@ const styles = (theme) => createStyles({
     border: '3px solid rgba(0,0,0,0.5)',
     position: 'absolute',
     objectFit: 'cover',
-    width: 300,
-    height: 180,
+    width: 240,
+    height: 144,
     bottom: 50,
-    left: -140,
+    left: -110,
     transition: 'all 0.2s ease-in-out',
     '&:hover': {
       cursor: 'pointer',
@@ -57,16 +57,16 @@ const styles = (theme) => createStyles({
     zIndex: 3,
     position: 'absolute',
     backgroundColor: 'rgba(30,30,30,0.3)',
-    width: 306,
-    height: 186,
+    width: 246,
+    height: 150,
     bottom: 50,
-    left: -140,
+    left: -110,
   },
   load: {
     zIndex: 4,
     position: 'absolute',
     left: -10,
-    bottom: 125,
+    bottom: 108,
   },
   modal: {
     display: 'flex',
@@ -82,9 +82,9 @@ const styles = (theme) => createStyles({
   date: {
     position: 'absolute',
     top: -30,
-    left: -138,
+    left: -108,
     fontWeight: 100,
-    fontSize: 18,
+    fontSize: 15,
   },
 });
 
