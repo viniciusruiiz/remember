@@ -36,17 +36,11 @@ class MemoryLine extends Component {
     }
 
     componentWillMount = () => {
-        document.body.style.height = '100vh'
-        document.body.style.paddingTop = '6%'
         document.body.style.overflowY = 'hidden'
-        document.body.style.paddingRight = 200
     }
     
     componentWillUnmount = ()=> {
-        document.body.style.height = null
-        document.body.style.paddingTop = null
         document.body.style.overflowY = null
-        document.body.style.paddingRight = null
     }
 
     handleClickOpen = () => {
