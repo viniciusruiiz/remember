@@ -84,7 +84,6 @@ class MemoryLine extends Component {
                         <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
                         {this._queryString.get("title") || 'Memoryline Title'}
                     </Typography>
-                    <Line data={this.state.moments} />
                     <div className={classes.membros}>
                         <TextField
                             className={classes.adicionar}
@@ -105,6 +104,8 @@ class MemoryLine extends Component {
                             <MoreVert/>
                         </IconButton>
                     </div>
+                    
+                    <Line data={this.state.moments} />
 
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
                         <Add />
@@ -137,7 +138,7 @@ class MemoryLine extends Component {
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="span">
                                 Upload
-  </Button>
+                            </Button>
                         </label>
                     </DialogContent>
                     <DialogActions>
