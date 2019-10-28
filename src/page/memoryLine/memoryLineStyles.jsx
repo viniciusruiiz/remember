@@ -68,6 +68,13 @@ const styles = (theme) => createStyles({
       marginBottom: 28,
       color: grey[100],
     },
+    paper: {
+      zIndex: 7,
+      position: 'absolute',
+      top: 56,
+      width: 200,
+      right: 0,
+  },
 });
 
 export default styles

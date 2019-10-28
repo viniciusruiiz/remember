@@ -38,7 +38,7 @@ const styles = (theme) => createStyles({
     },
   },
   img: {
-    zIndex: 2,
+    zIndex: -1,
     border: '3px solid rgba(0,0,0,0.5)',
     position: 'absolute',
     objectFit: 'cover',
