@@ -19,7 +19,7 @@ class LineBox extends Component {
 
         return (
         <>
-          <Grid item xs={12} sm={6} md={4} lg={3} className={classes.card}>
+          <Grid item xs={12} sm={6} md={4} className={classes.card}>
             {this.props.notificationCount > 0 &&
               <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
             }

@@ -34,6 +34,9 @@ const styles = (theme) => createStyles({
         height: 48,
         textTransform: 'none',
     },
+    toolbar: {
+        padding: (16,0,16,0),
+    },
 });
 
 export default styles
