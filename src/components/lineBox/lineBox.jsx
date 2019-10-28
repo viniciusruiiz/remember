@@ -83,7 +83,7 @@ class LineBox extends Component {
                   <Grid container xs={6} alignItems="flex-end" justify="flex-end" className={classes.right} >
                     <img alt='' src={perfil} className={classes.member}/>
                     <img alt='' src={perfil} className={classes.member}/>
-                    <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                    {/* <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
                       <MoreVert/>
 
                       {this.state.open && 
@@ -94,7 +94,7 @@ class LineBox extends Component {
                             </MenuList>
                         </Paper>
                       }
-                    </IconButton>
+                    </IconButton> */}
                   </Grid>
                 </Grid>
               </CardContent>
