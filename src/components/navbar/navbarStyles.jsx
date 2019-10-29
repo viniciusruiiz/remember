@@ -27,12 +27,14 @@ const styles = (theme) => createStyles({
         top: 56,
         width: 200,
         right: 0,
-        left: 0,
     },
     button: {
         padding: theme.spacing(0,1,0,2),
         height: 48,
         textTransform: 'none',
+    },
+    toolbar: {
+        padding: (16,0,16,0),
     },
 });
 

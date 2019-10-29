@@ -4,7 +4,7 @@ import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
-import { Fab, Typography, InputAdornment, IconButton } from '@material-ui/core';
+import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener } from '@material-ui/core';
 import { Add, NavigateBefore, PersonAdd, MoreVert } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -14,7 +14,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import perfil from './../../images/perfil.jpg'
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 
 class MemoryLine extends Component {
 
@@ -25,7 +26,8 @@ class MemoryLine extends Component {
         super(props)
         this.state = {
             moments: [],
-            openModal: false
+            openModal: false,
+            openMenu: false,
         }
 
         this._queryString = new URLSearchParams(this.props.location.search)
@@ -37,17 +39,11 @@ class MemoryLine extends Component {
     }
 
     componentWillMount = () => {
-        document.body.style.height = '100vh'
-        document.body.style.paddingTop = '6%'
         document.body.style.overflowY = 'hidden'
-        document.body.style.paddingRight = 200
     }
     
     componentWillUnmount = ()=> {
-        document.body.style.height = null
-        document.body.style.paddingTop = null
         document.body.style.overflowY = null
-        document.body.style.paddingRight = null
     }
 
     handleClickOpen = () => {
@@ -60,6 +56,22 @@ class MemoryLine extends Component {
             document.body.style.overflowY = 'hidden'      
           },100)
     };
+
+    handleClick = (event) => {
+        this.setState({anchorEl: event.currentTarget})
+        this.setState({openMenu: !this.state.openMenu})
+    };
+
+    handleCloseMenu = () => {
+        this._ms.delete(this._queryString.get("ref")).then(res => {
+            this.props.history.push('/userhome')
+        }).catch(err => console.log('erro inesperado'))
+    };
+
+    handleClickAway = () => {
+        this.setState({openMenu: false})
+    };
+
 
     // handleFile = (e) => {
     //     this.setState({'file':e.target.files[0]})
@@ -91,7 +103,6 @@ class MemoryLine extends Component {
                         <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
                         {this._queryString.get("title") || 'Memoryline Title'}
                     </Typography>
-                    <Line data={this.state.moments} />
                     <div className={classes.membros}>
                         <TextField
                             className={classes.adicionar}
@@ -108,10 +119,21 @@ class MemoryLine extends Component {
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />
-                        <IconButton className={classes.options} aria-label="settings">
-                            <MoreVert/>
-                        </IconButton>
+                        <ClickAwayListener onClickAway={this.handleClickAway}>
+                            <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                                <MoreVert/>
+                                {this.state.openMenu && 
+                                <Paper className={classes.paper}>
+                                    <MenuList>
+                                        <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                    </MenuList>
+                                </Paper>
+                                }
+                            </IconButton>
+                        </ClickAwayListener>
                     </div>
+                    
+                    <Line data={this.state.moments} />
 
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
                         <Add />
@@ -144,7 +166,7 @@ class MemoryLine extends Component {
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="span">
                                 Upload
-  </Button>
+                            </Button>
                         </label>
                     </DialogContent>
                     <DialogActions>
@@ -161,4 +183,4 @@ class MemoryLine extends Component {
     }
 }
 
-export default withStyles(styles)(MemoryLine)
+export default compose(withRouter, withStyles(styles))(MemoryLine)

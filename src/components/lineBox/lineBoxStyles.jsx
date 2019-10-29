@@ -12,7 +12,6 @@ const styles = (theme) => createStyles({
     alignItems: 'center',
     position: 'relative',
     padding: 10,
-    paddingRight: 0,
     "&:last-child": {
       paddingBottom: 10,
     },

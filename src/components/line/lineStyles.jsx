@@ -11,7 +11,7 @@ const styles = (theme) => createStyles({
     zIndex: '10',
     position: 'fixed',
     top: 160,
-    left: 25,
+    left: 90,
     fontSize: 18,
     fontWeight: '100',
     whiteSpace: 'pre-wrap',

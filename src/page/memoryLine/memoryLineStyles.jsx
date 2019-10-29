@@ -5,8 +5,9 @@ const styles = (theme) => createStyles({
     root: {
         color: 'white',
         height: '100%',
-        marginTop: 20,
+        marginTop: '6%',
         display: 'inline-block',
+        paddingRight: 200,
     },
     link: {
       color: 'white',
@@ -36,14 +37,14 @@ const styles = (theme) => createStyles({
       zIndex: '10',
       position: 'fixed',
       top: 68,
-      left: 25,
+      left: 80,
       fontSize: 26,
       fontWeight: '100',
       whiteSpace: 'pre-wrap',
     },
     membros: {
       position: 'fixed',
-      right: 20,
+      right: 80,
       top: 68,
     },
     adicionar: {
@@ -66,7 +67,14 @@ const styles = (theme) => createStyles({
     options: {
       marginBottom: 28,
       color: grey[100],
-    }
+    },
+    paper: {
+      zIndex: 7,
+      position: 'absolute',
+      top: 56,
+      width: 200,
+      right: 0,
+  },
 });
 
 export default styles

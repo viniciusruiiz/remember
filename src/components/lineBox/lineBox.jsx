@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, withStyles, Grid, Paper, Card, CardHeader, Avatar, CardMedia, CardContent, CardActions, Collapse, Hidden, Button } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, withStyles, Grid, Paper, Card, CardHeader, Avatar, CardMedia, CardContent, CardActions, Collapse, Hidden, Button, MenuList, MenuItem } from '@material-ui/core';
 import { Favorite, MoreVert, Share ,ExpandMore } from '@material-ui/icons';
 import styles from './lineBoxStyles';
 import perfil from './../../images/perfil.jpg';
@@ -10,16 +10,31 @@ class LineBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      relativeChangeMinutes: Math.abs((new Date().getTime() - this.props.lastChangeInTimestamp) / 60000) || 0
+      relativeChangeMinutes: Math.abs((new Date().getTime() - this.props.lastChangeInTimestamp) / 60000) || 0,
+      open: false,
     }
   }
+
+  handleClick = (event) => {
+      this.setState({anchorEl: event.currentTarget})
+      this.setState({open: !this.state.open})
+  };
+
+  handleClose = () => {
+      this.setState({anchorEl: null})
+  };
+
+  handleClickAway = () => {
+      this.setState({open: false})
+  };
+
   
   render() {
         const { classes } = this.props
 
         return (
         <>
-          <Grid item xs={12} sm={6} md={4} lg={3} className={classes.card}>
+          <Grid item xs={12} sm={6} md={4} className={classes.card}>
             {this.props.notificationCount > 0 &&
               <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
             }
@@ -68,9 +83,18 @@ class LineBox extends Component {
                   <Grid container xs={6} alignItems="flex-end" justify="flex-end" className={classes.right} >
                     <img alt='' src={perfil} className={classes.member}/>
                     <img alt='' src={perfil} className={classes.member}/>
-                    <IconButton className={classes.options} aria-label="settings">
+                    {/* <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
                       <MoreVert/>
-                    </IconButton>
+
+                      {this.state.open && 
+                        <Paper className={classes.paper}>
+                            <MenuList>
+                                <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
+                                <MenuItem onClick={this.handleClose}>Sair</MenuItem>
+                            </MenuList>
+                        </Paper>
+                      }
+                    </IconButton> */}
                   </Grid>
                 </Grid>
               </CardContent>
