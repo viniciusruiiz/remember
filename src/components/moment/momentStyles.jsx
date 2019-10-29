@@ -34,12 +34,13 @@ const styles = (theme) => createStyles({
       height: 0,
       borderLeft: '20px solid transparent',
       borderRight: '20px solid transparent',
-      borderTop: '20px solid rgba(0,0,0,0.5)',
+      borderTop: '20px solid rgba(255,255,255,0.8)',
     },
   },
   img: {
     zIndex: -1,
-    border: '3px solid rgba(0,0,0,0.5)',
+    borderRadius: 25,
+    border: '3px solid rgba(255,255,255,0.8)',
     position: 'absolute',
     objectFit: 'cover',
     width: 240,
@@ -56,6 +57,7 @@ const styles = (theme) => createStyles({
   filter: {
     zIndex: 3,
     position: 'absolute',
+    borderRadius: 25,
     backgroundColor: 'rgba(30,30,30,0.3)',
     width: 246,
     height: 150,
