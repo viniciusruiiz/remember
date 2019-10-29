@@ -32,6 +32,7 @@ class MemoryLine extends Component {
 
         this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
             this.setState({ "moments": res.data.data })
+            console.log(res.data.data)
         })
     }
 
