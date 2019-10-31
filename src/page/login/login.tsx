@@ -21,6 +21,7 @@ class Login extends Component<any, LoginRequest> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
+        this.handleEnter = this.handleEnter.bind(this);
     }
 
     handleUsername(event: React.ChangeEvent<HTMLInputElement>) {
@@ -34,6 +35,10 @@ class Login extends Component<any, LoginRequest> {
     handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
 
+        this.loginMethod();
+    }
+
+    private loginMethod() {
         this._ls.login(this.state)
             .then(res => {
                 if (res.data.success) {
@@ -44,6 +49,14 @@ class Login extends Component<any, LoginRequest> {
                     alert("Setar mensagem de erro")
                 }
             }).catch(err => { alert("Setar mensagem de erro inesperado") });
+    }
+
+    handleEnter(event : React.KeyboardEvent<HTMLInputElement>) {
+        console.log(event.keyCode)
+        if (event.keyCode == 13 && this.state.password && this.state.username){
+
+            this.loginMethod();
+        }
     }
 
     render() {
@@ -59,8 +72,8 @@ class Login extends Component<any, LoginRequest> {
                                 <span className={classes.logoText}>remember</span>
                             </div>
                             <form onSubmit={this.handleSubmit} id="loginForm" style={{display: "none"}}></form>
-                            <TextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" onChange={this.handleUsername} />
-                            <TextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handlePassword} />
+                            <TextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" onChange={this.handleUsername} onKeyDown={this.handleEnter} />
+                            <TextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handlePassword} onKeyDown={this.handleEnter}/>
                             <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit" form="loginForm">
                                 Entrar
                             </Button>

@@ -33,7 +33,7 @@ class NavBar extends Component {
         <>
             <AppBar className={classes.bar} position="fixed">
                 <Container >
-                    <Toolbar className={classes.toolbar} variant="dense">
+                    <Toolbar className={classes.toolbar}>
                         <img alt='' src={logo} className={classes.logoIcon}/>
                         <Typography className={classes.logoText}>remember</Typography>
                         <ClickAwayListener onClickAway={this.handleClickAway}>

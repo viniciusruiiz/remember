@@ -35,6 +35,7 @@ const styles = (theme) => createStyles({
     },
     toolbar: {
         padding: (16,0,16,0),
+        minHeight: 0,
     },
 });
 

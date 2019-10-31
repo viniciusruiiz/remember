@@ -7,7 +7,6 @@ const styles = (theme) => createStyles({
         height: '100%',
         marginTop: '6%',
         display: 'inline-block',
-        paddingRight: 200,
     },
     link: {
       color: 'white',
