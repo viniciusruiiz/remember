@@ -3,9 +3,9 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 export default class BaseService {
 
     protected _getAxiosConfig(): AxiosRequestConfig | undefined {
-        
+
         let token = localStorage.getItem("access_token")
-    
+
         if (token) {
             return {
                 headers: {
@@ -17,17 +17,23 @@ export default class BaseService {
         return undefined;
     }
 
-/**
- * TODO: implement refresh token
- */
+    public static isAuthenticated: boolean
+
+    /**
+     * TODO: implement refresh token
+     */
     // refreshToken() : void {
     //     this.get()
     // }
 
-    protected readonly baseUrl : string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta'
+    protected readonly baseUrl: string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta'
 
     protected setTokenOnLocalStorage(token: string | null): void {
-        localStorage.setItem("access_token", token as string);
+        if (token) {
+            localStorage.setItem("access_token", token as string);
+            BaseService.isAuthenticated = true;
+        } else
+            BaseService.isAuthenticated = false;
     }
 
     protected get(url: string): Promise<AxiosResponse<any>> {
@@ -38,7 +44,7 @@ export default class BaseService {
         return axios.post(url, data, this._getAxiosConfig());
     }
 
-    protected put(url: string, data: any, newConfig? : AxiosRequestConfig): Promise<AxiosResponse<any>> {
+    protected put(url: string, data: any, newConfig?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
         return axios.put(url, data, newConfig || this._getAxiosConfig());
     }
 
@@ -46,7 +52,7 @@ export default class BaseService {
         return axios.delete(url, this._getAxiosConfig());
     }
 
-    protected patch(url: string, data?: any) : Promise<AxiosResponse<any>> {
+    protected patch(url: string, data?: any): Promise<AxiosResponse<any>> {
         return axios.patch(url, data, this._getAxiosConfig());
     }
 }

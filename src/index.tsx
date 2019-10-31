@@ -11,18 +11,21 @@ import SignUpConfirmation from './page/signup/signupConfirmation';
 import Error from './page/error/error';
 import UserHome from './page/userHome/userHome';
 import MemoryLine from './page/memoryLine/memoryLine';
+import PrivateRoute from './service/access/PrivateRoute';
+import PublicRoute from './service/access/PublicRoute';
+
 
 const routing = (
   <Router>
     <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/secret" component={Secret} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/userhome" component={UserHome} />
-          <Route path="/memoryline" component={MemoryLine} />
-          <Route path="/singupconfirmation" component={SignUpConfirmation} />
+          <PublicRoute restricted={true} exact path="/" component={Login} />
+          <PrivateRoute path="/secret" component={Secret} />
+          <PrivateRoute path="/signup" component={SignUp} />
+          <PrivateRoute path="/userhome" component={UserHome} />
+          <PrivateRoute path="/memoryline" component={MemoryLine} />
+          <PrivateRoute path="/singupconfirmation" component={SignUpConfirmation} />
           {/* <Route path="/emailconfirmation" component={EmailConfirmation} /> */}
-          <Route component={Error} />
+          <PublicRoute restricted={false} component={Error} />
       </Switch>
   </Router>
   )
