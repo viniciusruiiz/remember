@@ -72,9 +72,9 @@ class Login extends Component<any, LoginRequest> {
                                 <span className={classes.logoText}>remember</span>
                             </div>
                             <form onSubmit={this.handleSubmit} id="loginForm" style={{display: "none"}}></form>
-                            <TextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" onChange={this.handleUsername} onKeyDown={this.handleEnter} />
-                            <TextField fullWidth className={classes.inputSenha} label="Senha" type="password" onChange={this.handlePassword} onKeyDown={this.handleEnter}/>
-                            <Button fullWidth className={classes.loginButton} color="primary" variant="contained" type="submit" form="loginForm">
+                            <TextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" id="username" onChange={this.handleUsername} onKeyDown={this.handleEnter} />
+                            <TextField fullWidth className={classes.inputSenha} label="Senha" id="password" type="password" onChange={this.handlePassword} onKeyDown={this.handleEnter}/>
+                            <Button fullWidth className={classes.loginButton} id="submit" color="primary" variant="contained" type="submit" form="loginForm">
                                 Entrar
                             </Button>
                             <Typography className={classes.type}>Não tem uma conta? <Link className={classes.link} to="/signup">Cadastre-se!</Link></Typography>

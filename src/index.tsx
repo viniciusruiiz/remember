@@ -18,7 +18,7 @@ const routing = (
   <Router>
     <Switch>
           <PublicRoute restricted={true} exact path="/" component={Login} />
-          <PrivateRoute path="/signup" component={SignUp} />
+          <PublicRoute restricted={true} path="/signup" component={SignUp} />
           <PrivateRoute path="/userhome" component={UserHome} />
           <PrivateRoute path="/memoryline" component={MemoryLine} />
           <PrivateRoute path="/singupconfirmation" component={SignUpConfirmation} />
