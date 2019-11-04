@@ -3,6 +3,9 @@ import { AppBar, Toolbar, Typography, withStyles, Button, MenuItem, Paper, MenuL
 import styles from './navbarStyles';
 import logo from './../../images/logo-icon.png';
 import perfil from './../../images/perfil.jpg';
+import compose from 'recompose/compose';
+import { Link, withRouter } from 'react-router-dom';
+import LoginService from '../../service/loginService';
 
 class NavBar extends Component {
     constructor(props) {
@@ -26,6 +29,12 @@ class NavBar extends Component {
         this.setState({open: false})
     };
 
+    handleLogout = () => {
+        let _ls = new LoginService();
+        _ls.logout();
+        this.props.history.push('/');
+    }
+
     render() {
         const { classes } = this.props
 
@@ -44,7 +53,7 @@ class NavBar extends Component {
                             <Paper className={classes.paper}>
                                 <MenuList>
                                     <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>Sair</MenuItem>
+                                    <MenuItem onClick={this.handleLogout}>Sair</MenuItem>
                                 </MenuList>
                             </Paper>
                             }
@@ -58,4 +67,4 @@ class NavBar extends Component {
     }
 }
 
-export default withStyles(styles)(NavBar)
+export default compose(withRouter, withStyles(styles))(NavBar)

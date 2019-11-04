@@ -17,7 +17,9 @@ export default class BaseService {
         return undefined;
     }
 
-    public static isAuthenticated: boolean
+    public static isAuthenticated(): boolean {
+        return !!localStorage.getItem("access_token");
+    }
 
     /**
      * TODO: implement refresh token
@@ -28,12 +30,8 @@ export default class BaseService {
 
     protected readonly baseUrl: string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta'
 
-    protected setTokenOnLocalStorage(token: string | null): void {
-        if (token) {
-            localStorage.setItem("access_token", token as string);
-            BaseService.isAuthenticated = true;
-        } else
-            BaseService.isAuthenticated = false;
+    protected setTokenOnLocalStorage(token: string): void {
+        localStorage.setItem("access_token", token as string);
     }
 
     protected get(url: string): Promise<AxiosResponse<any>> {

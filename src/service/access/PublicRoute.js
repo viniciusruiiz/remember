@@ -5,7 +5,7 @@ import BaseService from '../baseService';
 const PublicRoute = ({component: Component, restricted, ...rest}) => {
     return (
         <Route {...rest} render={props => (
-            BaseService.isAuthenticated && restricted ?
+            BaseService.isAuthenticated() && restricted ?
                 <Redirect to="/userhome" />
             : <Component {...props} />
         )} />

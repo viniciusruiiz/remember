@@ -4,7 +4,6 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Login from './page/login/login';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import Secret from './page/secret';
 import SignUp from './page/signup/signup';
 // import EmailConfirmation from './page/emailConfirmation/emailConfirmation';
 import SignUpConfirmation from './page/signup/signupConfirmation';
@@ -19,7 +18,6 @@ const routing = (
   <Router>
     <Switch>
           <PublicRoute restricted={true} exact path="/" component={Login} />
-          <PrivateRoute path="/secret" component={Secret} />
           <PrivateRoute path="/signup" component={SignUp} />
           <PrivateRoute path="/userhome" component={UserHome} />
           <PrivateRoute path="/memoryline" component={MemoryLine} />

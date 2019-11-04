@@ -10,7 +10,7 @@ export default class LoginService extends BaseService {
     }
 
     logout(): void {
-        super.setTokenOnLocalStorage(null);
+        super.setTokenOnLocalStorage("");
     }
 
     setAuthenticationToken(token: string) : void {
