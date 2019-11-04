@@ -44,6 +44,10 @@ const styles = (theme) => createStyles({
       position: 'fixed',
       margin: theme.spacing(8,3,0,3),
     },
+    gridMobile: {
+      width: '80vw',
+      margin: theme.spacing(8,3,0,3),
+    },
     adicionar: {
       '& .MuiFilledInput-underline:after': {
         borderBottomColor: green[300],
@@ -60,6 +64,9 @@ const styles = (theme) => createStyles({
       borderRadius: '50%',
       top: 20,
       margin: theme.spacing(0,2,0,0),  
+    },
+    gridRight: {
+      width: '100%',
     },
     membros: {
       float: 'right',

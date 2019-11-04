@@ -50,8 +50,8 @@ class MomentMobile extends Component {
 
         return (
         <>
-        <div>
-          {this.renderSpinner()}
+        <div className={classes.root}>
+          {/* {this.renderSpinner()} */}
           <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
           <Typography className={classes.date}>2 Mar 2019</Typography>
           {/* <MomentModal handleClose={this.handleClose} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> */}

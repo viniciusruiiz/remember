@@ -2,14 +2,20 @@ import { createStyles } from "@material-ui/core";
 import { red, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
+  root: {
+    padding: 20,
+    paddingTop: 0,
+    maxWidth: '100%',
+    marginBottom: 30,
+  },
   img: {
+    maxWidth: '100%',
     zIndex: -1,
     borderRadius: 25,
-    border: '3px solid rgba(255,255,255,0.8)',
+    // border: '3px solid rgba(255,255,255,0.8)',
     // position: 'absolute',
     objectFit: 'cover',
-    width: 240,
-    height: 144,
+    // height: 144,
     // bottom: 50,
     // left: -110,
     // transition: 'all 0.2s ease-in-out',
@@ -47,9 +53,6 @@ const styles = (theme) => createStyles({
     maxHeight: '120vh',
   },
   date: {
-    position: 'absolute',
-    top: -30,
-    left: -108,
     fontWeight: 100,
     fontSize: 15,
   },
