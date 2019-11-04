@@ -6,6 +6,7 @@ const styles = (theme) => createStyles({
     whiteSpace: 'nowrap',
     width: '100%',
     height: '100%',
+    marginTop: 100,
     marginRight: 200,
   },
   rootMobile: {

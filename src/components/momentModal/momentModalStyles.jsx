@@ -29,6 +29,7 @@ const styles = (theme) => createStyles({
   },
   RSC: {
     height: '72.5vh!important',
+    overflowX: 'hidden',
   },
 });
 

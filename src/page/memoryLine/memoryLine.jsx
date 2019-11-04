@@ -4,7 +4,7 @@ import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
-import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener } from '@material-ui/core';
+import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid } from '@material-ui/core';
 import { Add, NavigateBefore, PersonAdd, MoreVert } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -99,40 +99,45 @@ class MemoryLine extends Component {
                 <NavBar />
 
                 <div className={classes.root}>
-                    <Typography className={classes.title}>
-                        <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
-                        {this._queryString.get("title") || 'Memoryline Title'}
-                    </Typography>
-                    <div className={classes.membros}>
-                        <TextField
-                            className={classes.adicionar}
-                            margin="dense"
-                            hiddenLabel
-                            variant="filled"
-                            placeholder="Adicionar"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
-                                className: classes.adicionarInput,
-                                }}
-                        />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <ClickAwayListener onClickAway={this.handleClickAway}>
-                            <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
-                                <MoreVert/>
-                                {this.state.openMenu && 
-                                <Paper className={classes.paper}>
-                                    <MenuList>
-                                        <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
-                                    </MenuList>
-                                </Paper>
-                                }
-                            </IconButton>
-                        </ClickAwayListener>
-                    </div>
-                    
+                    <Grid container className={classes.grid}>
+                        <Grid className={classes.titleContainer} item md={5} sm={12}>
+                            <Typography className={classes.title}>
+                                <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
+                                {this._queryString.get("title") || 'Memoryline Title'}
+                            </Typography>
+                        </Grid>
+                        <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
+                            <Grid item className={classes.membros}>
+                                <TextField
+                                    className={classes.adicionar}
+                                    margin="dense"
+                                    hiddenLabel
+                                    variant="filled"
+                                    placeholder="Adicionar"
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                                        className: classes.adicionarInput,
+                                        }}
+                                />
+                                <img alt='' src={perfil} className={classes.membersIcons} />
+                                <img alt='' src={perfil} className={classes.membersIcons} />
+                                <img alt='' src={perfil} className={classes.membersIcons} />
+                                <img alt='' src={perfil} className={classes.membersIcons} />
+                                <ClickAwayListener onClickAway={this.handleClickAway}>
+                                    <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                                        <MoreVert/>
+                                        {this.state.openMenu && 
+                                        <Paper className={classes.paper}>
+                                            <MenuList>
+                                                <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                            </MenuList>
+                                        </Paper>
+                                        }
+                                    </IconButton>
+                                </ClickAwayListener>
+                            </Grid>                        
+                        </Grid>
+                    </Grid>
                     <Line data={this.state.moments} />
 
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
