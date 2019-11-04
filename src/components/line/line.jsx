@@ -57,7 +57,7 @@ class Line extends Component {
     return (
     <Grid alignItems="center" className={classes.rootMobile}>
     {this.props.data.length > 0 ? this.props.data.map((moment) => (
-            <MomentMobile urlBucket={moment.urlBucket} reference={moment.idMoment} />
+            <MomentMobile urlBucket={moment.urlBucket} reference={moment.idMoment}/>
         )) : <Typography className={classes.not}>Nenhum momento salvo.</Typography>}
     </Grid>
     )

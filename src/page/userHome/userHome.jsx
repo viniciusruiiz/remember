@@ -23,23 +23,23 @@ class UserHome extends Component {
         }
 
         this._mls.getAllMemoryLine().then(res => {
-            this.setState({publicMemoryLines:res.data.data.public})
-            this.setState({privateMemoryLines:res.data.data.private})
+            this.setState({ publicMemoryLines: res.data.data.public })
+            this.setState({ privateMemoryLines: res.data.data.private })
         })
 
         console.log(this.state)
     }
 
     handleExpandClick1 = () => {
-        this.setState({expanded1: !this.state.expanded1})
+        this.setState({ expanded1: !this.state.expanded1 })
     }
     handleExpandClick2 = () => {
-        this.setState({expanded2: !this.state.expanded2})
+        this.setState({ expanded2: !this.state.expanded2 })
     }
     handleAdd = (e) => {
-        if(e.preventDefault)
+        if (e.preventDefault)
             e.preventDefault();
-            
+
         this._mls.add().then(res => {
             console.log("Adicionado!")
             let newState = Object.assign({}, this.state)
@@ -52,47 +52,48 @@ class UserHome extends Component {
         const { classes } = this.props
 
         return (
-        <>
-            <NavBar />
-            <Container>
-                <div className={classes.root}>
-                    <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
-                        <Typography className={classes.hideCompartilhadas}>
-                            Memorylines compartilhadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, {[classes.expandOpen]: this.state.expanded1})}/>
-                        </Typography>
-                    </Button>
-                    <Collapse in={this.state.expanded1} timeout="auto" unmountOnExit>
-                        <Grid container spacing={4}>
-                            <LineBox title='HxHLine' lastChangeInTimestamp='1569726044000' notificationCount='3'/>
-                            <LineBox title='Familia <3' lastChangeInTimestamp='1569685477000' notificationCount='1'/>
-                            <LineBox title='Amigos!' lastChangeInTimestamp='1569638677000' notificationCount='0'/>
-                            <LineBox />
-                        </Grid>
-                    </Collapse><br></br>
-                    <Button onClick={this.handleExpandClick2} className={classes.btnExpand}>
-                        <Typography className={classes.hideCompartilhadas}>
-                            Memorylines privadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, {[classes.expandOpen]: this.state.expanded2})}/>
-                        </Typography>
-                    </Button>
-                    <Collapse in={this.state.expanded2} timeout="auto" unmountOnExit>
-                        <Grid container spacing={4}>
-                            {/* <LineBox />
+            <>
+                <NavBar />
+                <Container>
+                    <div className={classes.root}>
+                        <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
+                            <Typography className={classes.hideCompartilhadas}>
+                                Memorylines compartilhadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, { [classes.expandOpen]: this.state.expanded1 })} />
+                            </Typography>
+                        </Button>
+                        <Collapse in={this.state.expanded1} timeout="auto" unmountOnExit>
+                            <Grid container spacing={4}>
+                                {
+                                    this.state.publicMemoryLines.map(item => (
+                                        <LineBox title={item.name} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                    ))
+                                }
+                            </Grid>
+                        </Collapse><br></br>
+                        <Button onClick={this.handleExpandClick2} className={classes.btnExpand}>
+                            <Typography className={classes.hideCompartilhadas}>
+                                Memorylines privadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, { [classes.expandOpen]: this.state.expanded2 })} />
+                            </Typography>
+                        </Button>
+                        <Collapse in={this.state.expanded2} timeout="auto" unmountOnExit>
+                            <Grid container spacing={4}>
+                                {/* <LineBox />
                             <LineBox />
                             <LineBox /> */}
-                            {
-                                this.state.privateMemoryLines.map(item => (
-                                    <LineBox title={item.name} key={item.idMemoryLine} reference={item.idMemoryLine}/>
-                                ))
-                            }
-                        </Grid>
-                    </Collapse>
+                                {
+                                    this.state.privateMemoryLines.map(item => (
+                                        <LineBox title={item.name} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                    ))
+                                }
+                            </Grid>
+                        </Collapse>
 
-                    <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleAdd}>
-                        <Add />
-                    </Fab>
-                </div>
-            </Container>
-        </>
+                        <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleAdd}>
+                            <Add />
+                        </Fab>
+                    </div>
+                </Container>
+            </>
         )
     }
 }
