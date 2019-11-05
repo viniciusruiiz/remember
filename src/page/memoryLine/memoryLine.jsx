@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
 import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid } from '@material-ui/core';
-import { Add, NavigateBefore, PersonAdd, MoreVert } from '@material-ui/icons';
+import { Add, NavigateBefore, PersonAdd, MoreVert, Edit } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,23 +16,28 @@ import perfil from './../../images/perfil.jpg'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import MemoryLineService from '../../service/memoryLineService';
 
 class MemoryLine extends Component {
 
     _ms = new MomentService()
+    _mls = new MemoryLineService();
     _queryString;
 
     constructor(props) {
         super(props)
+
+        this.updatePredicate = this.updatePredicate.bind(this);
+
+        this._queryString = new URLSearchParams(this.props.location.search)
+
         this.state = {
             moments: [],
+            title: this._queryString.get("title") || 'Memoryline Title',
             openModal: false,
             openMenu: false,
             mobile: false,
         }
-        this.updatePredicate = this.updatePredicate.bind(this);
-
-        this._queryString = new URLSearchParams(this.props.location.search)
 
         this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
             this.setState({ "moments": res.data.data })
@@ -40,18 +45,20 @@ class MemoryLine extends Component {
         })
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.updatePredicate();
         window.addEventListener("resize", this.updatePredicate);
+        this.resize();
+        console.log('mount')
     }
 
     componentWillMount = () => {
         document.body.style.overflowY = 'hidden'
     }
-    
-    componentWillUnmount = ()=> {
+
+    componentWillUnmount = () => {
         document.body.style.overflowY = null
-        window.removeEventListener("resize", this.updatePredicate); 
+        window.removeEventListener("resize", this.updatePredicate);
     }
 
     updatePredicate() {
@@ -65,13 +72,13 @@ class MemoryLine extends Component {
     handleClose = () => {
         this.setState({ "openModal": false })
         setTimeout(() => {
-            document.body.style.overflowY = 'hidden'      
-          },100)
+            document.body.style.overflowY = 'hidden'
+        }, 100)
     };
 
     handleClick = (event) => {
-        this.setState({anchorEl: event.currentTarget})
-        this.setState({openMenu: !this.state.openMenu})
+        this.setState({ anchorEl: event.currentTarget })
+        this.setState({ openMenu: !this.state.openMenu })
     };
 
     handleCloseMenu = () => {
@@ -81,84 +88,124 @@ class MemoryLine extends Component {
     };
 
     handleClickAway = () => {
-        this.setState({openMenu: false})
+        this.setState({ openMenu: false })
     };
 
-    desktopHeader () {
+    resize = (e) => {
+        if (e)
+            this.setState({ 'title': e.target.value })
+
+        var hide = document.getElementById('hide');
+        var txt = document.getElementById('txt');
+        resize();
+        txt.addEventListener("input", resize);
+
+        function resize() {
+            hide.textContent = txt.value;
+            txt.style.width = hide.offsetWidth + "px";
+        }
+
+    }
+
+    handleEdit = () => {
+        var ipt = document.getElementById('txt');
+
+        if (ipt.hasAttribute('readonly')) {
+
+            ipt.removeAttribute('readonly');
+            ipt.focus();
+            ipt.addEventListener("focusout", () => {
+                //setar confirmação de sim e nao
+                alert('tem certeza que alterar o nome da memory line?');
+                //setar loading
+                this._mls.changeName(this._queryString.get("ref"), this.state.title).then(res => {
+                    //setar confirmação (status 200)
+                    var new_element = ipt.cloneNode(true);
+                    ipt.parentNode.replaceChild(new_element, ipt);
+                    new_element.setAttribute('readonly', true);
+                    alert('alterado com sucesso!');
+                });
+
+            });
+        }
+    }
+
+    desktopHeader() {
         const { classes } = this.props
 
         return (
-        <Grid container className={classes.grid}>
-            <Grid className={classes.titleContainer} item md={5} sm={12}>
-                <Typography className={classes.title}>
-                    <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
-                    {this._queryString.get("title") || 'Memoryline Title'}
-                </Typography>
-            </Grid>
-            <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
-                <Grid item className={classes.membros}>
-                    <TextField
-                        className={classes.adicionar}
-                        margin="dense"
-                        hiddenLabel
-                        variant="filled"
-                        placeholder="Adicionar"
-                        InputProps={{
-                            startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
-                            className: classes.adicionarInput,
+            <Grid container className={classes.grid}>
+                <Grid className={classes.titleContainer} item md={5} sm={12}>
+                    <Typography className={classes.title}>
+                        <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
+                        <span className={classes.hideSpan} id="hide"></span><input readOnly onInput={this.resize} id="txt" value={this.state.title} className={classes.titleIpt}></input>
+                        <Edit onClick={this.handleEdit} className={classes.editIcon}></Edit>
+                    </Typography>
+                </Grid>
+                <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
+                    <Grid item className={classes.membros}>
+                        <TextField
+                            className={classes.adicionar}
+                            margin="dense"
+                            hiddenLabel
+                            variant="filled"
+                            placeholder="Adicionar"
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                                className: classes.adicionarInput,
                             }}
-                    />
-                    <img alt='' src={perfil} className={classes.membersIcons} />
-                    <img alt='' src={perfil} className={classes.membersIcons} />
-                    <img alt='' src={perfil} className={classes.membersIcons} />
-                    <img alt='' src={perfil} className={classes.membersIcons} />
-                    <ClickAwayListener onClickAway={this.handleClickAway}>
-                        <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
-                            <MoreVert/>
-                            {this.state.openMenu && 
-                            <Paper className={classes.paper}>
-                                <MenuList>
-                                    <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
-                                </MenuList>
-                            </Paper>
-                            }
-                        </IconButton>
-                    </ClickAwayListener>
-                </Grid>                        
+                        />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <ClickAwayListener onClickAway={this.handleClickAway}>
+                            <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                                <MoreVert />
+                                {this.state.openMenu &&
+                                    <Paper className={classes.paper}>
+                                        <MenuList>
+                                            <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                        </MenuList>
+                                    </Paper>
+                                }
+                            </IconButton>
+                        </ClickAwayListener>
+                    </Grid>
+                </Grid>
             </Grid>
-        </Grid>
         )
     }
 
-    mobileHeader () {
+    mobileHeader() {
         const { classes } = this.props
 
         return (
-        <Grid container spacing={1} className={classes.gridMobile}>
-            <Grid item className={classes.titleContainer} item xs={6}>
-                <Typography className={classes.title}>
-                    {this._queryString.get("title") || 'Memoryline Title'}
-                </Typography>
+            <Grid container spacing={1} className={classes.gridMobile}>
+                <Grid item className={classes.titleContainer} item xs={6}>
+                    <Typography className={classes.title}>
+                        {this._queryString.get("title") || 'Memoryline Title'}
+                    </Typography>
+                </Grid>
+                <Grid item className={classes.gridRight} alignItems='right' alignContent='right' xs={6}>
+                    <Grid item className={classes.membros}>
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <img alt='' src={perfil} className={classes.membersIcons} />
+                        <ClickAwayListener onClickAway={this.handleClickAway}>
+                            <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                                <MoreVert />
+                                {this.state.openMenu &&
+                                    <Paper className={classes.paper}>
+                                        <MenuList>
+                                            <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                        </MenuList>
+                                    </Paper>
+                                }
+                            </IconButton>
+                        </ClickAwayListener>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid item className={classes.gridRight} alignItems='right' alignContent='right' xs={6}>
-                <Grid item className={classes.membros}>
-                    <img alt='' src={perfil} className={classes.membersIcons} />
-                    <img alt='' src={perfil} className={classes.membersIcons} />
-                    <ClickAwayListener onClickAway={this.handleClickAway}>
-                        <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
-                            <MoreVert/>
-                            {this.state.openMenu && 
-                            <Paper className={classes.paper}>
-                                <MenuList>
-                                    <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
-                                </MenuList>
-                            </Paper>
-                            }
-                        </IconButton>
-                    </ClickAwayListener>
-                </Grid>                        
-            </Grid>
-        </Grid>
         )
     }
 
@@ -190,7 +237,7 @@ class MemoryLine extends Component {
 
                 <div className={classes.root}>
                     {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
-                    
+
                     <Line data={this.state.moments} />
 
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >

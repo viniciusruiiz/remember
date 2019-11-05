@@ -10,6 +10,28 @@ const styles = (theme) => createStyles({
     link: {
       color: 'white',
     },
+    hideSpan: {
+      margin: 0,
+      padding: 0,
+      position: "absolute",
+      height: 0,
+      overflow: "hidden",
+      whiteSpace: "pre",
+    },
+    editIcon: {
+      cursor: "pointer"
+    },
+    titleIpt: {
+        border: "none",
+        display: "inline",
+        color: "inherit",
+        font: "inherit",
+        padding: "none",
+        width: "auto",
+        minWidth: "20px",
+        backgroundColor: "inherit",
+        margin: "0 10px 0 0"
+    },
     fab: {
         zIndex: 3,
         position: 'fixed',
