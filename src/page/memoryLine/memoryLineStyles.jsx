@@ -5,7 +5,6 @@ const styles = (theme) => createStyles({
     root: {
         color: 'white',
         height: '100%',
-        marginTop: '6%',
         display: 'inline-block',
     },
     link: {
@@ -33,18 +32,21 @@ const styles = (theme) => createStyles({
       marginBottom: 5,
     },
     title: {
-      zIndex: '10',
-      position: 'fixed',
-      top: 68,
-      left: 80,
       fontSize: 26,
       fontWeight: '100',
       whiteSpace: 'pre-wrap',
     },
-    membros: {
+    titleContainer: {
+      zIndex: '10',
+    },
+    grid: {
+      width: '96.5vw',
       position: 'fixed',
-      right: 80,
-      top: 68,
+      margin: theme.spacing(8,3,0,3),
+    },
+    gridMobile: {
+      width: '80vw',
+      margin: theme.spacing(8,3,0,3),
     },
     adicionar: {
       '& .MuiFilledInput-underline:after': {
@@ -62,6 +64,12 @@ const styles = (theme) => createStyles({
       borderRadius: '50%',
       top: 20,
       margin: theme.spacing(0,2,0,0),  
+    },
+    gridRight: {
+      width: '100%',
+    },
+    membros: {
+      float: 'right',
     },
     options: {
       marginBottom: 28,

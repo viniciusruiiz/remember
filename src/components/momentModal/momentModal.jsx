@@ -111,7 +111,8 @@ class MomentModal extends Component {
               <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
             </Grid>
             <Grid className={classes.content} xs={3}>
-              <RSC className={classes.RSC}>
+              {/* <RSC className={classes.RSC}> */}
+              <div className={classes.RSC}>
                 <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description='Saudades desse dia! s2 s2 s2' />
                 {
                   
@@ -125,7 +126,8 @@ class MomentModal extends Component {
                 <Comment person='Lucas Yudi' date='2 de março de 2019' content='Foi demais manovelho, curti muito!'/>
                 <Comment person='Lucas Yudi' date='2 de março de 2019' content='Ameeeei esse dia com voces! amo voces velho serio! nossa que legal'/>
                 <Comment person='Lucas Yudi' date='2 de março de 2019' content='Diversao!'/> */}
-              </RSC>
+              {/* </RSC> */}
+              </div>
               <form onSubmit={this.handleSubmit}>
               <TextField  className={classes.input}
                             id="comment-content"

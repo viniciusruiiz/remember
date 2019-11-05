@@ -4,7 +4,7 @@ import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
-import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener } from '@material-ui/core';
+import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid } from '@material-ui/core';
 import { Add, NavigateBefore, PersonAdd, MoreVert } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -28,7 +28,9 @@ class MemoryLine extends Component {
             moments: [],
             openModal: false,
             openMenu: false,
+            mobile: false,
         }
+        this.updatePredicate = this.updatePredicate.bind(this);
 
         this._queryString = new URLSearchParams(this.props.location.search)
 
@@ -38,12 +40,22 @@ class MemoryLine extends Component {
         })
     }
 
+    componentDidMount () {
+        this.updatePredicate();
+        window.addEventListener("resize", this.updatePredicate);
+    }
+
     componentWillMount = () => {
         document.body.style.overflowY = 'hidden'
     }
     
     componentWillUnmount = ()=> {
         document.body.style.overflowY = null
+        window.removeEventListener("resize", this.updatePredicate); 
+    }
+
+    updatePredicate() {
+        this.setState({ mobile: window.innerWidth < 650 });
     }
 
     handleClickOpen = () => {
@@ -72,6 +84,87 @@ class MemoryLine extends Component {
         this.setState({openMenu: false})
     };
 
+    desktopHeader () {
+        const { classes } = this.props
+
+        return (
+        <Grid container className={classes.grid}>
+            <Grid className={classes.titleContainer} item md={5} sm={12}>
+                <Typography className={classes.title}>
+                    <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
+                    {this._queryString.get("title") || 'Memoryline Title'}
+                </Typography>
+            </Grid>
+            <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
+                <Grid item className={classes.membros}>
+                    <TextField
+                        className={classes.adicionar}
+                        margin="dense"
+                        hiddenLabel
+                        variant="filled"
+                        placeholder="Adicionar"
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                            className: classes.adicionarInput,
+                            }}
+                    />
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <ClickAwayListener onClickAway={this.handleClickAway}>
+                        <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                            <MoreVert/>
+                            {this.state.openMenu && 
+                            <Paper className={classes.paper}>
+                                <MenuList>
+                                    <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                </MenuList>
+                            </Paper>
+                            }
+                        </IconButton>
+                    </ClickAwayListener>
+                </Grid>                        
+            </Grid>
+        </Grid>
+        )
+    }
+
+    mobileHeader () {
+        const { classes } = this.props
+
+        return (
+        <Grid container className={classes.gridMobile}>
+            <Grid className={classes.titleContainer} item md={5} sm={12}>
+                <Typography className={classes.title}>
+                    <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
+                    {this._queryString.get("title") || 'Memoryline Title'}
+                </Typography>
+            </Grid>
+            <Grid className={classes.gridRight} alignItems='right' alignContent='right' item md={7} sm={12}>
+                <Grid item className={classes.membros}>
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <img alt='' src={perfil} className={classes.membersIcons} />
+                    <ClickAwayListener onClickAway={this.handleClickAway}>
+                        <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                            <MoreVert/>
+                            {this.state.openMenu && 
+                            <Paper className={classes.paper}>
+                                <MenuList>
+                                    <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                </MenuList>
+                            </Paper>
+                            }
+                        </IconButton>
+                    </ClickAwayListener>
+                </Grid>                        
+            </Grid>
+        </Grid>
+        )
+    }
+
 
     // handleFile = (e) => {
     //     this.setState({'file':e.target.files[0]})
@@ -99,39 +192,7 @@ class MemoryLine extends Component {
                 <NavBar />
 
                 <div className={classes.root}>
-                    <Typography className={classes.title}>
-                        <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
-                        {this._queryString.get("title") || 'Memoryline Title'}
-                    </Typography>
-                    <div className={classes.membros}>
-                        <TextField
-                            className={classes.adicionar}
-                            margin="dense"
-                            hiddenLabel
-                            variant="filled"
-                            placeholder="Adicionar"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
-                                className: classes.adicionarInput,
-                                }}
-                        />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <ClickAwayListener onClickAway={this.handleClickAway}>
-                            <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
-                                <MoreVert/>
-                                {this.state.openMenu && 
-                                <Paper className={classes.paper}>
-                                    <MenuList>
-                                        <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
-                                    </MenuList>
-                                </Paper>
-                                }
-                            </IconButton>
-                        </ClickAwayListener>
-                    </div>
+                    {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
                     
                     <Line data={this.state.moments} />
 

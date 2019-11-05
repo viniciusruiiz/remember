@@ -55,10 +55,10 @@ class Line extends Component {
     document.body.style.overflowY = null
 
     return (
-    <Grid alignItems="center" className={classes.rootMobile}>
+    <Grid alignItems="center">
     {this.props.data.length > 0 ? this.props.data.map((moment) => (
-            <MomentMobile urlBucket={moment.urlBucket} reference={moment.idMoment}/>
-        )) : <Typography className={classes.not}>Nenhum momento salvo.</Typography>}
+            <MomentMobile urlBucket={moment.urlBucket} reference={moment.idMoment} />
+        )) : <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography>}
     </Grid>
     )
   }
