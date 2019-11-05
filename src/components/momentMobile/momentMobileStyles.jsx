@@ -6,24 +6,23 @@ const styles = (theme) => createStyles({
     padding: 20,
     paddingTop: 0,
     maxWidth: '100%',
-    marginBottom: 30,
+    // '&::after': {
+    //   display: 'inline-block',
+    //   content:`''`,
+    //   position: 'absolute',
+    //   bottom: 0,
+    //   left: 0,
+    //   right: 0,
+    //   height: '0.5em',
+    //   borderTop: '1px solid black',
+    //   zIndex: -1,
+    // },
   },
   img: {
     maxWidth: '100%',
     zIndex: -1,
-    borderRadius: 25,
-    // border: '3px solid rgba(255,255,255,0.8)',
-    // position: 'absolute',
+    borderRadius: 20,
     objectFit: 'cover',
-    // height: 144,
-    // bottom: 50,
-    // left: -110,
-    // transition: 'all 0.2s ease-in-out',
-    // '&:hover': {
-    //   cursor: 'pointer',
-    //   transform: 'scale(1.05)',
-    //   transition: 'all 0.2s ease-in-out',
-    // },
   },
   filter: {
     zIndex: 3,
@@ -53,8 +52,25 @@ const styles = (theme) => createStyles({
     maxHeight: '120vh',
   },
   date: {
+    marginLeft: 10,
+    marginTop: 10,
+  },
+  dateMonth: {
+    textAlign: 'center',
     fontWeight: 100,
     fontSize: 15,
+  },
+  dateDay: {
+    textAlign: 'center',
+    fontWeight: 100,
+    fontSize: 19,
+    lineHeight: '100%',
+    marginBottom: 2,
+  },
+  dateYear: {
+    textAlign: 'center',
+    fontWeight: 100,
+    fontSize: 12,
   },
 });
 

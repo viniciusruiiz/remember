@@ -40,12 +40,12 @@ const styles = (theme) => createStyles({
       zIndex: '10',
     },
     grid: {
-      width: '96.5vw',
+      width: '96%',
       position: 'fixed',
       margin: theme.spacing(8,3,0,3),
     },
     gridMobile: {
-      width: '80vw',
+      width: '93%',
       margin: theme.spacing(8,3,0,3),
     },
     adicionar: {

@@ -53,7 +53,13 @@ class MomentMobile extends Component {
         <div className={classes.root}>
           {/* {this.renderSpinner()} */}
           <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
-          <Typography className={classes.date}>2 Mar 2019</Typography>
+          <Grid className={classes.date} container alignContent='center' alignItems='center'>
+            <Grid item>
+              <Typography className={classes.dateMonth}>Mar</Typography>
+              <Typography className={classes.dateDay}>02</Typography>
+              <Typography className={classes.dateYear}>2019</Typography>
+            </Grid>
+          </Grid>
           {/* <MomentModal handleClose={this.handleClose} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> */}
         </div>
         </>

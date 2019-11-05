@@ -134,17 +134,14 @@ class MemoryLine extends Component {
         const { classes } = this.props
 
         return (
-        <Grid container className={classes.gridMobile}>
-            <Grid className={classes.titleContainer} item md={5} sm={12}>
+        <Grid container spacing={1} className={classes.gridMobile}>
+            <Grid item className={classes.titleContainer} item xs={6}>
                 <Typography className={classes.title}>
-                    <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
                     {this._queryString.get("title") || 'Memoryline Title'}
                 </Typography>
             </Grid>
-            <Grid className={classes.gridRight} alignItems='right' alignContent='right' item md={7} sm={12}>
+            <Grid item className={classes.gridRight} alignItems='right' alignContent='right' xs={6}>
                 <Grid item className={classes.membros}>
-                    <img alt='' src={perfil} className={classes.membersIcons} />
-                    <img alt='' src={perfil} className={classes.membersIcons} />
                     <img alt='' src={perfil} className={classes.membersIcons} />
                     <img alt='' src={perfil} className={classes.membersIcons} />
                     <ClickAwayListener onClickAway={this.handleClickAway}>
