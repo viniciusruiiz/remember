@@ -49,7 +49,7 @@ class MomentDown extends Component {
         <>
         <div className={classes.circle}>
         {this.renderSpinner()}
-          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
+          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} id={"moment-"+this.props.reference} />
           <Typography className={classes.date}>2 Mar 2019</Typography>
           <MomentModal handleClose={this.handleClose} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} />
         </div>

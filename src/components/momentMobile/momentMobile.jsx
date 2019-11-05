@@ -52,7 +52,7 @@ class MomentMobile extends Component {
         <>
         <div className={classes.root}>
           {/* {this.renderSpinner()} */}
-          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} />
+          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} id={"moment-"+this.props.reference} />
           <Grid className={classes.date} container alignContent='center' alignItems='center'>
             <Grid item>
               <Typography className={classes.dateMonth}>Mar</Typography>
