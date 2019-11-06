@@ -10,7 +10,7 @@ import MomentHeader from '../momentHeader/momentHeader';
 import RSC from "react-scrollbars-custom";
 import { PersonAdd } from '@material-ui/icons';
 import CommentService from '../../service/commentService';
-import compose from 'recompose/compose'
+import compose from 'recompose/compose';
 
 class MomentModal extends Component {
 
@@ -19,6 +19,8 @@ class MomentModal extends Component {
 
   constructor(props) {
     super(props)
+
+    console.log('watashi ga kitta!')
 
     this.state = {
       comment: '',

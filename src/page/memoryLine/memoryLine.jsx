@@ -116,13 +116,14 @@ class MemoryLine extends Component {
             ipt.focus();
             ipt.addEventListener("focusout", () => {
                 //setar confirmação de sim e nao
-                alert('tem certeza que alterar o nome da memory line?');
+                //alert('tem certeza que alterar o nome da memory line?');
                 //setar loading
                 this._mls.changeName(this._queryString.get("ref"), this.state.title).then(res => {
                     //setar confirmação (status 200)
                     var new_element = ipt.cloneNode(true);
                     ipt.parentNode.replaceChild(new_element, ipt);
                     new_element.setAttribute('readonly', true);
+                    new_element.addEventListener('input', this.resize);
                     alert('alterado com sucesso!');
                 });
 
@@ -139,7 +140,7 @@ class MemoryLine extends Component {
                     <Typography className={classes.title}>
                         <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
                         <span className={classes.hideSpan} id="hide"></span><input readOnly onInput={this.resize} id="txt" value={this.state.title} className={classes.titleIpt}></input>
-                        <Edit onClick={this.handleEdit} className={classes.editIcon}></Edit>
+                        <Edit onClick={this.handleEdit} className={classes.editIcon} id="edit-icon"></Edit>
                     </Typography>
                 </Grid>
                 <Grid alignItems='right' alignContent='right' item md={7} sm={12}>

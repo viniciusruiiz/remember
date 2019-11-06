@@ -19,7 +19,10 @@ const styles = (theme) => createStyles({
       whiteSpace: "pre",
     },
     editIcon: {
-      cursor: "pointer"
+      cursor: "pointer",
+      visibility: "hidden",
+      transition: "opacity 0.2s ease",
+      opacity: 0
     },
     titleIpt: {
         border: "none",
@@ -30,7 +33,11 @@ const styles = (theme) => createStyles({
         width: "auto",
         minWidth: "20px",
         backgroundColor: "inherit",
-        margin: "0 10px 0 0"
+        margin: "0 5px 0 0",
+        '&:focus + #edit-icon': {
+          visibility: "visible",
+          opacity: 1
+        },
     },
     fab: {
         zIndex: 3,
@@ -57,6 +64,11 @@ const styles = (theme) => createStyles({
       fontSize: 26,
       fontWeight: '100',
       whiteSpace: 'pre-wrap',
+      '&:hover #edit-icon': {
+        visibility: "visible",
+        opacity: 1
+      },
+      transition: "opacity 0.2s ease",
     },
     titleContainer: {
       zIndex: '10',
