@@ -17,6 +17,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import MemoryLineService from '../../service/memoryLineService';
+import Asynchronous from '../../components/searchMember/searchMember';
 
 class MemoryLine extends Component {
 
@@ -145,17 +146,8 @@ class MemoryLine extends Component {
                 </Grid>
                 <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
                     <Grid item className={classes.membros}>
-                        <TextField
-                            className={classes.adicionar}
-                            margin="dense"
-                            hiddenLabel
-                            variant="filled"
-                            placeholder="Adicionar"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
-                                className: classes.adicionarInput,
-                            }}
-                        />
+                        <Asynchronous />
+                        
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />

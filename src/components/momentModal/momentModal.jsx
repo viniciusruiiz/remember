@@ -109,8 +109,10 @@ class MomentModal extends Component {
       <>
         <Modal BackdropProps = {{style: {background: 'rgba(0,0,0,0.8)'}}} style={modalStyle} className={classes.modal} open={this.props.open} onClose={this.props.handleClose}>
           <Grid style={{outline: 'none'}} justify='center' container >
-            <Grid style={{ textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
-              <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
+            <Grid container alignItems='center' style={{ width:'initial', textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
+              <Grid item>
+                <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
+              </Grid>
             </Grid>
             <Grid className={classes.content} xs={3}>
               {/* <RSC className={classes.RSC}> */}

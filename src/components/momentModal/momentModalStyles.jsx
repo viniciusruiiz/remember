@@ -9,7 +9,7 @@ const styles = (theme) => createStyles({
     margin: '5%',
   },
   imgLightBox: {
-    maxWidth:'100%',
+    maxWidth:'60vw',
     maxHeight: '80vh',
     // borderRight:
   },
