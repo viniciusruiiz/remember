@@ -20,8 +20,6 @@ class MomentModal extends Component {
   constructor(props) {
     super(props)
 
-    console.log('watashi ga kitta!')
-
     this.state = {
       comment: '',
       comments: []
@@ -117,7 +115,7 @@ class MomentModal extends Component {
             <Grid className={classes.content} xs={3}>
               {/* <RSC className={classes.RSC}> */}
               <div className={classes.RSC}>
-                <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description='Saudades desse dia! s2 s2 s2' />
+                <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description={this.props.desc} />
                 {
                   
                   this.state.comments.map(comment => (

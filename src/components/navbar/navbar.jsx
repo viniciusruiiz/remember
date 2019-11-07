@@ -6,14 +6,29 @@ import perfil from './../../images/perfil.jpg';
 import compose from 'recompose/compose';
 import { Link, withRouter } from 'react-router-dom';
 import LoginService from '../../service/loginService';
+import ProfileService from '../../service/profileService';
 
 class NavBar extends Component {
     constructor(props) {
         super(props)
+
+        this._ps = new ProfileService();
+
         this.state = {
             anchorEl: null,
-            open: false
+            open: false,
+            profilePic: '',
+            profileName: '',
         }
+
+        this._ps.getProfile().then(res => {
+            console.log(res);
+            this.setState({profileName: res.data.data.first_name})
+            // this.setState({profilePic: res.data.picture}) sempre null grrr
+
+            console.log(this.state.profileName);
+            console.log(this.state.profilePic);
+        });
     }
 
     handleClick = (event) => {
@@ -47,7 +62,7 @@ class NavBar extends Component {
                         <Typography className={classes.logoText}>remember</Typography>
                         <ClickAwayListener onClickAway={this.handleClickAway}>
                         <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
-                            <Typography className={classes.user}>Lucas</Typography>
+                            <Typography className={classes.user}>{this.state.profileName?this.state.profileName:"..."}</Typography>
                             <img alt='' src={perfil} className={classes.perfil}/>
                             {this.state.open && 
                             <Paper className={classes.paper}>

@@ -18,11 +18,13 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import MemoryLineService from '../../service/memoryLineService';
 import Asynchronous from '../../components/searchMember/searchMember';
+import FileService from '../../service/fileService';
 
 class MemoryLine extends Component {
 
     _ms = new MomentService()
     _mls = new MemoryLineService();
+    _fs = new FileService();
     _queryString;
 
     constructor(props) {
@@ -197,7 +199,7 @@ class MemoryLine extends Component {
                             </IconButton>
                         </ClickAwayListener>
                     </Grid>
-                    <input type="file" accept="image/*" capture="camera" />
+                    <input type="file" accept="image/*" capture="camera" onChange={this.handleFile} />
 
                 </Grid>
             </Grid>
@@ -205,21 +207,27 @@ class MemoryLine extends Component {
     }
 
 
-    // handleFile = (e) => {
-    //     this.setState({'file':e.target.files[0]})
-    //     console.log(e.target.files[0]);
-    // }
+    handleFile = (e) => {
+        this.setState({'file':e.target.files[0]})
+        console.log(e.target.files[0]);
+        if(this.state.mobile) this.handleSubmit();
+    }
 
-    // handleSubmit = (e) => {
-    //     e.preventDefault()
+    handleSubmit = (e) => {
+        if(e) e.preventDefault()
 
-    //     this._fs.getPreSignedUrl(this.state.file).then(res => {
-    //         if(res.data.success)
-    //            this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
-    //                alert(res.data)
-    //            }).catch(err => console.log('erro no put:', err))
-    //     }).catch(err => console.log(err));
-    // }
+        this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref")).then(res => {
+            if(res.data.success)
+               this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
+                   alert(res.data)
+               }).catch(err => console.log('erro no put:', err))
+        }).catch(err => console.log(err));
+
+        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
+            this.setState({ "moments": res.data.data })
+            console.log(res.data.data)
+        })
+    }
 
     render() {
         const { classes } = this.props
@@ -260,8 +268,9 @@ class MemoryLine extends Component {
                             accept="image/*"
                             style={{ display: 'block' }}
                             id="raised-button-file"
-                            multiple
+                            // multiple
                             type="file"
+                            onChange={this.handleFile}
                         />
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="span">
@@ -273,7 +282,7 @@ class MemoryLine extends Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                 </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleSubmit} color="primary">
                             Subscribe
                 </Button>
                     </DialogActions>

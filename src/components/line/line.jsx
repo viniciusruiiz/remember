@@ -41,9 +41,9 @@ class Line extends Component {
     <Grid alignItems="center" className={classes.root}>
     {this.props.data.length > 0 ? this.props.data.map((moment) => (
             i++ % 2 === 0 ?
-            <Moment urlBucket={moment.urlBucket} reference={moment.idMoment} />
+            <Moment urlBucket={moment.urlBucket} desc={moment.description} reference={moment.idMoment} />
             :
-            <MomentDown urlBucket={moment.urlBucket} reference={moment.idMoment}/>
+            <MomentDown urlBucket={moment.urlBucket} person={'Yudi'} desc={moment.description} reference={moment.idMoment}/>
         )) : <Typography className={classes.not}>Nenhum momento salvo.</Typography>}
     </Grid>
     )
