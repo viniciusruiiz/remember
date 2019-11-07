@@ -10,7 +10,7 @@ import MomentHeader from '../momentHeader/momentHeader';
 import RSC from "react-scrollbars-custom";
 import { PersonAdd } from '@material-ui/icons';
 import CommentService from '../../service/commentService';
-import compose from 'recompose/compose'
+import compose from 'recompose/compose';
 
 class MomentModal extends Component {
 
@@ -19,6 +19,8 @@ class MomentModal extends Component {
 
   constructor(props) {
     super(props)
+
+    console.log('watashi ga kitta!')
 
     this.state = {
       comment: '',
@@ -107,8 +109,10 @@ class MomentModal extends Component {
       <>
         <Modal BackdropProps = {{style: {background: 'rgba(0,0,0,0.8)'}}} style={modalStyle} className={classes.modal} open={this.props.open} onClose={this.props.handleClose}>
           <Grid style={{outline: 'none'}} justify='center' container >
-            <Grid style={{ textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
-              <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
+            <Grid container alignItems='center' style={{ width:'initial', textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
+              <Grid item>
+                <img alt='descrição da imagem || momento' src={this.props.urlBucket} className={classes.imgLightBox} />
+              </Grid>
             </Grid>
             <Grid className={classes.content} xs={3}>
               {/* <RSC className={classes.RSC}> */}
