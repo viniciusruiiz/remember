@@ -210,21 +210,21 @@ class MemoryLine extends Component {
     }
 
 
-    // handleFile = (e) => {
-    //     this.setState({'file':e.target.files[0]})
-    //     console.log(e.target.files[0]);
-    // }
+    handleFile = (e) => {
+        this.setState({'file':e.target.files[0]})
+        console.log(e.target.files[0]);
+    }
 
-    // handleSubmit = (e) => {
-    //     e.preventDefault()
+    handleSubmit = (e) => {
+        e.preventDefault()
 
-    //     this._fs.getPreSignedUrl(this.state.file).then(res => {
-    //         if(res.data.success)
-    //            this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
-    //                alert(res.data)
-    //            }).catch(err => console.log('erro no put:', err))
-    //     }).catch(err => console.log(err));
-    // }
+        this._fs.getPreSignedUrl(this.state.file).then(res => {
+            if(res.data.success)
+               this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
+                   alert(res.data)
+               }).catch(err => console.log('erro no put:', err))
+        }).catch(err => console.log(err));
+    }
 
     render() {
         const { classes } = this.props
@@ -265,8 +265,9 @@ class MemoryLine extends Component {
                             accept="image/*"
                             style={{ display: 'block' }}
                             id="raised-button-file"
-                            multiple
+                            //multiple
                             type="file"
+                            onChange={this.handleClick}
                         />
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="span">
@@ -278,7 +279,7 @@ class MemoryLine extends Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                 </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleSubmit} color="primary">
                             Subscribe
                 </Button>
                     </DialogActions>
