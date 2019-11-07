@@ -152,7 +152,6 @@ class MemoryLine extends Component {
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />
-                        <input type="file" accept="image/*" capture="camera" />
                         <ClickAwayListener onClickAway={this.handleClickAway}>
                             <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
                                 <MoreVert />
@@ -198,6 +197,8 @@ class MemoryLine extends Component {
                             </IconButton>
                         </ClickAwayListener>
                     </Grid>
+                    <input type="file" accept="image/*" capture="camera" />
+
                 </Grid>
             </Grid>
         )
