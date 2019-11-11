@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, lighten } from '@material-ui/core/styles'
 import LoginRequest from '../../model/request/loginRequest';
 import LoginService from '../../service/loginService';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './loginStyles';
 import logo from './../../images/logo-icon.png';
 import logoText from './../../images/logo-text.png';
-import { Button, Paper, Grid, Typography, TextField, Divider, FormControl } from '@material-ui/core';
+import { Button, Paper, Grid, Typography, TextField, Divider, FormControl, LinearProgress } from '@material-ui/core';
 import compose from 'recompose/compose'
+import LinearLoading from '../../components/linearLoading/linearLoading';
 
-class Login extends Component<any, LoginRequest> {
+class Login extends Component<any, any> {
 
     private _ls: LoginService;
 
     constructor(o: any = {}) {
         super(o);
-        this.state = { password: "", username: "" };    
+        this.state = { password: "", username: "", disabled: false, error: false };    
         this._ls = new LoginService();
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,21 +35,28 @@ class Login extends Component<any, LoginRequest> {
 
     handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
+        if (this.state.disabled)
+            return;
 
         this.loginMethod();
     }
 
     private loginMethod() {
-        this._ls.login(this.state)
+        this.setState({disabled: true})
+        var credentials = {password: this.state.password, username: this.state.username}
+        this._ls.login(credentials)
             .then(res => {
                 if (res.data.success) {
                     this._ls.setAuthenticationToken(res.data.data.access_token as string);
                     this.props.history.push('/userhome');
                 } else {
                     console.log('Erro: ' + res.data.error);
-                    alert("Setar mensagem de erro")
+                    this.setState({error: true})
                 }
-            }).catch(err => { alert("Setar mensagem de erro inesperado") });
+            this.setState({disabled: false})
+            }).catch(err => {
+                this.setState({disabled: false, error: true})
+            });
     }
 
     handleEnter(event : React.KeyboardEvent<HTMLInputElement>) {
@@ -63,6 +71,7 @@ class Login extends Component<any, LoginRequest> {
         const { classes } = this.props
         return (
             <>
+                <LinearLoading hidden={!this.state.disabled} />
                 <Grid className={classes.fullHeight} container >
                     <Grid container justify="center" alignItems="center">
                         <Paper className={classes.paper}>
@@ -74,7 +83,8 @@ class Login extends Component<any, LoginRequest> {
                             <form onSubmit={this.handleSubmit} id="loginForm" style={{display: "none"}}></form>
                             <TextField fullWidth className={classes.inputLogin} label="Usuário / E-mail" id="username" onChange={this.handleUsername} onKeyDown={this.handleEnter} />
                             <TextField fullWidth className={classes.inputSenha} label="Senha" id="password" type="password" onChange={this.handlePassword} onKeyDown={this.handleEnter}/>
-                            <Button fullWidth className={classes.loginButton} id="submit" color="primary" variant="contained" type="submit" form="loginForm">
+                            <Typography hidden={!this.state.error} className={classes.error}>Login falhou!</Typography>
+                            <Button fullWidth disabled={this.state.disabled} className={classes.loginButton} id="submit" color="primary" variant="contained" type="submit" form="loginForm">
                                 Entrar
                             </Button>
                             <Typography className={classes.type}>Não tem uma conta? <Link className={classes.link} to="/signup">Cadastre-se!</Link></Typography>

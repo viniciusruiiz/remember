@@ -7,7 +7,7 @@ const styles = (theme) => createStyles({
     width: 20,
     height: 20,
     borderRadius: '50%',
-    backgroundColor: purple[300],
+    backgroundColor: '#38B49D',
     position: 'relative',
     top: '40vh',
     left: 200,
