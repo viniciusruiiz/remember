@@ -3,12 +3,12 @@ import { green, grey } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     root: {
-        color: 'white',
+        color: 'black',
         height: '100%',
         display: 'inline-block',
     },
     link: {
-      color: 'white',
+      color: 'black',
     },
     hideSpan: {
       margin: 0,
@@ -62,7 +62,7 @@ const styles = (theme) => createStyles({
     },
     title: {
       fontSize: 26,
-      fontWeight: '100',
+      fontWeight: '300',
       whiteSpace: 'pre-wrap',
       '&:hover #edit-icon': {
         visibility: "visible",
@@ -89,7 +89,7 @@ const styles = (theme) => createStyles({
       marginRight: theme.spacing(2),
     },
     adicionarInput: {
-      color: 'white',
+      color: 'red',
     },
     membersIcons: {
       marginTop: 11,
@@ -107,7 +107,7 @@ const styles = (theme) => createStyles({
     },
     options: {
       marginBottom: 28,
-      color: grey[100],
+      color: 'black',
     },
     paper: {
       zIndex: 7,

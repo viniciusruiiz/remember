@@ -5,4 +5,5 @@ export default class MemoryLineEntity {
     creationDate: string;
     name: string;
     quantityMoments: string;
+    urlMoments: string[];
 }

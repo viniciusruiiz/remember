@@ -3,12 +3,13 @@ import { green } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     root: {
-        marginTop: 56,
-        color: "white",
+        marginTop: 30,
+        color: 'rgba(0,0,0,0.8)',
         paddingLeft: 20,
         paddingRight: 20,
     },
     hideCompartilhadas: {
+        color: 'rgba(0,0,0,0.8)',
         marginBottom: 20,
         marginTop: 20,
     },

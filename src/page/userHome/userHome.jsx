@@ -56,11 +56,11 @@ class UserHome extends Component {
                 <NavBar />
                 <Container>
                     <div className={classes.root}>
-                        <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
+                        {/* <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
                             <Typography className={classes.hideCompartilhadas}>
                                 Memorylines compartilhadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, { [classes.expandOpen]: this.state.expanded1 })} />
                             </Typography>
-                        </Button>
+                        </Button> */}
                         <Collapse in={this.state.expanded1} timeout="auto" unmountOnExit>
                             <Grid container spacing={4}>
                                 {
@@ -77,12 +77,9 @@ class UserHome extends Component {
                         </Button>
                         <Collapse in={this.state.expanded2} timeout="auto" unmountOnExit>
                             <Grid container spacing={4}>
-                                {/* <LineBox />
-                            <LineBox />
-                            <LineBox /> */}
                                 {
                                     this.state.privateMemoryLines.map(item => (
-                                        <LineBox title={item.name} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                        <LineBox title={item.name} urlMoments={item.urlMoments} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
                                     ))
                                 }
                             </Grid>

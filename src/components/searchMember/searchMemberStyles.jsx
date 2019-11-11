@@ -9,7 +9,7 @@ const styles = makeStyles({
       marginRight: 16,
     },
     adicionarInput: {
-      color: 'white',
+      color: 'black',
     },
 });
 
