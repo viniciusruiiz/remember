@@ -3,6 +3,9 @@ import { green, grey } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     root: {
+      paddingTop: 49,
+    },
+    bodyRoot: {
         color: 'black',
         height: '100%',
         display: 'inline-block',
@@ -76,7 +79,7 @@ const styles = (theme) => createStyles({
     grid: {
       width: '96%',
       position: 'fixed',
-      margin: theme.spacing(8,3,0,3),
+      margin: theme.spacing(2,3,0,3),
     },
     gridMobile: {
       width: '93%',

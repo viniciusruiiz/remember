@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core';
 
 const BorderLinearProgress = withStyles({
     root: {
-      height:5,
+      height:3,
       backgroundColor: lighten('#38B49D',0.6),
     },
     bar: {
@@ -24,7 +24,7 @@ const BorderLinearProgress = withStyles({
 
     render() {
     return (
-        <BorderLinearProgress hidden={this.props.hidden}/>
+        <BorderLinearProgress style={this.props.style} hidden={this.props.hidden}/>
     );
     }
   }

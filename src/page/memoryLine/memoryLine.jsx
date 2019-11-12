@@ -19,6 +19,7 @@ import { compose } from 'recompose';
 import MemoryLineService from '../../service/memoryLineService';
 import Asynchronous from '../../components/searchMember/searchMember';
 import FileService from '../../service/fileService';
+import LinearLoading from '../../components/linearLoading/linearLoading';
 
 class MemoryLine extends Component {
 
@@ -40,10 +41,11 @@ class MemoryLine extends Component {
             openModal: false,
             openMenu: false,
             mobile: false,
+            loading: true,
         }
 
         this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
-            this.setState({ "moments": res.data.data })
+            this.setState({ "moments": res.data.data , loading: false})
             console.log(res.data.data)
         })
     }
@@ -235,10 +237,11 @@ class MemoryLine extends Component {
         document.title = this._queryString.get("title") // passar o nome da memory line
 
         return (
-            <>
+            <div className={classes.root}>
+                <LinearLoading style={ this.state.loading ? {visibility: 'visible'} : {visibility: 'hidden'} } />                
                 <NavBar />
 
-                <div className={classes.root}>
+                <div className={classes.bodyRoot}>
                     {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
 
                     <Line data={this.state.moments} />
@@ -287,7 +290,7 @@ class MemoryLine extends Component {
                 </Button>
                     </DialogActions>
                 </Dialog>
-            </>
+            </div>
         )
     }
 }

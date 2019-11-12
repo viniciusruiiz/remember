@@ -9,7 +9,7 @@ const styles = (theme) => createStyles({
     borderRadius: '50%',
     backgroundColor: '#38B49D',
     position: 'relative',
-    top: '40vh',
+    top: '33vh',
     left: 200,
     marginRight: 200,
     '&::before': {

@@ -44,7 +44,7 @@ class Line extends Component {
             <Moment urlBucket={moment.urlBucket} desc={moment.description} reference={moment.idMoment} />
             :
             <MomentDown urlBucket={moment.urlBucket} person={'Yudi'} desc={moment.description} reference={moment.idMoment}/>
-        )) : <Typography className={classes.not}>Nenhum momento salvo.</Typography>}
+        )) : <Typography className={classes.not}></Typography>}
     </Grid>
     )
   }
