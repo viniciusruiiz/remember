@@ -2,8 +2,14 @@ import { createStyles } from "@material-ui/core";
 import { red, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
-  card: {
+  root: {
     position: 'relative',
+  },
+  card: {
+    borderRadius: 25,
+    boxShadow: 'none',
+    border: '1px solid rgba(0,0,0,0.25)',
+    height: '100%',
   },
   media: {
     maxHeight: '40%',
@@ -12,12 +18,15 @@ const styles = (theme) => createStyles({
     alignItems: 'center',
     position: 'relative',
     padding: 10,
+    paddingLeft: 17,
     "&:last-child": {
       paddingBottom: 10,
     },
   },
   title: {
-    fontSize: 16,
+    color: 'rgba(0,0,0,0.8)',
+    fontWeight: 500,
+    fontSize: 14,
   },
   subtitle: {
     fontSize: 12,
@@ -65,6 +74,7 @@ const styles = (theme) => createStyles({
     lineHeight: '30px',
   },
   mediaButton: {
+    width: '100%',
     padding: 0,
     margin: 0,
   }

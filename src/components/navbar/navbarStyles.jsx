@@ -5,6 +5,8 @@ const styles = (theme) => createStyles({
     bar: {
         background: "white",
         color: "black",
+        boxShadow: 'none',
+        borderBottom: '1px solid rgba(0,0,0,0.2)'
     },
     perfil: {
         height: theme.spacing(4),

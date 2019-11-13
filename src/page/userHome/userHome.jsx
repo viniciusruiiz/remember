@@ -7,6 +7,7 @@ import LineBox from '../../components/lineBox/lineBox';
 import clsx from 'clsx';
 import { ArrowDownwardRounded, ArrowDropDown, KeyboardArrowDownRounded, Add } from '@material-ui/icons';
 import MemoryLineService from '../../service/memoryLineService';
+import LinearLoading from '../../components/linearLoading/linearLoading';
 
 
 class UserHome extends Component {
@@ -19,11 +20,12 @@ class UserHome extends Component {
             expanded1: true,
             expanded2: true,
             publicMemoryLines: [],
-            privateMemoryLines: []
+            privateMemoryLines: [],
+            loading: true,
         }
 
         this._mls.getAllMemoryLine().then(res => {
-            this.setState({ publicMemoryLines: res.data.data.public })
+            this.setState({ publicMemoryLines: res.data.data.public, loading: false })
             this.setState({ privateMemoryLines: res.data.data.private })
         })
 
@@ -51,16 +53,19 @@ class UserHome extends Component {
     render() {
         const { classes } = this.props
 
+        document.title = 'Remember'
+
         return (
-            <>
+            <div className={classes.root}>
                 <NavBar />
+                <LinearLoading style={ this.state.loading ? {visibility: 'visible'} : {visibility: 'hidden'} } />                
                 <Container>
-                    <div className={classes.root}>
-                        <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
+                    <div className={classes.bodyRoot}>
+                        {/* <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
                             <Typography className={classes.hideCompartilhadas}>
                                 Memorylines compartilhadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, { [classes.expandOpen]: this.state.expanded1 })} />
                             </Typography>
-                        </Button>
+                        </Button> */}
                         <Collapse in={this.state.expanded1} timeout="auto" unmountOnExit>
                             <Grid container spacing={4}>
                                 {
@@ -77,12 +82,9 @@ class UserHome extends Component {
                         </Button>
                         <Collapse in={this.state.expanded2} timeout="auto" unmountOnExit>
                             <Grid container spacing={4}>
-                                {/* <LineBox />
-                            <LineBox />
-                            <LineBox /> */}
                                 {
                                     this.state.privateMemoryLines.map(item => (
-                                        <LineBox title={item.name} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                        <LineBox title={item.name} urlMoments={item.urlMoments} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
                                     ))
                                 }
                             </Grid>
@@ -93,7 +95,7 @@ class UserHome extends Component {
                         </Fab>
                     </div>
                 </Container>
-            </>
+            </div>
         )
     }
 }

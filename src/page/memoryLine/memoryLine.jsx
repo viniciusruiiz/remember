@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
 import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid } from '@material-ui/core';
-import { Add, NavigateBefore, PersonAdd, MoreVert, Edit } from '@material-ui/icons';
+import { Add, NavigateBefore, PersonAdd, MoreVert, Edit, DeleteOutline } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,11 +18,14 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import MemoryLineService from '../../service/memoryLineService';
 import Asynchronous from '../../components/searchMember/searchMember';
+import FileService from '../../service/fileService';
+import LinearLoading from '../../components/linearLoading/linearLoading';
 
 class MemoryLine extends Component {
 
     _ms = new MomentService()
     _mls = new MemoryLineService();
+    _fs = new FileService();
     _queryString;
 
     constructor(props) {
@@ -38,10 +41,11 @@ class MemoryLine extends Component {
             openModal: false,
             openMenu: false,
             mobile: false,
+            loading: true,
         }
 
         this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
-            this.setState({ "moments": res.data.data })
+            this.setState({ "moments": res.data.data , loading: false})
             console.log(res.data.data)
         })
     }
@@ -158,7 +162,7 @@ class MemoryLine extends Component {
                                 {this.state.openMenu &&
                                     <Paper className={classes.paper}>
                                         <MenuList>
-                                            <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                            <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{marginRight: 5}} /> Apagar MemoryLine</MenuItem>
                                         </MenuList>
                                     </Paper>
                                 }
@@ -197,7 +201,7 @@ class MemoryLine extends Component {
                             </IconButton>
                         </ClickAwayListener>
                     </Grid>
-                    <input type="file" accept="image/*" capture="camera" />
+                    <input type="file" accept="image/*" capture="camera" onChange={this.handleFile} />
 
                 </Grid>
             </Grid>
@@ -208,17 +212,23 @@ class MemoryLine extends Component {
     handleFile = (e) => {
         this.setState({'file':e.target.files[0]})
         console.log(e.target.files[0]);
+        if(this.state.mobile) this.handleSubmit();
     }
 
     handleSubmit = (e) => {
-        e.preventDefault()
+        if(e) e.preventDefault()
 
-        this._fs.getPreSignedUrl(this.state.file).then(res => {
+        this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref")).then(res => {
             if(res.data.success)
                this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
-                   alert(res.data)
+                   alert("coisado com sucesso");
                }).catch(err => console.log('erro no put:', err))
         }).catch(err => console.log(err));
+
+        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
+            this.setState({ "moments": res.data.data })
+            console.log(res.data.data)
+        })
     }
 
     render() {
@@ -227,10 +237,11 @@ class MemoryLine extends Component {
         document.title = this._queryString.get("title") // passar o nome da memory line
 
         return (
-            <>
+            <div className={classes.root}>
+                <LinearLoading style={ this.state.loading ? {visibility: 'visible'} : {visibility: 'hidden'} } />                
                 <NavBar />
 
-                <div className={classes.root}>
+                <div className={classes.bodyRoot}>
                     {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
 
                     <Line data={this.state.moments} />
@@ -260,9 +271,15 @@ class MemoryLine extends Component {
                             accept="image/*"
                             style={{ display: 'block' }}
                             id="raised-button-file"
+<<<<<<< HEAD
                             //multiple
                             type="file"
                             onChange={this.handleClick}
+=======
+                            // multiple
+                            type="file"
+                            onChange={this.handleFile}
+>>>>>>> 0fafbd742d40baf12b99b37a6404bd2db1d67b25
                         />
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="span">
@@ -279,7 +296,7 @@ class MemoryLine extends Component {
                 </Button>
                     </DialogActions>
                 </Dialog>
-            </>
+            </div>
         )
     }
 }

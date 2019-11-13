@@ -16,4 +16,8 @@ export default class LoginService extends BaseService {
     setAuthenticationToken(token: string) : void {
         super.setTokenOnLocalStorage(token);
     }
+
+    setRefreshToken(refreshToken: string) : void {
+        super.setRefreshTokenOnLocalStorage(refreshToken);
+    }
 }

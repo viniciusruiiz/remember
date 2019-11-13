@@ -34,21 +34,21 @@ class LineBox extends Component {
 
         return (
         <>
-          <Grid item xs={12} sm={6} md={4} className={classes.card}>
+          <Grid item xs={12} sm={6} md={4} className={classes.root}>
             {this.props.notificationCount > 0 &&
               <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
             }
-            <Card>
+            <Card className={classes.card}>
             <Link to={`memoryline/?ref=${this.props.reference}&title=${this.props.title}`}>
               <Button className={classes.mediaButton}> 
                 <Grid className={classes.media} container>
                   <Grid container xs={9} >
-                  <img alt='' className={classes.bigImage} src={perfil} />
+                  <img alt='' className={classes.bigImage} src={this.props.urlMoments[0]} />
                   </Grid>
                   <Grid container xs={3} >
-                  <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-                  <img alt='' className={classes.tinyImage} align='top' src={perfil} />
-                  <img alt='' className={classes.tinyImage} align='top' src={perfil} />
+                  <img alt='' className={classes.tinyImage} align='top' src={this.props.urlMoments[1]} />
+                  <img alt='' className={classes.tinyImage} align='top' src={this.props.urlMoments[2]} />
+                  <img alt='' className={classes.tinyImage} align='top' src={this.props.urlMoments[3]} />
                   </Grid>
                 </Grid>
                 </Button>

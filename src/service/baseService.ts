@@ -3,7 +3,6 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 export default class BaseService {
 
     protected _getAxiosConfig(): AxiosRequestConfig | undefined {
-
         let token = localStorage.getItem("access_token")
 
         if (token) {
@@ -17,21 +16,30 @@ export default class BaseService {
         return undefined;
     }
 
+    public refreshToken() : void {
+        if(BaseService.flRefreshToken) {
+            BaseService.flRefreshToken = false;
+
+            setTimeout(() => {
+                BaseService.flRefreshToken = true;
+            }, 60 * 1000 * 30);
+        }
+    }
+
+    public static flRefreshToken : boolean = true;
+
     public static isAuthenticated(): boolean {
         return !!localStorage.getItem("access_token");
     }
 
-    /**
-     * TODO: implement refresh token
-     */
-    // refreshToken() : void {
-    //     this.get()
-    // }
-
     protected readonly baseUrl: string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta'
 
     protected setTokenOnLocalStorage(token: string): void {
-        localStorage.setItem("access_token", token as string);
+        localStorage.setItem("access_token", token);
+    }
+
+    protected setRefreshTokenOnLocalStorage(token: string): void {
+        localStorage.setItem("access_token", token);
     }
 
     protected get(url: string): Promise<AxiosResponse<any>> {
@@ -52,5 +60,9 @@ export default class BaseService {
 
     protected patch(url: string, data?: any): Promise<AxiosResponse<any>> {
         return axios.patch(url, data, this._getAxiosConfig());
+    }
+
+    private getRequestToken(){
+        this.get(`${this.baseUrl}/account/refresh-token`);
     }
 }

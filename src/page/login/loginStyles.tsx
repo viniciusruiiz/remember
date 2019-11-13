@@ -1,9 +1,10 @@
 import { Theme, createStyles } from "@material-ui/core";
 import { teal } from "@material-ui/core/colors";
+import { lighten } from "@material-ui/core/styles";
 
 const styles = (theme: Theme) => createStyles({
     fullHeight: {
-        height: "100vh",
+        height: "99vh",
     },
     paper: {
         padding: theme.spacing(3, 2),
@@ -41,7 +42,7 @@ const styles = (theme: Theme) => createStyles({
     },
     loginButton: {
         color: "white",
-        fontWeight: 100,
+        fontWeight: 400,
         padding: theme.spacing(1.3,0,1.3,0),
         margin: theme.spacing(0,5,3,5),
         borderRadius: 20,
@@ -57,6 +58,12 @@ const styles = (theme: Theme) => createStyles({
     type: {
       fontSize: 15,  
     },
+    error: {
+        marginTop: -27,
+        marginBottom: 10,
+        fontSize: 14,
+        color: '#FA8072',
+    }
 });
 
 export default styles
