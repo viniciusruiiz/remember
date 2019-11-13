@@ -21,6 +21,7 @@ import Asynchronous from '../../components/searchMember/searchMember';
 import FileService from '../../service/fileService';
 import LinearLoading from '../../components/linearLoading/linearLoading';
 import SearchService from '../../service/searchService';
+import imageCompression from 'browser-image-compression';
 
 class MemoryLine extends Component {
 
@@ -172,10 +173,23 @@ class MemoryLine extends Component {
         })
     }
 
-    handleFile = (e) => {
-        this.setState({ 'file': e.target.files[0] })
-        console.log(e.target.files[0]);
-        if (this.state.mobile) this.handleSubmit();
+    handleFile = async (e) => {
+        this.setState({loading:true})
+        const options = {
+            maxSizeMB:1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true
+        };
+        console.log('originalFile type', typeof(e.target.files[0]));
+        console.log('originalFile', e.target.files[0]); // true
+        console.log(`originalFile size ${e.target.files[0].size / 1024 / 1024} MB`);
+        let compressedFile = await imageCompression(e.target.files[0], options);
+        this.setState({loading:false})
+        console.log(compressedFile);
+        console.log('compressedFile type', typeof(compressedFile));
+        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024 } BYTES`); // smaller than maxSizeMB
+        this.setState({ 'file': compressedFile })
+        //if (this.state.mobile) this.handleSubmit();
     }
 
     handleSubmit = (e) => {
