@@ -118,6 +118,10 @@ const styles = (theme) => createStyles({
       top: 56,
       width: 200,
       right: 0,
+      paddingRight: 10,
+    },
+  apagar: {
+    color: '#fc5340',
   },
 });
 

@@ -53,6 +53,8 @@ class UserHome extends Component {
     render() {
         const { classes } = this.props
 
+        document.title = 'Remember'
+
         return (
             <div className={classes.root}>
                 <NavBar />

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import MomentService from '../../service/momentService';
 import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid } from '@material-ui/core';
-import { Add, NavigateBefore, PersonAdd, MoreVert, Edit } from '@material-ui/icons';
+import { Add, NavigateBefore, PersonAdd, MoreVert, Edit, DeleteOutline } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -162,7 +162,7 @@ class MemoryLine extends Component {
                                 {this.state.openMenu &&
                                     <Paper className={classes.paper}>
                                         <MenuList>
-                                            <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                            <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{marginRight: 5}} /> Apagar MemoryLine</MenuItem>
                                         </MenuList>
                                     </Paper>
                                 }
