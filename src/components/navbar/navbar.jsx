@@ -22,12 +22,12 @@ class NavBar extends Component {
             profilePic: '',
             profileName: '',
             openModal: false,
-            notifications : [],
+            notifications: [],
         }
 
         this._ps.getProfile().then(res => {
             console.log(res);
-            this.setState({profileName: res.data.data.first_name})
+            this.setState({ profileName: res.data.data.first_name })
             // this.setState({profilePic: res.data.picture}) sempre null grrr
 
             console.log(this.state.profileName);
@@ -36,24 +36,24 @@ class NavBar extends Component {
 
         this._ss.getInvites().then(res => {
             console.log(res)
-            if(res.data.data)
-                this.setState({notifications:res.data.data});
-            else 
-                this.setState({notifications:[]});
-        }) 
+            if (res.data.data)
+                this.setState({ notifications: res.data.data });
+            else
+                this.setState({ notifications: [1,2,3] });
+        })
     }
 
     handleClick = (event) => {
-        this.setState({anchorEl: event.currentTarget})
-        this.setState({open: !this.state.open})
+        this.setState({ anchorEl: event.currentTarget })
+        this.setState({ open: !this.state.open })
     };
 
     handleClose = () => {
-        this.setState({anchorEl: null})
+        this.setState({ anchorEl: null })
     };
 
     handleClickAway = () => {
-        this.setState({open: false})
+        this.setState({ open: false })
     };
 
     handleLogout = () => {
@@ -70,57 +70,59 @@ class NavBar extends Component {
     }
 
     handleCloseNotification = () => {
-        this.setState({openModal:false});
+        this.setState({ openModal: false });
     }
 
     render() {
         const { classes } = this.props
 
         return (
-        <>
-            <AppBar className={classes.bar} position="fixed">
-                <Container >
-                    <Toolbar className={classes.toolbar}>
-                        
-                        <img alt='' src={logo} className={classes.logoIcon}/>
-                        <Typography className={classes.logoText}>remember</Typography>
-                        <ClickAwayListener onClickAway={this.handleClickAway}>
-                        <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
-                            <Typography className={classes.user}>{this.state.profileName?this.state.profileName:"..."}</Typography>
-                            <img alt='' src={perfil} className={classes.perfil}/>
-                            {this.state.open && 
-                            <Paper className={classes.paper}>
-                                <MenuList>
-                                    <MenuItem onClick={() => {this.setState({openModal:true})}}>Notificacoes</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
-                                    <MenuItem onClick={this.handleLogout}>Sair</MenuItem>
-                                </MenuList>
-                            </Paper>
-                            }
-                        </Button>
-                        </ClickAwayListener>
-                    </Toolbar>
-                </Container>
-            </AppBar>
+            <>
+                <AppBar className={classes.bar} position="fixed">
+                    <Container >
+                        <Toolbar className={classes.toolbar}>
+
+                            <img alt='' src={logo} className={classes.logoIcon} />
+                            <Typography className={classes.logoText}>remember</Typography>
+                            <ClickAwayListener onClickAway={this.handleClickAway}>
+                                <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
+                                    <Typography className={classes.user}>{this.state.profileName ? this.state.profileName : "..."}</Typography>
+                                    <img alt='' src={perfil} className={classes.perfil} />
+                                    {this.state.open &&
+                                        <Paper className={classes.paper}>
+                                            <MenuList>
+                                                <MenuItem onClick={() => { this.setState({ openModal: true }) }}>Notificacoes</MenuItem>
+                                                <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
+                                                <MenuItem onClick={this.handleLogout}>Sair</MenuItem>
+                                            </MenuList>
+                                        </Paper>
+                                    }
+                                </Button>
+                            </ClickAwayListener>
+                        </Toolbar>
+                    </Container>
+                </AppBar>
 
 
-            <Dialog open={this.state.openModal} onClose={this.handleCloseNotification} aria-labelledby="form-dialog-title">
+                <Dialog open={this.state.openModal} onClose={this.handleCloseNotification} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Notificações</DialogTitle>
                     <DialogContent>
-                        { this.state.notifications.length > 0 ?
+                        {this.state.notifications.length > 0 ?
                             <ul>
                                 {this.state.notifications.map(item => (
-                                    <li> CONVITE PARA MEMORY LINE {item.nameMemoryLine} <br/>
-                                        <span onClick={this.acceptInvite(item.idInvite, true)}>ACEITAR</span> | <span onClick={this.acceptInvite(item.idInvite, false)}>>RECUSAR</span>
+                                    <>
+                                    <li> CONVITE PARA MEMORY LINE {item.nameMemoryLine} <br /><br />
+                                        <span onClick={() => {this.acceptInvite(item.idInvite, true)}}>ACEITAR</span> | <span onClick={() => {this.acceptInvite(item.idInvite, false)}}>RECUSAR</span>
                                     </li>
+                                    </>
                                 ))}
                             </ul> : <p>Não existem notificações disponível hihi</p>
-                                }
-                                <br></br>
-                            <button onClick={this.handleCloseNotification}>FECHAR</button>
+                        }
+                        <br></br>
+                        <button onClick={this.handleCloseNotification}>FECHAR</button>
                     </DialogContent>
                 </Dialog>
-        </>
+            </>
         )
     }
 }

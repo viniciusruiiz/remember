@@ -24,6 +24,8 @@ export default class App extends Component {
         if (BaseService.isAuthenticated()) {
             await BaseService.refreshToken();
             this.setState({ "showscreen": true })
+        } else {
+            this.setState({ "showscreen": true })
         }
     }
 
