@@ -28,16 +28,13 @@ class NavBar extends Component {
         this._ps.getProfile().then(res => {
             console.log(res);
             this.setState({ profileName: res.data.data.first_name })
-            // this.setState({profilePic: res.data.picture}) sempre null grrr
-
-            console.log(this.state.profileName);
-            console.log(this.state.profilePic);
         });
 
         this._ss.getInvites().then(res => {
             console.log(res)
-            if (res.data.data)
-                this.setState({ notifications: res.data.data });
+            console.log(res.data.content)
+            if (res.data.content)
+                this.setState({ notifications: res.data.content });
             else
                 this.setState({ notifications: [1,2,3] });
         })
@@ -63,6 +60,7 @@ class NavBar extends Component {
     }
 
     acceptInvite = (idInvite, isAccepted) => {
+        console.log(isAccepted)
         this._ss.answerInvite(idInvite, isAccepted).then(res => {
             console.log(res)
             alert("aceitado com sucesso!")
@@ -111,7 +109,7 @@ class NavBar extends Component {
                             <ul>
                                 {this.state.notifications.map(item => (
                                     <>
-                                    <li> CONVITE PARA MEMORY LINE {item.nameMemoryLine} <br /><br />
+                                    <li> CONVITE PARA {item.nameMemoryLine} <br /><br />
                                         <span onClick={() => {this.acceptInvite(item.idInvite, true)}}>ACEITAR</span> | <span onClick={() => {this.acceptInvite(item.idInvite, false)}}>RECUSAR</span>
                                     </li>
                                     </>

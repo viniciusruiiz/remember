@@ -25,6 +25,7 @@ class UserHome extends Component {
         }
 
         this._mls.getAllMemoryLine().then(res => {
+            console.log(res.data.data)
             this.setState({ publicMemoryLines: res.data.data.public, loading: false })
             this.setState({ privateMemoryLines: res.data.data.private })
         })
@@ -61,16 +62,16 @@ class UserHome extends Component {
                 <LinearLoading style={ this.state.loading ? {visibility: 'visible'} : {visibility: 'hidden'} } />                
                 <Container>
                     <div className={classes.bodyRoot}>
-                        {/* <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
+                        <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
                             <Typography className={classes.hideCompartilhadas}>
                                 Memorylines compartilhadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, { [classes.expandOpen]: this.state.expanded1 })} />
                             </Typography>
-                        </Button> */}
+                        </Button>
                         <Collapse in={this.state.expanded1} timeout="auto" unmountOnExit>
                             <Grid container spacing={4}>
                                 {
                                     this.state.publicMemoryLines.map(item => (
-                                        <LineBox title={item.name} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                        <LineBox title={item.name} urlMoments={item.urlMoments} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
                                     ))
                                 }
                             </Grid>
