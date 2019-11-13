@@ -20,12 +20,14 @@ import MemoryLineService from '../../service/memoryLineService';
 import Asynchronous from '../../components/searchMember/searchMember';
 import FileService from '../../service/fileService';
 import LinearLoading from '../../components/linearLoading/linearLoading';
+import SearchService from '../../service/searchService';
 
 class MemoryLine extends Component {
 
     _ms = new MomentService()
     _mls = new MemoryLineService();
     _fs = new FileService();
+    _ss = new SearchService();
     _queryString;
 
     constructor(props) {
@@ -42,10 +44,13 @@ class MemoryLine extends Component {
             openMenu: false,
             mobile: false,
             loading: true,
+            membersearch: '',
+            members: [],
+            candidatos: [],
         }
 
         this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
-            this.setState({ "moments": res.data.data , loading: false})
+            this.setState({ "moments": res.data.data, loading: false })
             console.log(res.data.data)
         })
     }
@@ -87,7 +92,7 @@ class MemoryLine extends Component {
     };
 
     handleCloseMenu = () => {
-        this._ms.delete(this._queryString.get("ref")).then(res => {
+        this._mls.delete(this._queryString.get("ref")).then(res => {
             this.props.history.push('/userhome')
         }).catch(err => console.log('erro inesperado'))
     };
@@ -136,6 +141,59 @@ class MemoryLine extends Component {
         }
     }
 
+    handleEnter = (event) => {
+        console.log(this.state.membersearch);
+        if (event.keyCode == 13) {
+            if (this.state.membersearch) {
+                this._ss.search(this.state.membersearch).then(res => {
+                    console.log(res);
+                    if(res.status === 201 || res.status === 200)
+                        this.setState({ "candidatos": res.data.data });
+                    else if(res.status === 204)
+                        this.setState({ "candidatos": [{first_name:"Nenhum resultado encontrado."}] });
+
+                })
+            } else {
+                this.setState({ "candidatos": [] });
+            }
+        }
+    }
+
+    handleSearch = (e) => { 
+        this.setState({ "membersearch": e.target.value })
+        //if(!this.state.membersearch || this.state.membersearch.length === 0) this.setState({ "candidatos": [] });
+    }
+
+    handleInvite = (_id, name) => {
+        this.setState({loading:true})
+        this._ss.invite(this._queryString.get("ref"), _id).then(res => {
+            this.setState({loading:false})
+            alert(`${name} convidado(a) para memory line ${this.state.title}!`)
+        })
+    }
+
+    handleFile = (e) => {
+        this.setState({ 'file': e.target.files[0] })
+        console.log(e.target.files[0]);
+        if (this.state.mobile) this.handleSubmit();
+    }
+
+    handleSubmit = (e) => {
+        if (e) e.preventDefault()
+
+        this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref")).then(res => {
+            if (res.data.success)
+                this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
+                    alert("coisado com sucesso");
+                }).catch(err => console.log('erro no put:', err))
+        }).catch(err => console.log(err));
+
+        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
+            this.setState({ "moments": res.data.data })
+            console.log(res.data.data)
+        })
+    }
+
     desktopHeader() {
         const { classes } = this.props
 
@@ -150,8 +208,28 @@ class MemoryLine extends Component {
                 </Grid>
                 <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
                     <Grid item className={classes.membros}>
-                        <Asynchronous />
-                        
+                        <TextField
+                            className={classes.adicionar}
+                            margin="dense"
+                            hiddenLabel
+                            variant="filled"
+                            placeholder="Adicionar"
+                            onKeyDown={this.handleEnter}
+                            onChange={this.handleSearch}
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                                className: classes.adicionarInput,
+                            }}
+                        />
+                        { this.state.candidatos.length > 0 &&
+                        <ul className={classes.candidatos}>
+                            {this.state.candidatos.map(item => (
+                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
+                            ))}
+                        </ul>
+                        }
+
+
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />
                         <img alt='' src={perfil} className={classes.membersIcons} />
@@ -162,7 +240,7 @@ class MemoryLine extends Component {
                                 {this.state.openMenu &&
                                     <Paper className={classes.paper}>
                                         <MenuList>
-                                            <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{marginRight: 5}} /> Apagar MemoryLine</MenuItem>
+                                            <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
                                         </MenuList>
                                     </Paper>
                                 }
@@ -208,29 +286,6 @@ class MemoryLine extends Component {
         )
     }
 
-
-    handleFile = (e) => {
-        this.setState({'file':e.target.files[0]})
-        console.log(e.target.files[0]);
-        if(this.state.mobile) this.handleSubmit();
-    }
-
-    handleSubmit = (e) => {
-        if(e) e.preventDefault()
-
-        this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref")).then(res => {
-            if(res.data.success)
-               this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
-                   alert("coisado com sucesso");
-               }).catch(err => console.log('erro no put:', err))
-        }).catch(err => console.log(err));
-
-        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
-            this.setState({ "moments": res.data.data })
-            console.log(res.data.data)
-        })
-    }
-
     render() {
         const { classes } = this.props
 
@@ -238,7 +293,7 @@ class MemoryLine extends Component {
 
         return (
             <div className={classes.root}>
-                <LinearLoading style={ this.state.loading ? {visibility: 'visible'} : {visibility: 'hidden'} } />                
+                <LinearLoading style={this.state.loading ? { visibility: 'visible' } : { visibility: 'hidden' }} />
                 <NavBar />
 
                 <div className={classes.bodyRoot}>

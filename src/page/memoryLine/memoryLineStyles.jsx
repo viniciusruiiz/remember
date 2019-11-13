@@ -91,9 +91,9 @@ const styles = (theme) => createStyles({
       },
       marginRight: theme.spacing(2),
     },
-    adicionarInput: {
-      color: 'red',
-    },
+    // adicionarInput: {
+    //   color: 'red',
+    // },
     membersIcons: {
       marginTop: 11,
       width: 35,
@@ -119,6 +119,24 @@ const styles = (theme) => createStyles({
       width: 200,
       right: 0,
       paddingRight: 10,
+    },
+    candidatos: {
+      listStyleType: "none",
+      position: "absolute",
+      padding: 0,
+      margin: 0
+    },
+    candidato: {
+      border: "1px solid #ddd",
+      marginTop: "-1px",
+      backgroundColor: "#F6F6F6",
+      padding: "12px",
+      display: "block",
+      zIndex: 999,
+      cursor: "pointer",
+      "&:hover": {
+        backgroundColor: "#D2D2D2",
+      }
     },
   apagar: {
     color: '#fc5340',
