@@ -201,7 +201,7 @@ class MemoryLine extends Component {
                             </IconButton>
                         </ClickAwayListener>
                     </Grid>
-                    <input type="file" accept="image/*" capture="camera" onChange={this.handleFile} />
+                    {/* <input type="file" accept="image/*" capture="camera" onChange={this.handleFile} /> */}
 
                 </Grid>
             </Grid>
@@ -271,15 +271,9 @@ class MemoryLine extends Component {
                             accept="image/*"
                             style={{ display: 'block' }}
                             id="raised-button-file"
-<<<<<<< HEAD
-                            //multiple
-                            type="file"
-                            onChange={this.handleClick}
-=======
                             // multiple
                             type="file"
                             onChange={this.handleFile}
->>>>>>> 0fafbd742d40baf12b99b37a6404bd2db1d67b25
                         />
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="span">
