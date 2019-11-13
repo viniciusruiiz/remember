@@ -189,7 +189,8 @@ class MemoryLine extends Component {
         console.log('compressedFile type', typeof(compressedFile));
         console.log(`compressedFile size ${compressedFile.size / 1024 / 1024 } BYTES`); // smaller than maxSizeMB
         this.setState({ 'file': compressedFile })
-        //if (this.state.mobile) this.handleSubmit();
+
+        if (this.state.mobile) this.handleSubmit();
     }
 
     handleSubmit = (e) => {
