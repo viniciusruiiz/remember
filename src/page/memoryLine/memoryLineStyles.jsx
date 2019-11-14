@@ -73,6 +73,21 @@ const styles = (theme) => createStyles({
       },
       transition: "opacity 0.2s ease",
     },
+    titleMob: {
+      fontSize: 26,
+      fontWeight: '300',
+      whiteSpace: 'pre-wrap',
+      '&:hover #edit-icon': {
+        visibility: "visible",
+        opacity: 1
+      },
+      transition: "opacity 0.2s ease",
+      marginTop: "0.3em",
+      wordBreak: "break-word"
+    },
+    membersDiv: {
+      flex:"1"
+    },
     titleContainer: {
       zIndex: '10',
     },
@@ -82,14 +97,27 @@ const styles = (theme) => createStyles({
       margin: theme.spacing(2,3,0,3),
     },
     gridMobile: {
-      width: '93%',
-      margin: theme.spacing(8,3,0,3),
+      width: '94%',
+      margin: "0 0 0 3%",
+    },
+    gridMobileHeader: {
+      width: '94%',
+      margin: "0 0 0 3%",
+      display: "inline-flex"
     },
     adicionar: {
       '& .MuiFilledInput-underline:after': {
         borderBottomColor: green[300],
       },
       marginRight: theme.spacing(2),
+      //width: '100%',
+    },
+    adicionarMob: {
+      '& .MuiFilledInput-underline:after': {
+        borderBottomColor: green[300],
+      },
+      marginRight: theme.spacing(2),
+      width: '100%',
     },
     // adicionarInput: {
     //   color: 'red',
@@ -102,6 +130,15 @@ const styles = (theme) => createStyles({
       top: 20,
       margin: theme.spacing(0,2,0,0),  
     },
+    membersIconsMob: {
+      marginTop: 11,
+      width: 35,
+      height: 35,
+      borderRadius: '50%',
+      top: 20,
+      margin: theme.spacing(0,2,0,0),  
+      float: "right"
+    },
     gridRight: {
       width: '100%',
     },
@@ -111,6 +148,11 @@ const styles = (theme) => createStyles({
     options: {
       marginBottom: 28,
       color: 'black',
+    },
+    optionsMob: {
+      marginTop: 4,
+      color: 'black',
+      float: "right"
     },
     paper: {
       zIndex: 7,

@@ -148,10 +148,10 @@ class MemoryLine extends Component {
             if (this.state.membersearch) {
                 this._ss.search(this.state.membersearch).then(res => {
                     console.log(res);
-                    if(res.status === 201 || res.status === 200)
+                    if (res.status === 201 || res.status === 200)
                         this.setState({ "candidatos": res.data.data });
-                    else if(res.status === 204)
-                        this.setState({ "candidatos": [{first_name:"Nenhum resultado encontrado."}] });
+                    else if (res.status === 204)
+                        this.setState({ "candidatos": [{ first_name: "Nenhum resultado encontrado." }] });
 
                 })
             } else {
@@ -160,34 +160,34 @@ class MemoryLine extends Component {
         }
     }
 
-    handleSearch = (e) => { 
+    handleSearch = (e) => {
         this.setState({ "membersearch": e.target.value })
-        //if(!this.state.membersearch || this.state.membersearch.length === 0) this.setState({ "candidatos": [] });
+        if (this.state.membersearch.length === 0) this.setState({ "candidatos": [] });
     }
 
     handleInvite = (_id, name) => {
-        this.setState({loading:true})
+        this.setState({ loading: true })
         this._ss.invite(this._queryString.get("ref"), _id).then(res => {
-            this.setState({loading:false})
+            this.setState({ loading: false })
             alert(`${name} convidado(a) para memory line ${this.state.title}!`)
         })
     }
 
     handleFile = async (e) => {
-        this.setState({loading:true})
+        this.setState({ loading: true })
         const options = {
-            maxSizeMB:1,
+            maxSizeMB: 1,
             maxWidthOrHeight: 1920,
             useWebWorker: true
         };
-        console.log('originalFile type', typeof(e.target.files[0]));
+        console.log('originalFile type', typeof (e.target.files[0]));
         console.log('originalFile', e.target.files[0]); // true
         console.log(`originalFile size ${e.target.files[0].size / 1024 / 1024} MB`);
         let compressedFile = await imageCompression(e.target.files[0], options);
-        this.setState({loading:false})
+        this.setState({ loading: false })
         console.log(compressedFile);
-        console.log('compressedFile type', typeof(compressedFile));
-        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024 } BYTES`); // smaller than maxSizeMB
+        console.log('compressedFile type', typeof (compressedFile));
+        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} BYTES`); // smaller than maxSizeMB
         this.setState({ 'file': compressedFile })
 
         if (this.state.mobile) this.handleSubmit();
@@ -217,7 +217,7 @@ class MemoryLine extends Component {
                 <Grid className={classes.titleContainer} item md={5} sm={12}>
                     <Typography className={classes.title}>
                         <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
-                        <span className={classes.hideSpan} id="hide"></span><input readOnly onInput={this.resize} id="txt" value={this.state.title} className={classes.titleIpt}></input>
+                        <span className={classes.hideSpan} id="hide"></span><input readOnly maxLength="28" onInput={this.resize} id="txt" value={this.state.title} className={classes.titleIpt}></input>
                         <Edit onClick={this.handleEdit} className={classes.editIcon} id="edit-icon"></Edit>
                     </Typography>
                 </Grid>
@@ -236,12 +236,12 @@ class MemoryLine extends Component {
                                 className: classes.adicionarInput,
                             }}
                         />
-                        { this.state.candidatos.length > 0 &&
-                        <ul className={classes.candidatos}>
-                            {this.state.candidatos.map(item => (
-                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
-                            ))}
-                        </ul>
+                        {this.state.candidatos.length > 0 &&
+                            <ul className={classes.candidatos}>
+                                {this.state.candidatos.map(item => (
+                                    <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
+                                ))}
+                            </ul>
                         }
 
 
@@ -272,31 +272,55 @@ class MemoryLine extends Component {
 
         return (
             <Grid container spacing={1} className={classes.gridMobile}>
-                <Grid item className={classes.titleContainer} item xs={6}>
-                    <Typography className={classes.title}>
+
+                <div>
+
+                    <Typography className={classes.titleMob}>
                         {this._queryString.get("title") || 'Memoryline Title'}
                     </Typography>
-                </Grid>
-                <Grid item className={classes.gridRight} alignItems='right' alignContent='right' xs={6}>
-                    <Grid item className={classes.membros}>
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <ClickAwayListener onClickAway={this.handleClickAway}>
-                            <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
-                                <MoreVert />
-                                {this.state.openMenu &&
-                                    <Paper className={classes.paper}>
-                                        <MenuList>
-                                            <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
-                                        </MenuList>
-                                    </Paper>
-                                }
-                            </IconButton>
-                        </ClickAwayListener>
-                    </Grid>
-                    {/* <input type="file" accept="image/*" capture="camera" onChange={this.handleFile} /> */}
+                </div>
 
+                <div className={classes.membersDiv}>
+                    <ClickAwayListener onClickAway={this.handleClickAway}>
+                        <IconButton className={classes.optionsMob} aria-label="settings" onClick={this.handleClick}>
+                            <MoreVert />
+                            {this.state.openMenu &&
+                                <Paper className={classes.paper}>
+                                    <MenuList>
+                                        <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                    </MenuList>
+                                </Paper>
+                            }
+                        </IconButton>
+                    </ClickAwayListener>
+                    <img alt='' src={perfil} className={classes.membersIconsMob} />
+                    <img alt='' src={perfil} className={classes.membersIconsMob} />
+                </div>
+
+
+                <Grid item xs={12} sm={12}>
+                    <TextField
+                        className={classes.adicionarMob}
+                        margin="dense"
+                        hiddenLabel
+                        variant="filled"
+                        placeholder="Adicionar"
+                        onKeyUp={this.handleEnter}
+                        onChange={this.handleSearch}
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                            className: classes.adicionarInput,
+                        }}
+                    />
+                    {this.state.candidatos.length > 0 &&
+                        <ul className={classes.candidatos}>
+                            {this.state.candidatos.map(item => (
+                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
+                            ))}
+                        </ul>
+                    }
                 </Grid>
+
             </Grid>
         )
     }
@@ -314,7 +338,7 @@ class MemoryLine extends Component {
                 <div className={classes.bodyRoot}>
                     {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
 
-                    <Line data={this.state.moments} />
+                    <Line data={this.state.moments} loading={this.state.loading} />
 
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
                         <Add />
@@ -325,10 +349,10 @@ class MemoryLine extends Component {
                 <Dialog open={this.state.openModal} onClose={this.handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
+                        {/* <DialogContentText>
                             To subscribe to this website, please enter your email address here. We will send updates
                             occasionally.
-                </DialogContentText>
+                </DialogContentText> */}
                         {/* <TextField
                             autoFocus
                             margin="dense"
