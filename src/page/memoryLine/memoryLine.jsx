@@ -64,7 +64,24 @@ class MemoryLine extends Component {
     }
 
     componentWillMount = () => {
-        document.body.style.overflowY = 'hidden'
+        //document.body.style.overflowY = 'hidden';
+
+        (function () {
+            function scrollHorizontally(e) {
+                e = window.event || e;
+                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                document.documentElement.scrollLeft -= (delta*75); // Multiplied by 40
+                document.body.scrollLeft -= (delta*60); // Multiplied by 40
+                e.preventDefault();
+                console.log("ok2")
+            }
+            // IE9, Chrome, Safari, Opera
+            document.body.addEventListener("mousewheel", scrollHorizontally, false);
+            // Firefox
+            document.body.addEventListener("DOMMouseScroll", scrollHorizontally, false);
+            console.log("ok")
+        })();
+
     }
 
     componentWillUnmount = () => {
@@ -195,7 +212,7 @@ class MemoryLine extends Component {
 
     handleSubmit = (e) => {
         if (e) e.preventDefault()
-
+        console.log("watashi ga kitta")
         this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref")).then(res => {
             if (res.data.success)
                 this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
@@ -331,11 +348,12 @@ class MemoryLine extends Component {
         document.title = this._queryString.get("title") // passar o nome da memory line
 
         return (
-            <div className={classes.root}>
+            <div className={classes.root} id="root">
+
                 <LinearLoading style={this.state.loading ? { visibility: 'visible' } : { visibility: 'hidden' }} />
                 <NavBar />
 
-                <div className={classes.bodyRoot}>
+                {/* <div className={classes.bodyRoot}> */}
                     {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
 
                     <Line data={this.state.moments} loading={this.state.loading} />
@@ -343,7 +361,7 @@ class MemoryLine extends Component {
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
                         <Add />
                     </Fab>
-                </div>
+                {/* </div> */}
 
                 {/* MODAL ADD MOMENT */}
                 <Dialog open={this.state.openModal} onClose={this.handleClose} aria-labelledby="form-dialog-title">

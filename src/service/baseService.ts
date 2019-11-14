@@ -19,7 +19,7 @@ export default class BaseService {
     }
 
     public static async refreshToken() {
-        if(BaseService.flRefreshToken) {
+        if(BaseService.flRefreshToken && BaseService.isAuthenticated()) {
 
             BaseService.flRefreshToken = false;
             

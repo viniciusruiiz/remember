@@ -62,7 +62,7 @@ class Login extends Component<any, any> {
 
     handleEnter(event : React.KeyboardEvent<HTMLInputElement>) {
         console.log(event.keyCode)
-        if (event.keyCode == 13 && this.state.password && this.state.username){
+        if (event.keyCode == 13 && this.state.password && this.state.username && !this.state.disabled){
 
             this.loginMethod();
         }

@@ -53,6 +53,12 @@ const styles = (theme: Theme) => createStyles({
       color: grey[800],
       width: "100%",
       textAlign: "center"
+    },
+    error: {
+        marginTop: -27,
+        marginBottom: 10,
+        fontSize: 14,
+        color: '#FA8072',
     }
 });
 
