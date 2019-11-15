@@ -5,6 +5,7 @@ import { CircularProgress, Modal, Typography, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import perfil from './../../images/perfil.jpg'
 import MomentModal from '../momentModal/momentModal';
+import img404 from '../../images/not_found.png'
 
 class Moment extends Component {
   
@@ -52,7 +53,7 @@ class Moment extends Component {
         <>
         <div className={classes.circle}>
           {this.renderSpinner()}
-          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} id={"moment-"+this.props.reference} />
+          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} onError={(e) => e.target.src = img404} id={"moment-"+this.props.reference} />
           <Typography className={classes.date}>2 Mar 2019</Typography>
           { this.state.open ?
             <MomentModal handleClose={this.handleClose} desc={this.props.desc} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> : <span hidden></span>

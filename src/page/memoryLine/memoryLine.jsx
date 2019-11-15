@@ -76,10 +76,9 @@ class MemoryLine extends Component {
                 console.log("ok2")
             }
             // IE9, Chrome, Safari, Opera
-            document.body.addEventListener("mousewheel", scrollHorizontally, false);
+            document.documentElement.addEventListener("mousewheel", scrollHorizontally, false);
             // Firefox
-            document.body.addEventListener("DOMMouseScroll", scrollHorizontally, false);
-            console.log("ok")
+            document.documentElement.addEventListener("DOMMouseScroll", scrollHorizontally, false);
         })();
 
     }
