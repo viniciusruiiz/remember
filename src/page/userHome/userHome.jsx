@@ -77,7 +77,7 @@ class UserHome extends Component {
                             </Grid>
                         </Collapse><br></br>
                         <Button onClick={this.handleExpandClick2} className={classes.btnExpand}>
-                            <Typography className={classes.hideCompartilhadas}>
+                            <Typography className={classes.hidePrivadas}>
                                 Memorylines privadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, { [classes.expandOpen]: this.state.expanded2 })} />
                             </Typography>
                         </Button>
