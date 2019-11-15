@@ -30,7 +30,7 @@ const styles = (theme) => createStyles({
     paper: {
         zIndex: 2,
         position: 'absolute',
-        top: 56,
+        top: 49,
         width: 200,
         right: 0,
     },
@@ -56,7 +56,7 @@ const styles = (theme) => createStyles({
     paperNotif: {
         zIndex: 2,
         position: 'absolute',
-        top: 56,
+        top: 49,
         width: 200,
         right: 0,
         padding: 25,
