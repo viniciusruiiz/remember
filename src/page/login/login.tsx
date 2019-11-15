@@ -49,6 +49,7 @@ class Login extends Component<any, any> {
                 if (res.data.success) {
                     this._ls.setAuthenticationToken(res.data.data.access_token as string);
                     this._ls.setRefreshToken(res.data.data.refresh_token as string);
+                    this.props.handler();
                     this.props.history.push('/userhome');
                 } else {
                     console.log('Erro: ' + res.data.error);

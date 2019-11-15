@@ -120,7 +120,7 @@ class MomentModal extends Component {
                   
                   this.state.comments.map(comment => (
                     // <Comment key={comment.owner} person={comment.owner} date={() => this.formatDate(new Date(comment.creationDate))}  content={comment.content}/>
-                    <Comment key={this.idComment++} person='Lucas Yudi' date={this.formatDate(new Date(comment.creationDate))}  content={comment.content}/>
+                    <Comment key={this.idComment++} person={comment.ownerName || comment.ownerUsername} date={this.formatDate(new Date(comment.creationDate))} ownerPic={comment.ownerPic} content={comment.content}/>
                   ))
                 }
                 {/* <Comment person='Vinicius Ruiz' date='2 de março de 2019' content='Foi demais mano!'/>

@@ -47,6 +47,13 @@ const styles = (theme) => createStyles({
     width: '100%',
     height: 48,
   },
+  middleImage: {
+    padding: 'none',
+    display: 'inline-block',
+    objectFit: 'cover',
+    width: '100%',
+    height: 48 * 1.5,
+  },
   member: {
     height: theme.spacing(4),
     margin: 5,

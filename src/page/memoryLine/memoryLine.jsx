@@ -350,12 +350,14 @@ class MemoryLine extends Component {
             <div className={classes.root} id="root">
 
                 <LinearLoading style={this.state.loading ? { visibility: 'visible' } : { visibility: 'hidden' }} />
-                <NavBar />
+                {/* <NavBar /> */}
 
                 {/* <div className={classes.bodyRoot}> */}
                     {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
-
-                    <Line data={this.state.moments} loading={this.state.loading} />
+                {
+                    !this.state.loading && this.state.moments.length > 0 ?
+                    <Line data={this.state.moments} /> : !this.state.loading && this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : !this.state.loading && <Typography className={classes.not}>Nenhum momento salvo.</Typography>
+                }
 
                     <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
                         <Add />

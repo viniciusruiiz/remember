@@ -9,7 +9,7 @@ class SingUpConfirmation extends Component<any, any, any> {
         return(
             <div>
                 <h1>Cadastrado com sucesso! por favor, confirme seu login com o código enviado ao seu email.</h1>
-                <Link to="/login">Voltar para o login</Link>
+                <Link to="/">Voltar para o login</Link>
             </div>
         );
     }

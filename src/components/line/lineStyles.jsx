@@ -9,22 +9,6 @@ const styles = (theme) => createStyles({
     marginTop: 100,
     marginRight: 200,
   },
-  not: {
-    zIndex: '10',
-    position: 'fixed',
-    top: 160,
-    left: 90,
-    fontSize: 18,
-    fontWeight: '100',
-    whiteSpace: 'pre-wrap',
-  },
-  notMobile: {
-    zIndex: '10',
-    marginLeft: 20,
-    fontSize: 18,
-    fontWeight: '100',
-    whiteSpace: 'pre-wrap',
-  },
 });
 
 export default styles

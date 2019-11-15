@@ -4,6 +4,8 @@ import { Favorite, MoreVert, Share ,ExpandMore } from '@material-ui/icons';
 import styles from './lineBoxStyles';
 import perfil from './../../images/perfil.jpg';
 import { Link } from 'react-router-dom';
+import imgAleatoria from './../../images/aurora_boreal.jpg';
+import img404 from './../../images/not_found.png';
 
 class LineBox extends Component {
   
@@ -41,16 +43,27 @@ class LineBox extends Component {
             <Card className={classes.card}>
             <Link to={`memoryline/?ref=${this.props.reference}&title=${this.props.title}`}>
               <Button className={classes.mediaButton}> 
-                <Grid className={classes.media} container>
-                  <Grid container xs={9} >
-                  <img alt='' className={classes.bigImage} src={this.props.urlMoments[0]} />
+                  
+              <Grid className={classes.media} container>
+                  { this.props.urlMoments[0] || this.props.urlMoments[1] || this.props.urlMoments[2] || this.props.urlMoments[3] ?
+                    <>
+                    <Grid container xs={!this.props.urlMoments[1] && !this.props.urlMoments[2] && !this.props.urlMoments[3] ? 12 : this.props.urlMoments[0] && this.props.urlMoments[1] && !this.props.urlMoments[2] && !this.props.urlMoments[3] ? 6 : 9} >
+                      <img alt='' className={classes.bigImage} src={this.props.urlMoments[0]} onError={e => e.target.src = img404}/>
+                    </Grid>
+
+                    <Grid container xs={this.props.urlMoments[1] && !this.props.urlMoments[2] && !this.props.urlMoments[3] ? 6 : 3} >
+                      {this.props.urlMoments[1] && <img alt='' className={!this.props.urlMoments[2] && !this.props.urlMoments[3] ? classes.bigImage : this.props.urlMoments[2] && !this.props.urlMoments[3] ? classes.middleImage : classes.tinyImage} align='top' src={this.props.urlMoments[1]} onError={e => e.target.src = img404} />}
+                      {this.props.urlMoments[2] && <img alt='' className={this.props.urlMoments[3] ? classes.tinyImage : classes.middleImage} align='top' src={this.props.urlMoments[2]} onError={e => e.target.src = img404} />}
+                      {this.props.urlMoments[3] && <img alt='' className={classes.tinyImage} align='top' src={this.props.urlMoments[3]} onError={e => e.target.src = img404} />}
+                    </Grid>
+                    </>
+                    :
+                    <Grid container xs={12}>
+                      <img alt='' className={classes.bigImage} src={imgAleatoria} />
+                    </Grid>
+                  }
                   </Grid>
-                  <Grid container xs={3} >
-                  <img alt='' className={classes.tinyImage} align='top' src={this.props.urlMoments[1]} />
-                  <img alt='' className={classes.tinyImage} align='top' src={this.props.urlMoments[2]} />
-                  <img alt='' className={classes.tinyImage} align='top' src={this.props.urlMoments[3]} />
-                  </Grid>
-                </Grid>
+                  
                 </Button>
               </Link>
               <CardContent className={classes.content}>

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { AppBar, Toolbar, Typography, withStyles, Button, MenuItem, Paper, MenuList, ClickAwayListener, Container, Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
 import styles from './navbarStyles';
 import logo from './../../images/logo-icon.png';
-import perfil from './../../images/perfil.jpg';
+import perfil from './../../images/anom.jpg';
 import compose from 'recompose/compose';
 import { Link, withRouter } from 'react-router-dom';
 import LoginService from '../../service/loginService';
 import ProfileService from '../../service/profileService';
 import SearchService from '../../service/searchService';
 import { Notifications, NotificationsOutlined, DoneRounded, ClearRounded } from '@material-ui/icons';
+import BaseService from '../../service/baseService';
 
 class NavBar extends Component {
     constructor(props) {
@@ -24,16 +25,18 @@ class NavBar extends Component {
             openModal: false,
             notifications: [],
             openNotif: false,
+            loadingProfile: true
         }
 
         this._ps.getProfile().then(res => {
-            console.log(res);
-            this.setState({ profileName: res.data.data.first_name })
+            this.setState({ profileName: res.data.data.first_name, profilePic: res.data.data.picture, loadingProfile: false })
+
+            BaseService.currentUsername = res.data.data.username;
+            BaseService.currentName = res.data.data.first_name + " " + res.data.data.last_name;
+            BaseService.currentUserPic = res.data.data.picture;
         });
 
         this._ss.getInvites().then(res => {
-            console.log(res)
-            console.log(res.data.content)
             if (res.data.content)
                 this.setState({ notifications: res.data.content });
             else
@@ -64,6 +67,7 @@ class NavBar extends Component {
     handleLogout = () => {
         let _ls = new LoginService();
         _ls.logout();
+        this.props.handler();
         this.props.history.push('/');
     }
 
@@ -88,14 +92,17 @@ class NavBar extends Component {
                 <AppBar className={classes.bar} position="fixed">
                     <Container >
                         <Toolbar className={classes.toolbar}>
-
+                            
                             <img alt='' src={logo} className={classes.logoIcon} />
                             <Typography className={classes.logoText}>remember</Typography>
                             <ClickAwayListener onClickAway={this.handleClickAway}>
                                 <div>
                                 <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
                                     <Typography className={classes.user}>{this.state.profileName ? this.state.profileName : "..."}</Typography>
-                                    <img alt='' src={perfil} className={classes.perfil} />
+                                    {
+                                        this.state.loadingProfile ?  <div className={classes.perfil}></div> :
+                                        <img alt='' src={this.state.profilePic || perfil} className={classes.perfil} />
+                                    }
                                     {this.state.open &&
                                         <Paper className={classes.paper}>
                                             <MenuList>
@@ -116,7 +123,7 @@ class NavBar extends Component {
                                         <NotificationsOutlined className={classes.notifications} />
                                     </Button>
                                     {this.state.openNotif &&
-                                            <Paper className={classes.paperNotif}>
+                                            <Paper className={classes.paperNotif} style={this.state.notifications.length > 0 ? {} : {padding:10}}>
                                                 {this.state.notifications.length > 0 ?
                                                         this.state.notifications.map((item, index) => (
                                                             <Grid container key={index} className={classes.invite} spacing={2} >
@@ -138,7 +145,7 @@ class NavBar extends Component {
                                                                     }
                                                             </Grid>
                                                         ))
-                                                    : <span>Não existem notificações disponível hihi</span>
+                                                    : <span>Não existem notificações disponíveis hihi</span>
                                                 }
                                             </Paper>
                                         }

@@ -16,7 +16,8 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showscreen: false
+            showscreen: false,
+            authenticated: false,
         }
     }
 
@@ -24,12 +25,19 @@ export default class App extends Component {
         if (BaseService.isAuthenticated()) {
             BaseService.setRefreshToken(true);
             await BaseService.refreshToken();
-            console.log("token teoricamente refreshed")
-            this.setState({ "showscreen": true })
+            this.setState({ "showscreen": true, authenticated:true })
         } else {
             BaseService.setRefreshToken(false);
-            this.setState({ "showscreen": true })
+            this.setState({ "showscreen": true, authenticated:false })
         }
+    }
+
+    handleLogin = () => {
+        this.setState({authenticated:true})
+    }
+
+    handleLogout = () => {
+        this.setState({authenticated:false})
     }
 
     render() {
@@ -37,19 +45,17 @@ export default class App extends Component {
         return (
             <>
                 {this.state.showscreen &&
-                    <>
-                        <Router>
-                            <Switch>
-                                <PublicRoute restricted={true} exact path="/" component={Login} />
-                                <PublicRoute restricted={true} exact path="/signup" component={SignUp} />
-                                <PrivateRoute path="/userhome" exact component={UserHome} />
-                                <PrivateRoute path="/memoryline" exact component={MemoryLine} />
-                                <PublicRoute restricted={true} exact path="/singupconfirmation" component={SignUpConfirmation} />
-                                {/* <Route path="/emailconfirmation" component={EmailConfirmation} /> */}
-                                <PublicRoute restricted={false} component={Error} />
-                            </Switch>
-                        </Router>
-                    </>
+                    <Router>
+                        {this.state.authenticated && <NavBar handler = {this.handleLogout} />}
+                        <Switch>
+                            <PublicRoute restricted={true} exact path="/" component={(props) => <Login {...props} handler = {this.handleLogin} />} />
+                            <PublicRoute restricted={true} exact path="/signup" component={SignUp} />
+                            <PrivateRoute path="/userhome" exact component={UserHome} />
+                            <PrivateRoute path="/memoryline" exact component={MemoryLine} />
+                            <PublicRoute restricted={true} exact path="/singupconfirmation" component={SignUpConfirmation} />
+                            <PublicRoute restricted={false} component={Error} />
+                        </Switch>
+                    </Router>
                 }
             </>
         )

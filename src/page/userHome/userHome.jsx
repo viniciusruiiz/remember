@@ -58,7 +58,7 @@ class UserHome extends Component {
 
         return (
             <div className={classes.root}>
-                <NavBar />
+                {/* <NavBar /> */}
                 <LinearLoading style={ this.state.loading ? {visibility: 'visible'} : {visibility: 'hidden'} } />                
                 <Container>
                     <div className={classes.bodyRoot}>

@@ -5,6 +5,7 @@ import Moment from '../moment/moment';
 import perfil from './../../images/perfil.jpg'
 import MomentDown from '../moment/momentDown';
 import { Typography, Grid } from '@material-ui/core';
+import useranom from '../../images/anom.jpg'
 
 class Comment extends Component {
   
@@ -23,7 +24,7 @@ class Comment extends Component {
         <div className={classes.root}>
           <Grid container>
             <Grid>
-              <img alt='' src={perfil} className={classes.commentOwnerPhoto} />
+              <img alt='' src={this.props.ownerPic || useranom} onError={(e) => e.target.src = useranom} className={classes.commentOwnerPhoto} />
             </Grid>
             <Grid>
               <Typography display='inline' className={classes.commentOwner}>{this.props.person}</Typography>

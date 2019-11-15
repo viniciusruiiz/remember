@@ -43,6 +43,10 @@ export default class BaseService {
         this.flRefreshToken = fl;
     }
 
+    public static currentUsername : string;
+    public static currentName : string;
+    public static currentUserPic : string;
+
     public static isAuthenticated(): boolean {
         return !!localStorage.getItem("refresh_token");
     }

@@ -183,6 +183,23 @@ const styles = (theme) => createStyles({
   apagar: {
     color: '#fc5340',
   },
+  not: {
+    zIndex: '10',
+    position: 'fixed',
+    top: 160,
+    left: 90,
+    fontSize: 18,
+    fontWeight: '100',
+    whiteSpace: 'pre-wrap',
+  },
+  notMobile: {
+    zIndex: '10',
+    marginLeft: 20,
+    marginTop: 25,
+    fontSize: 18,
+    fontWeight: '100',
+    whiteSpace: 'pre-wrap',
+  },
 });
 
 export default styles

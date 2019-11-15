@@ -14,8 +14,6 @@ class Line extends Component {
     }
 
     this.updatePredicate = this.updatePredicate.bind(this);
-    console.log('a', this.props.data)
-    // console.log(this.props.data[0].idComment)
   }
   
   componentDidMount() {
@@ -29,6 +27,8 @@ class Line extends Component {
 
   updatePredicate() {
     this.setState({ mobile: window.innerWidth < 650 });
+    console.log("AAAAAAAAAA", this.state.mobile)
+    console.log(window.innerWidth)
   }
 
 
@@ -39,12 +39,12 @@ class Line extends Component {
 
     return (
     <Grid alignItems="center" className={classes.root}>
-    {this.props.data.length > 0 ? this.props.data.map((moment) => (
+    {this.props.data.map((moment) => (
             i++ % 2 === 0 ?
             <Moment urlBucket={moment.urlBucket} desc={moment.description} reference={moment.idMoment} />
             :
             <MomentDown urlBucket={moment.urlBucket} person={'Yudi'} desc={moment.description} reference={moment.idMoment}/>
-        )) : <Typography className={classes.not}></Typography>}
+        ))}
     </Grid>
     )
   }
@@ -55,15 +55,13 @@ class Line extends Component {
     document.body.style.overflowY = null
 
     return (
-      // <>
-      // {!this.props.loading &&
+
         <Grid alignItems="center">
-        {this.props.data.length > 0 ? this.props.data.map((moment) => (
+        {this.props.data.map((moment) => (
                 <MomentMobile urlBucket={moment.urlBucket} reference={moment.idMoment} />
-            )) : <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography>}
+            ))}
         </Grid>
-    //   }
-    // </>
+
     )
   }
 
