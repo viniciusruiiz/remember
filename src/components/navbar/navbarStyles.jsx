@@ -10,6 +10,7 @@ const styles = (theme) => createStyles({
     },
     notifications: {
         color: '#1f1f1f',
+        padding: 0
         // marginRight: theme.spacing(2),
     },
     perfil: {
@@ -17,13 +18,28 @@ const styles = (theme) => createStyles({
         margin: theme.spacing(1,1,1,2),
         borderRadius: 50,
     },
+    perfilMob: {
+        height: theme.spacing(4),
+        margin: theme.spacing(0,0,0,1),
+        borderRadius: 50,
+    },
     logoIcon: {
         height: theme.spacing(5),
-        margin: (8, 4, 8, 4),
+        margin: (8, 0, 8, 4),
+    },
+    logoIconMob: {
+        height: theme.spacing(4),
+        margin: '8px 4px 8px 0',
     },
     logoText: {
         fontFamily: 'Major Mono Display',
         fontSize: 20,
+        lineHeight: "100%",
+        flexGrow: 1,
+    },
+    logoTextMob: {
+        fontFamily: 'Major Mono Display',
+        fontSize: 14,
         lineHeight: "100%",
         flexGrow: 1,
     },
@@ -42,6 +58,13 @@ const styles = (theme) => createStyles({
     buttonNotif: {
         height: 48,
         textTransform: 'none',
+        padding: 0
+    },
+    buttonNotifMob: {
+        height: 48,
+        textTransform: 'none',
+        padding: 0,
+        minWidth: 48
     },
     toolbar: {
         padding: (16,0,16,0),
@@ -88,6 +111,9 @@ const styles = (theme) => createStyles({
         verticalAlign: 'middle',
         lineHeight: '18px',
       },
+      userMob: {
+          fontSize: 12
+      }
 });
 
 export default styles

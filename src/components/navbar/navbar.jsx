@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Toolbar, Typography, withStyles, Button, MenuItem, Paper, MenuList, ClickAwayListener, Container, Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, withStyles, Button, MenuItem, Paper, MenuList, ClickAwayListener, Container, Dialog, DialogContent, DialogTitle, Grid, CircularProgress } from '@material-ui/core';
 import styles from './navbarStyles';
 import logo from './../../images/logo-icon.png';
 import perfil from './../../images/anom.jpg';
@@ -25,7 +25,8 @@ class NavBar extends Component {
             openModal: false,
             notifications: [],
             openNotif: false,
-            loadingProfile: true
+            loadingProfile: true,
+            mobile: false
         }
 
         this._ps.getProfile().then(res => {
@@ -42,7 +43,24 @@ class NavBar extends Component {
             else
                 this.setState({ notifications: [1,2,3] });
         })
+
+        this.updatePredicate = this.updatePredicate.bind(this);
     }
+
+    componentDidMount() {
+        this.updatePredicate();
+        window.addEventListener("resize", this.updatePredicate);
+      }
+    
+      componentWillUnmount() {
+        window.removeEventListener("resize", this.updatePredicate);
+      }
+    
+      updatePredicate() {
+        this.setState({ mobile: window.innerWidth < 650 });
+        console.log("AAAAAAAAAA", this.state.mobile)
+        console.log(window.innerWidth)
+      }
 
     handleClick = (event) => {
         this.setState({ open: !this.state.open })
@@ -93,15 +111,17 @@ class NavBar extends Component {
                     <Container >
                         <Toolbar className={classes.toolbar}>
                             
-                            <img alt='' src={logo} className={classes.logoIcon} />
-                            <Typography className={classes.logoText}>remember</Typography>
+                            <img alt='' src={logo} className={this.state.mobile ? classes.logoIconMob : classes.logoIcon} />
+                            <Typography className={this.state.mobile ? classes.logoTextMob : classes.logoText}>remember</Typography>
                             <ClickAwayListener onClickAway={this.handleClickAway}>
                                 <div>
                                 <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
-                                    <Typography className={classes.user}>{this.state.profileName ? this.state.profileName : "..."}</Typography>
+                                    {!this.state.mobile && <Typography className={classes.user}>{this.state.profileName ? this.state.profileName : "..."}</Typography>}
                                     {
-                                        this.state.loadingProfile ?  <div className={classes.perfil}></div> :
-                                        <img alt='' src={this.state.profilePic || perfil} className={classes.perfil} />
+                                        this.state.loadingProfile ?  
+                                        <div className={classes.perfil}><CircularProgress size={24} style={{marginTop:3}}/></div> 
+                                        :
+                                        <img alt='' src={this.state.profilePic || perfil} className={this.state.mobile ? classes.perfilMob : classes.perfil} />
                                     }
                                     {this.state.open &&
                                         <Paper className={classes.paper}>
@@ -119,7 +139,7 @@ class NavBar extends Component {
                             }
                             <ClickAwayListener onClickAway={this.handleClickAwayNotif}>
                                 <div>
-                                    <Button className={classes.buttonNotif} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClickNotif}>
+                                    <Button className={this.state.mobile ? classes.buttonNotifMob : classes.buttonNotif} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClickNotif}>
                                         <NotificationsOutlined className={classes.notifications} />
                                     </Button>
                                     {this.state.openNotif &&
