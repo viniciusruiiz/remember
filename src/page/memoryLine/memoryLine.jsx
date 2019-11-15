@@ -303,7 +303,7 @@ class MemoryLine extends Component {
                             {this.state.openMenu &&
                                 <Paper className={classes.paper}>
                                     <MenuList>
-                                        <MenuItem onClick={this.handleCloseMenu}>Apagar MemoryLine</MenuItem>
+                                        <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
                                     </MenuList>
                                 </Paper>
                             }

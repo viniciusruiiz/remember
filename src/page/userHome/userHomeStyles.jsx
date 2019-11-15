@@ -12,6 +12,11 @@ const styles = (theme) => createStyles({
     },
     hideCompartilhadas: {
         color: 'rgba(0,0,0,0.8)',
+        marginTop: 15,
+        marginBottom: 20,
+    },
+    hidePrivadas: {
+        color: 'rgba(0,0,0,0.8)',
         marginBottom: 20,
     },
     iconArrow: {
