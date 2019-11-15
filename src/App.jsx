@@ -22,10 +22,12 @@ export default class App extends Component {
 
     async componentWillMount() {
         if (BaseService.isAuthenticated()) {
+            BaseService.setRefreshToken(true);
             await BaseService.refreshToken();
             console.log("token teoricamente refreshed")
             this.setState({ "showscreen": true })
         } else {
+            BaseService.setRefreshToken(false);
             this.setState({ "showscreen": true })
         }
     }

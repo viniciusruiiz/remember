@@ -73,6 +73,10 @@ class NavBar extends Component {
         this._ss.answerInvite(idInvite, isAccepted).then(res => {
             console.log(res)
             alert("Convite aceito!")
+
+            let newState = Object.assign({}, this.state);
+            newState.notifications.splice(newState.notifications.map(e => {return e.idInvite}).indexOf(idInvite), 1);
+            this.setState(newState);
         })
     }
 
@@ -103,6 +107,9 @@ class NavBar extends Component {
                                 </Button>
                                 </div>
                             </ClickAwayListener>
+                            {this.state.notifications.length > 0 &&
+                                <Paper className={classes.notificationCount}>{this.state.notifications.length}</Paper>
+                            }
                             <ClickAwayListener onClickAway={this.handleClickAwayNotif}>
                                 <div>
                                     <Button className={classes.buttonNotif} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClickNotif}>
@@ -111,8 +118,8 @@ class NavBar extends Component {
                                     {this.state.openNotif &&
                                             <Paper className={classes.paperNotif}>
                                                 {this.state.notifications.length > 0 ?
-                                                        this.state.notifications.map(item => (
-                                                            <Grid container className={classes.invite} spacing={2} >
+                                                        this.state.notifications.map((item, index) => (
+                                                            <Grid container key={index} className={classes.invite} spacing={2} >
                                                                 <Grid alignItems="center" container>
                                                                     <Grid item xs={9}>
                                                                             <Typography>
@@ -126,12 +133,12 @@ class NavBar extends Component {
                                                                         <Button style={{color:'#a3a3a3'}} className={classes.btnInvite} onClick={() => {this.acceptInvite(item.idInvite, false)}} ><ClearRounded /></Button>
                                                                     </Grid>
                                                                 </Grid>
-                                                                { item == this.state.notifications[this.state.notifications.length-1] ?
+                                                                { index == this.state.notifications.length-1 ?
                                                                     <span></span> : <hr style={{width:'100%', border: '1px solid #dbdbdb'}} />
                                                                     }
                                                             </Grid>
                                                         ))
-                                                    : <p>Não existem notificações disponível hihi</p>
+                                                    : <span>Não existem notificações disponível hihi</span>
                                                 }
                                             </Paper>
                                         }

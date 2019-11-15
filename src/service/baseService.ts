@@ -32,11 +32,16 @@ export default class BaseService {
             setTimeout(() => {
                 console.log("refreshtoken set to true")
                 BaseService.flRefreshToken = true;
-            }, 1000 * 60 * 30);
+                BaseService.refreshToken();
+            }, 1000 * 60 * 59);
         }
     }
 
-    private static flRefreshToken : boolean = true;
+    private static flRefreshToken : boolean;
+
+    public static setRefreshToken(fl: boolean) : void {
+        this.flRefreshToken = fl;
+    }
 
     public static isAuthenticated(): boolean {
         return !!localStorage.getItem("refresh_token");

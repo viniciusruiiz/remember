@@ -1,5 +1,5 @@
 import { createStyles } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
+import { grey, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     bar: {
@@ -73,6 +73,21 @@ const styles = (theme) => createStyles({
         minWidth: 0,
         width: 36,
     },
+    notificationCount: {
+        zIndex:2,
+        position: 'absolute',
+        color: 'white',
+        fontSize: 11,
+        width: 18,
+        height: 18,
+        borderRadius: '50%',
+        background: purple[300],
+        right: 11,
+        top: 7,
+        textAlign: 'center',
+        verticalAlign: 'middle',
+        lineHeight: '18px',
+      },
 });
 
 export default styles

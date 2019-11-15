@@ -11,7 +11,7 @@ export default class SearchService extends BaseService {
     }
 
     async answerInvite(idInvite: string, isAccepted: boolean) : Promise<AxiosResponse<any>> {
-        return super.post(`${this.baseUrl}/memory-line/invites/${idInvite}`, isAccepted);
+        return super.put(`${this.baseUrl}/memory-line/invites/${idInvite}`, isAccepted);
     }
 
     async search(q:string) : Promise<AxiosResponse<any>> {
