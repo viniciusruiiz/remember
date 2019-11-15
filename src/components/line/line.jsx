@@ -9,14 +9,21 @@ class Line extends Component {
   
   constructor(props) {
     super(props)
+
+    let boolean = 650 > window.screen.innerWidth
+
     this.state = {
-      mobile: false,
+      mobile: boolean,
     }
 
     this.updatePredicate = this.updatePredicate.bind(this);
+    // console.log("after", window.innerWidth)
+    // this.updatePredicate();
+    // console.log("before", window.innerWidth)
   }
   
   componentDidMount() {
+    //console.log("2", window.innerWidth)
     this.updatePredicate();
     window.addEventListener("resize", this.updatePredicate);
   }
@@ -26,9 +33,11 @@ class Line extends Component {
   }
 
   updatePredicate() {
-    this.setState({ mobile: window.innerWidth < 650 });
-    console.log("AAAAAAAAAA", this.state.mobile)
-    console.log(window.innerWidth)
+    //console.log("3" ,window.innerWidth)
+    let boolean = 650 > window.screen.width;
+    //console.log(boolean)
+    this.setState({ mobile: boolean });
+    //console.log("AAAAAAAAAA", this.state.mobile)
   }
 
 
@@ -57,7 +66,7 @@ class Line extends Component {
     return (
 
         <Grid alignItems="center">
-        {this.props.data.map((moment) => (
+        {this.props.data.reverse().map((moment) => (
                 <MomentMobile urlBucket={moment.urlBucket} reference={moment.idMoment} />
             ))}
         </Grid>
