@@ -30,7 +30,7 @@ export default class BaseService {
             this.setTokenOnLocalStorage(refreshToken.data.data.access_token);
 
             setTimeout(() => {
-                console.log("refreshtoken set to true")
+                console.log("refreshtoken programmed")
                 BaseService.flRefreshToken = true;
                 BaseService.refreshToken();
             }, 1000 * 60 * 59);

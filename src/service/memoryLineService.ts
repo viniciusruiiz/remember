@@ -9,6 +9,14 @@ export default class MemoryLineService extends BaseService {
         return super.get(`${this.baseUrl}/memory-line/all`);
     }
 
+    getAllPublics(page: number) : Promise<AxiosResponse<GetMemoryLinesResponse>> {
+        return super.get(`${this.baseUrl}/memory-line/public/${page}`);
+    }
+
+    getAllPrivates(page: number) : Promise<AxiosResponse<GetMemoryLinesResponse>> {
+        return super.get(`${this.baseUrl}/memory-line/private/${page}`);
+    }
+
     add() : Promise<AxiosResponse<MemoryLineEntity>> {
         return super.post(`${this.baseUrl}/memory-line`, undefined);
     }

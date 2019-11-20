@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import styles from './momentModalStyles';
 import { withStyles } from '@material-ui/core/styles';
-import { CircularProgress, Modal, Typography, Grid, TextField, InputAdornment, Grow } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import perfil from './../../images/perfil.jpg'
+import { Modal, Grid, TextField } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import Comment from './../comment/comment'
 import MomentHeader from '../momentHeader/momentHeader';
-import RSC from "react-scrollbars-custom";
-import { PersonAdd } from '@material-ui/icons';
 import CommentService from '../../service/commentService';
 import compose from 'recompose/compose';
 
@@ -26,12 +22,11 @@ class MomentModal extends Component {
     }
     
     this._cs.getComments(this.props.reference).then(res => {
-      this.setState({'comments':res.data.content});
-    }).catch(err => {console.log(err); console.log("ERRO AO PEGAR OS COMENTARIOS")});
+      this.setState({'comments':res.data.data});
+    }).catch(err => {alert("ERRO AO PEGAR OS COMENTARIOS")});
   }
 
   handleCommentContent = (e) => {
-    console.log(e.target.value)
     this.setState({'comment': e.target.value});
   }
 
@@ -48,7 +43,7 @@ class MomentModal extends Component {
       res.data.creationDate = new Date().toString()
       newState.comments.push(res.data)
       this.setState(newState);
-    }).catch(err => {console.log(err); console.log("ERRO AO COMENTAR")});
+    }).catch(err => {alert("ERRO AO COMENTAR")});
   }
 
   formatDate(date) {

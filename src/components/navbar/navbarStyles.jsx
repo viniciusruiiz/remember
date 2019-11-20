@@ -111,6 +111,21 @@ const styles = (theme) => createStyles({
         verticalAlign: 'middle',
         lineHeight: '18px',
       },
+      notificationCountMob: {
+        zIndex:2,
+        position: 'absolute',
+        color: 'white',
+        fontSize: 11,
+        width: 18,
+        height: 18,
+        borderRadius: '50%',
+        background: purple[300],
+        right: 3,
+        top: 7,
+        textAlign: 'center',
+        verticalAlign: 'middle',
+        lineHeight: '18px',
+      },
       userMob: {
           fontSize: 12
       }

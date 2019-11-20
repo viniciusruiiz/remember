@@ -52,16 +52,11 @@ class SignUp extends Component<any, any> {
 
     handleBirthdate = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ birth_date: event.target.value });
-        //console.log(this.state.birth_date);
     }
 
     handlePasswordConfirmation = (event: React.ChangeEvent<HTMLInputElement>) => {
         this._pwdConfirmation = event.target.value;
     }
-
-    // handlePhone(event: React.ChangeEvent<HTMLInputElement>) {
-    //     this.setState({ phone_number: event.target.value });
-    // }
 
 
     handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -81,7 +76,6 @@ class SignUp extends Component<any, any> {
         if (this._pwdConfirmation !== this.state.password || !this._pwdConfirmation) {
             this.setState({ errorPasswordDidNotMatch: true })
             this.setState({loading:false})
-            console.log('error')
             return;
         }
 
@@ -94,7 +88,7 @@ class SignUp extends Component<any, any> {
                 this.setState({loading:false})
                 this.setState({defaultError:true})
             }
-        }).catch(err => { console.log(err); this.setState({defaultError:true}); this.setState({loading:false}) });
+        }).catch(err => { this.setState({defaultError:true}); this.setState({loading:false}) });
     }
 
     handleEnter = (event : React.KeyboardEvent<HTMLInputElement>) => {

@@ -58,8 +58,6 @@ class NavBar extends Component {
     
       updatePredicate() {
         this.setState({ mobile: window.innerWidth < 650 });
-        console.log("AAAAAAAAAA", this.state.mobile)
-        console.log(window.innerWidth)
       }
 
     handleClick = (event) => {
@@ -90,10 +88,8 @@ class NavBar extends Component {
     }
 
     acceptInvite = (idInvite, isAccepted) => {
-        console.log(isAccepted)
         this.setState({ openNotif: false })
         this._ss.answerInvite(idInvite, isAccepted).then(res => {
-            console.log(res)
             alert("Convite aceito!")
 
             let newState = Object.assign({}, this.state);
@@ -135,7 +131,7 @@ class NavBar extends Component {
                                 </div>
                             </ClickAwayListener>
                             {this.state.notifications.length > 0 &&
-                                <Paper className={classes.notificationCount}>{this.state.notifications.length}</Paper>
+                                <Paper className={this.state.mobile ? classes.notificationCountMob : classes.notificationCount }>{this.state.notifications.length}</Paper>
                             }
                             <ClickAwayListener onClickAway={this.handleClickAwayNotif}>
                                 <div>
