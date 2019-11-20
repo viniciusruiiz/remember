@@ -5,7 +5,7 @@ import styles from './userHomeStyles.jsx';
 import { withStyles } from '@material-ui/styles';
 import LineBox from '../../components/lineBox/lineBox';
 import clsx from 'clsx';
-import { ArrowDownwardRounded, ArrowDropDown, KeyboardArrowDownRounded, Add } from '@material-ui/icons';
+import { ArrowDownwardRounded, ArrowDropDown, KeyboardArrowDownRounded, Add, LockOpenOutlined, LockOutlined } from '@material-ui/icons';
 import MemoryLineService from '../../service/memoryLineService';
 import LinearLoading from '../../components/linearLoading/linearLoading';
 
@@ -113,15 +113,18 @@ class UserHome extends Component {
                 <LinearLoading style={ this.state.loading ? {visibility: 'visible'} : {visibility: 'hidden'} } />                
                 
                 <div className={classes.headerChange}>
-                    <div className={`${classes.divChangePub} ${this.state.showPublics && classes.selected}`} onClick={this.handleShowPublic}>
-                        <p className={classes.iconChange}>Públicas</p>
+                    <div className={`${classes.divChange} ${this.state.showPublics ? classes.selected : 'notSelected'}`} onClick={this.handleShowPublic}>
+                        <LockOpenOutlined className={classes.iconChange}/>
+                        {/* <span>Públicas</span> */}
                     </div>
-                    <div className={`${classes.divChangePriv} ${!this.state.showPublics && classes.selected}`} onClick={this.handleShowPrivate}>
-                        <p className={classes.iconChange}>Privadas</p>
+                    <div className={`${classes.divChange} ${!this.state.showPublics ? classes.selected : 'notSelected'}`} onClick={this.handleShowPrivate}>
+                        <LockOutlined className={classes.iconChange}/>
+                        {/* <span>Privadas</span> */}
                     </div>
                 </div>
                 
                 <Container>
+                    <br></br>
                     <div className={classes.bodyRoot}>
                         {/* <Button onClick={this.handleExpandClick1} className={classes.btnExpand}>
                             <Typography className={classes.hideCompartilhadas}>
@@ -145,7 +148,6 @@ class UserHome extends Component {
                             </>
                         }
                         {/* </Collapse> */}
-                        <br></br>
                         {/* <Button onClick={this.handleExpandClick2} className={classes.btnExpand}>
                             <Typography className={classes.hidePrivadas}>
                                 Memorylines privadas <KeyboardArrowDownRounded className={clsx(classes.iconArrow, { [classes.expandOpen]: this.state.expanded2 })} />

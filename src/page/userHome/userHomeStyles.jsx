@@ -18,34 +18,22 @@ const styles = (theme) => createStyles({
         borderBottom: '1px solid rgba(0,0,0,0.3)',
         textAlign: "center",
         padding: 0,
-        margin: '0 0 20px 0',
+        marginBottom: 20
       },
-      divChangePub: {
-        width: '49%',
+      divChange: {
+        width: '50%',
         display: 'inline-block',
-        padding: 0,
-        height: '100%',
-        borderRight: '1px solid rgba(0,0,0,0.3)',
-        padding: '0',
         margin: '0 0 0 0',
-        '&:hover': {
-            backgroundColor: grey[300],
-            cursor: "pointer",
-        }
-      },
-      divChangePriv: {
-        width: '49%',
-        display: 'inline-block',
-        margin: 0,
-        padding: 0,
+        padding: '8px 0',
         height: '100%',
-        '&:hover': {
-            backgroundColor: grey[300],
-            cursor: "pointer",
-        }
+        '& notSelected:hover': {
+          backgroundColor: grey[300],
+          cursor: "pointer",
+        },
+        // borderRight: '1px solid rgba(0,0,0,0.3)',
       },
       iconChange: {
-        fontSize: 16,
+        fontSize: 30,
         textAlign: 'center',
         margin: 0,
         // paddingBottom: 5
