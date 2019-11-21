@@ -26,7 +26,7 @@ const styles = (theme) => createStyles({
         margin: '0 0 0 0',
         padding: '8px 0',
         height: '100%',
-        '& notSelected:hover': {
+        '&:hover': {
           backgroundColor: grey[300],
           cursor: "pointer",
         },
@@ -39,7 +39,8 @@ const styles = (theme) => createStyles({
         // paddingBottom: 5
       },
       selected: {
-        backgroundColor: green[200],
+        backgroundColor: green[200] + '!important',
+        cursor: "default!important",
       },
     hideCompartilhadas: {
         color: 'rgba(0,0,0,0.8)',

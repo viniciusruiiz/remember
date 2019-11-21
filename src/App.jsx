@@ -25,11 +25,11 @@ export default class App extends Component {
         if (BaseService.isAuthenticated()) {
             BaseService.setRefreshToken(true);
             BaseService.refreshToken().then(res => {
-                this.setState({ "showscreen": true, authenticated:true });
+                this.setState({ "showscreen": true, authenticated:true })
             }).catch(err => {
-                this.setState({ "showscreen": true, authenticated:false });
                 BaseService.setRefreshTokenOnLocalStorage("");
                 BaseService.setTokenOnLocalStorage("");
+                this.setState({ "showscreen": true, authenticated:false })
             });
         } else {
             BaseService.setRefreshToken(false);

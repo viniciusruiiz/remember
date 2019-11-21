@@ -48,10 +48,34 @@ class MemoryLine extends Component {
             membersearch: '',
             members: [],
             candidatos: [],
+            curPage: 1,
+            hasMore: false,
         }
 
-        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
-            this.setState({ "moments": res.data.data, loading: false })
+        this.getMoments();
+    }
+
+    getMoments = () => {
+        let page = this.state.curPage;
+        this._ms.getAllMoments(this._queryString.get("ref"), page).then(res => {
+
+                let newState = Object.assign({}, this.state);
+                newState.moments.push(...res.data.data.moments);
+                newState.hasMore = res.data.data.hasNextPage;
+                newState.curPage = page + 1;
+                this.setState(newState)
+
+
+                //TODO: Paginate by scroll
+                if(this.state.hasMore){
+                    this.getMoments();
+                    console.log("dnv")
+                    //this.setState({loading:false})
+                } else {
+                    console.log("acabou")
+                    this.setState({loading:false})
+                }
+            
         })
     }
 
@@ -85,7 +109,7 @@ class MemoryLine extends Component {
     }
 
     updatePredicate() {
-        this.setState({ mobile: window.screen.innerWidth < 650 });
+        this.setState({ mobile: window.screen.innerWidth < 650 || window.innerWidth < 650 });
     }
 
     handleClickOpen = () => {
