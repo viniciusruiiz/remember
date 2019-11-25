@@ -38,10 +38,7 @@ class NavBar extends Component {
         });
 
         this._ss.getInvites().then(res => {
-            if (res.data.content)
-                this.setState({ notifications: res.data.content });
-            else
-                this.setState({ notifications: [1,2,3] });
+            this.setState({ notifications: res.data.data });
         })
 
         this.updatePredicate = this.updatePredicate.bind(this);
@@ -150,7 +147,7 @@ class NavBar extends Component {
                                                                 <Grid alignItems="center" container>
                                                                     <Grid item xs={9}>
                                                                             <Typography>
-                                                                                <span className={classes.bold}>João</span>
+                                                                                <span className={classes.bold}>{item.usernameOwner}</span>
                                                                                 <span className={classes.font14} > está te convidando para </span>
                                                                                 <span className={classes.bold}>{item.nameMemoryLine}</span>
                                                                             </Typography>
@@ -165,7 +162,7 @@ class NavBar extends Component {
                                                                     }
                                                             </Grid>
                                                         ))
-                                                    : <span>Não existem notificações disponíveis hihi</span>
+                                                    : <span>Não há notificações novas.</span>
                                                 }
                                             </Paper>
                                         }
