@@ -5,6 +5,7 @@ const styles = (theme) => createStyles({
     root: {
       paddingTop: 49,
     },
+
     bodyRoot: {
         color: 'black',
         height: '100%',

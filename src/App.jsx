@@ -21,14 +21,19 @@ export default class App extends Component {
         }
     }
 
-    async componentWillMount() {
+    componentWillMount() {
         if (BaseService.isAuthenticated()) {
             BaseService.setRefreshToken(true);
-            await BaseService.refreshToken();
-            this.setState({ "showscreen": true, authenticated:true })
+            BaseService.refreshToken().then(res => {
+                this.setState({ "showscreen": true, authenticated:true })
+            }).catch(err => {
+                BaseService.setRefreshTokenOnLocalStorage("");
+                BaseService.setTokenOnLocalStorage("");
+                this.setState({ "showscreen": true, authenticated:false })
+            });
         } else {
             BaseService.setRefreshToken(false);
-            this.setState({ "showscreen": true, authenticated:false })
+            this.setState({ "showscreen": true, authenticated:false });
         }
     }
 

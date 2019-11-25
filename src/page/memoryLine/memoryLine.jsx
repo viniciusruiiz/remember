@@ -48,11 +48,34 @@ class MemoryLine extends Component {
             membersearch: '',
             members: [],
             candidatos: [],
+            curPage: 1,
+            hasMore: false,
         }
 
-        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
-            this.setState({ "moments": res.data.data, loading: false })
-            console.log(res.data.data)
+        this.getMoments();
+    }
+
+    getMoments = () => {
+        let page = this.state.curPage;
+        this._ms.getAllMoments(this._queryString.get("ref"), page).then(res => {
+
+                let newState = Object.assign({}, this.state);
+                newState.moments.push(...res.data.data.moments);
+                newState.hasMore = res.data.data.hasNextPage;
+                newState.curPage = page + 1;
+                this.setState(newState)
+
+
+                //TODO: Paginate by scroll
+                if(this.state.hasMore){
+                    this.getMoments();
+                    console.log("dnv")
+                    //this.setState({loading:false})
+                } else {
+                    console.log("acabou")
+                    this.setState({loading:false})
+                }
+            
         })
     }
 
@@ -60,7 +83,6 @@ class MemoryLine extends Component {
         this.updatePredicate();
         window.addEventListener("resize", this.updatePredicate);
         this.resize();
-        console.log('mount')
     }
 
     componentWillMount = () => {
@@ -70,12 +92,10 @@ class MemoryLine extends Component {
             function scrollHorizontally(e) {
                 e = window.event || e;
                 var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-                document.documentElement.scrollLeft -= (delta*75); // Multiplied by 40
-                document.body.scrollLeft -= (delta*60); // Multiplied by 40
-                e.preventDefault();
-                console.log("ok2")
+                document.documentElement.scrollLeft -= (delta*75);
+                document.body.scrollLeft -= (delta*60);
             }
-            // IE9, Chrome, Safari, Opera
+            // Chrome
             document.documentElement.addEventListener("mousewheel", scrollHorizontally, false);
             // Firefox
             document.documentElement.addEventListener("DOMMouseScroll", scrollHorizontally, false);
@@ -89,7 +109,7 @@ class MemoryLine extends Component {
     }
 
     updatePredicate() {
-        this.setState({ mobile: window.innerWidth < 650 });
+        this.setState({ mobile: window.screen.innerWidth < 650 || window.innerWidth < 650 });
     }
 
     handleClickOpen = () => {
@@ -111,7 +131,7 @@ class MemoryLine extends Component {
     handleCloseMenu = () => {
         this._mls.delete(this._queryString.get("ref")).then(res => {
             this.props.history.push('/userhome')
-        }).catch(err => console.log('erro inesperado'))
+        }).catch(err => alert('erro inesperado ao deletar'))
     };
 
     handleClickAway = () => {
@@ -159,11 +179,9 @@ class MemoryLine extends Component {
     }
 
     handleEnter = (event) => {
-        console.log(this.state.membersearch);
         if (event.keyCode == 13) {
             if (this.state.membersearch) {
                 this._ss.search(this.state.membersearch).then(res => {
-                    console.log(res);
                     if (res.status === 201 || res.status === 200)
                         this.setState({ "candidatos": res.data.data });
                     else if (res.status === 204)
@@ -196,32 +214,24 @@ class MemoryLine extends Component {
             maxWidthOrHeight: 1920,
             useWebWorker: true
         };
-        console.log('originalFile type', typeof (e.target.files[0]));
-        console.log('originalFile', e.target.files[0]); // true
         console.log(`originalFile size ${e.target.files[0].size / 1024 / 1024} MB`);
         let compressedFile = await imageCompression(e.target.files[0], options);
         this.setState({ loading: false })
-        console.log(compressedFile);
-        console.log('compressedFile type', typeof (compressedFile));
-        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} BYTES`); // smaller than maxSizeMB
+        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
         this.setState({ 'file': compressedFile })
-
-        if (this.state.mobile) this.handleSubmit();
     }
 
     handleSubmit = (e) => {
         if (e) e.preventDefault()
-        console.log("watashi ga kitta")
         this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref")).then(res => {
             if (res.data.success)
                 this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
                     alert("coisado com sucesso");
-                }).catch(err => console.log('erro no put:', err))
-        }).catch(err => console.log(err));
+                }).catch(err => alert('erro no put:', err))
+        }).catch(err => alert('erro na criacao da presigned url'));
 
         this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
             this.setState({ "moments": res.data.data })
-            console.log(res.data.data)
         })
     }
 
@@ -229,57 +239,59 @@ class MemoryLine extends Component {
         const { classes } = this.props
 
         return (
-            <Grid container className={classes.grid}>
-                <Grid className={classes.titleContainer} item md={5} sm={12}>
-                    <Typography className={classes.title}>
-                        <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
-                        <span className={classes.hideSpan} id="hide"></span><input readOnly maxLength="28" onInput={this.resize} id="txt" value={this.state.title} className={classes.titleIpt}></input>
-                        <Edit onClick={this.handleEdit} className={classes.editIcon} id="edit-icon"></Edit>
-                    </Typography>
-                </Grid>
-                <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
-                    <Grid item className={classes.membros}>
-                        <TextField
-                            className={classes.adicionar}
-                            margin="dense"
-                            hiddenLabel
-                            variant="filled"
-                            placeholder="Adicionar"
-                            onKeyDown={this.handleEnter}
-                            onChange={this.handleSearch}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
-                                className: classes.adicionarInput,
-                            }}
-                        />
-                        {this.state.candidatos.length > 0 &&
-                            <ul className={classes.candidatos}>
-                                {this.state.candidatos.map(item => (
-                                    <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
-                                ))}
-                            </ul>
-                        }
+            <>
+                <Grid container className={classes.grid}>
+                    <Grid className={classes.titleContainer} item md={5} sm={12}>
+                        <Typography className={classes.title}>
+                            <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
+                            <span className={classes.hideSpan} id="hide"></span><input readOnly maxLength="28" onInput={this.resize} id="txt" value={this.state.title} className={classes.titleIpt}></input>
+                            <Edit onClick={this.handleEdit} className={classes.editIcon} id="edit-icon"></Edit>
+                        </Typography>
+                    </Grid>
+                    <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
+                        <Grid item className={classes.membros}>
+                            <TextField
+                                className={classes.adicionar}
+                                margin="dense"
+                                hiddenLabel
+                                variant="filled"
+                                placeholder="Adicionar"
+                                onKeyDown={this.handleEnter}
+                                onChange={this.handleSearch}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                                    className: classes.adicionarInput,
+                                }}
+                            />
+                            {this.state.candidatos.length > 0 &&
+                                <ul className={classes.candidatos}>
+                                    {this.state.candidatos.map(item => (
+                                        <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
+                                    ))}
+                                </ul>
+                            }
 
 
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <img alt='' src={perfil} className={classes.membersIcons} />
-                        <ClickAwayListener onClickAway={this.handleClickAway}>
-                            <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
-                                <MoreVert />
-                                {this.state.openMenu &&
-                                    <Paper className={classes.paper}>
-                                        <MenuList>
-                                            <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
-                                        </MenuList>
-                                    </Paper>
-                                }
-                            </IconButton>
-                        </ClickAwayListener>
+                            <img alt='' src={perfil} className={classes.membersIcons} />
+                            <img alt='' src={perfil} className={classes.membersIcons} />
+                            <img alt='' src={perfil} className={classes.membersIcons} />
+                            <img alt='' src={perfil} className={classes.membersIcons} />
+                            <ClickAwayListener onClickAway={this.handleClickAway}>
+                                <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
+                                    <MoreVert />
+                                    {this.state.openMenu &&
+                                        <Paper className={classes.paper}>
+                                            <MenuList>
+                                                <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
+                                            </MenuList>
+                                        </Paper>
+                                    }
+                                </IconButton>
+                            </ClickAwayListener>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </>
         )
     }
 

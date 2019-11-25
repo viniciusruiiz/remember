@@ -17,13 +17,9 @@ class Line extends Component {
     }
 
     this.updatePredicate = this.updatePredicate.bind(this);
-    // console.log("after", window.innerWidth)
-    // this.updatePredicate();
-    // console.log("before", window.innerWidth)
   }
   
   componentDidMount() {
-    //console.log("2", window.innerWidth)
     this.updatePredicate();
     window.addEventListener("resize", this.updatePredicate);
   }
@@ -33,11 +29,8 @@ class Line extends Component {
   }
 
   updatePredicate() {
-    //console.log("3" ,window.innerWidth)
     let boolean = 650 > window.screen.width;
-    //console.log(boolean)
     this.setState({ mobile: boolean });
-    //console.log("AAAAAAAAAA", this.state.mobile)
   }
 
 

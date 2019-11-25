@@ -1,5 +1,5 @@
 import { createStyles } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import { green, grey } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     root: {
@@ -10,6 +10,38 @@ const styles = (theme) => createStyles({
         paddingLeft: 20,
         paddingRight: 20,
     },
+    headerChange: {
+        height: '100%',
+        width: '90%',
+        marginLeft: '5%',
+        //display: 'inline-block',
+        borderBottom: '1px solid rgba(0,0,0,0.3)',
+        textAlign: "center",
+        padding: 0,
+        marginBottom: 20
+      },
+      divChange: {
+        width: '50%',
+        display: 'inline-block',
+        margin: '0 0 0 0',
+        padding: '8px 0',
+        height: '100%',
+        '&:hover': {
+          backgroundColor: grey[300],
+          cursor: "pointer",
+        },
+        // borderRight: '1px solid rgba(0,0,0,0.3)',
+      },
+      iconChange: {
+        fontSize: 30,
+        textAlign: 'center',
+        margin: 0,
+        // paddingBottom: 5
+      },
+      selected: {
+        backgroundColor: green[200] + '!important',
+        cursor: "default!important",
+      },
     hideCompartilhadas: {
         color: 'rgba(0,0,0,0.8)',
         marginTop: 15,
