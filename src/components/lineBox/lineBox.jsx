@@ -42,7 +42,7 @@ class LineBox extends Component {
             }
             <Card className={classes.card}>
             <Link to={`memoryline/?ref=${this.props.reference}&title=${this.props.title}`}>
-              <Button className={classes.mediaButton}> 
+              <Button id="linebox" className={classes.mediaButton}> 
                   
               <Grid className={classes.media} container>
                   { this.props.urlMoments[0] || this.props.urlMoments[1] || this.props.urlMoments[2] || this.props.urlMoments[3] ?

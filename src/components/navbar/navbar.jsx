@@ -120,7 +120,7 @@ class NavBar extends Component {
                                         <Paper className={classes.paper}>
                                             <MenuList>
                                                 <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
-                                                <MenuItem onClick={this.handleLogout}>Sair</MenuItem>
+                                                <MenuItem id="sair" onClick={this.handleLogout}>Sair</MenuItem>
                                             </MenuList>
                                         </Paper>
                                     }
