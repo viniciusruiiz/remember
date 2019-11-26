@@ -15,6 +15,7 @@ const styles = (theme) => createStyles({
     display: "inline-block",
     verticalAlign: 'top',
     margin: theme.spacing(0,2,2,0),
+    objectFit: 'cover',
   },
   donoName: { 
     fontSize: 14,

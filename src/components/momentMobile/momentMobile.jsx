@@ -45,6 +45,47 @@ class MomentMobile extends Component {
       </>
     );
   }
+
+  formatMonth(date) {
+    switch (date.getMonth()) {
+      case 0:
+        return 'Jan'
+        break;
+      case 1:
+        return 'Fev'
+        break;
+      case 2:
+        return 'Mar'
+        break;
+      case 3:
+        return 'Abr'
+        break;
+      case 4:
+        return 'Mai'
+        break;
+      case 5:
+        return 'Jun'
+        break;
+      case 6:
+        return 'Jul'
+        break;
+      case 7:
+        return 'Ago'
+        break;
+      case 8:
+        return 'Set'
+        break;
+      case 9:
+        return 'Out'
+        break;
+      case 10:
+        return 'Nov'
+        break;
+      case 11:
+        return 'Dez'
+        break;
+    }
+  }
   
   render() {
         const { classes } = this.props
@@ -54,11 +95,17 @@ class MomentMobile extends Component {
         <div className={classes.root}>
           {/* {this.renderSpinner()} */}
           <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} onError={(e) => e.target.src = img404} className={classes.img} id={"moment-"+this.props.reference} />
-          <Grid className={classes.date} container alignContent='center' alignItems='center'>
-            <Grid item>
-              <Typography className={classes.dateMonth}>Mar</Typography>
-              <Typography className={classes.dateDay}>02</Typography>
-              <Typography className={classes.dateYear}>2019</Typography>
+          <Grid container alignContent='center' alignItems='center'>
+            <Grid className={classes.date} item xs={2}>
+              <Typography className={classes.dateMonth}>{this.formatMonth(new Date(this.props.creationDate))}</Typography>
+              <Typography className={classes.dateDay}>{new Date(this.props.creationDate).getDate()}</Typography>
+              <Typography className={classes.dateYear}>{new Date(this.props.creationDate).getFullYear()}</Typography>
+            </Grid>
+            <Grid xs={1}>
+              <div style={{borderLeft: "3px solid black", height: "500px"}} /> 
+            </Grid>
+            <Grid item xs={9}>
+              <Typography display='inline' className={classes.description}>{this.props.moment.description}</Typography>
             </Grid>
           </Grid>
           {/* <MomentModal handleClose={this.handleClose} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> */}

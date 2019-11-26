@@ -23,7 +23,7 @@ class MomentHeader extends Component {
         <div className={classes.root}>
           <Grid container>          
             <Grid>
-              <img alt='' src={perfil} className={classes.donoImg} />
+              <img alt='' src={this.props.ownerPicture} className={classes.donoImg} />
             </Grid>
             <Grid>
               <Typography display='inline' className={classes.donoName}>{this.props.person}</Typography>

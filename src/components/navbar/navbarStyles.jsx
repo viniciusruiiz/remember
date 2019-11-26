@@ -15,13 +15,17 @@ const styles = (theme) => createStyles({
     },
     perfil: {
         height: theme.spacing(4),
+        width: theme.spacing(4),
         margin: theme.spacing(1,1,1,2),
         borderRadius: 50,
+        objectFit: 'cover',
     },
     perfilMob: {
         height: theme.spacing(4),
+        width: theme.spacing(4),
         margin: theme.spacing(0,0,0,1),
         borderRadius: 50,
+        objectFit: 'cover',
     },
     logoIcon: {
         height: theme.spacing(5),

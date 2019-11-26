@@ -43,9 +43,9 @@ class Line extends Component {
     <Grid alignItems="center" className={classes.root}>
     {this.props.data.map((moment) => (
             i++ % 2 === 0 ?
-            <Moment urlBucket={moment.urlBucket} creationDate={moment.creationDate} desc={moment.description} reference={moment.idMoment} />
+            <Moment moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} desc={moment.description} reference={moment.idMoment} />
             :
-            <MomentDown urlBucket={moment.urlBucket} creationDate={moment.creationDate} person={'Yudi'} desc={moment.description} reference={moment.idMoment}/>
+            <MomentDown moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} person={'Yudi'} desc={moment.description} reference={moment.idMoment}/>
         ))}
     </Grid>
     )
@@ -59,8 +59,8 @@ class Line extends Component {
     return (
 
         <Grid alignItems="center">
-        {this.props.data.reverse().map((moment) => (
-                <MomentMobile urlBucket={moment.urlBucket} creationDate={moment.creationDate} reference={moment.idMoment} />
+        {this.props.data.map((moment) => (
+                <MomentMobile moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} reference={moment.idMoment} />
             ))}
         </Grid>
 

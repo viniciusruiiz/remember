@@ -7,6 +7,7 @@ import Comment from './../comment/comment'
 import MomentHeader from '../momentHeader/momentHeader';
 import CommentService from '../../service/commentService';
 import compose from 'recompose/compose';
+import BaseService from '../../service/baseService';
 
 class MomentModal extends Component {
 
@@ -40,8 +41,12 @@ class MomentModal extends Component {
 
     this._cs.comment(this.props.reference, comment).then(res => {
       let newState = Object.assign({}, this.state);
-      res.data.creationDate = new Date().toString()
-      newState.comments.push(res.data)
+      newState.comments.push({
+        ownerName: BaseService.currentName,
+        ownerPic: BaseService.currentUserPic,
+        creationDate: new Date().toString(),
+        content: comment
+      })
       this.setState(newState);
     }).catch(err => {alert("ERRO AO COMENTAR")});
   }
@@ -110,7 +115,7 @@ class MomentModal extends Component {
             <Grid className={classes.content} xs={3}>
               {/* <RSC className={classes.RSC}> */}
               <div className={classes.RSC}>
-                <MomentHeader person='Vinicius Ruiz' date='2 de março de 2019' description={this.props.desc} />
+                <MomentHeader ownerPicture={this.props.moment.ownerPicture} person={this.props.moment.ownerName} date='2 de março de 2019' description={this.props.desc} />
                 {
                   
                   this.state.comments.map(comment => (

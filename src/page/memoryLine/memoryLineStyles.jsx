@@ -130,6 +130,7 @@ const styles = (theme) => createStyles({
       borderRadius: '50%',
       top: 20,
       margin: theme.spacing(0,2,0,0),  
+      objectFit: 'cover',
     },
     membersIconsMob: {
       marginTop: 11,
@@ -138,7 +139,8 @@ const styles = (theme) => createStyles({
       borderRadius: '50%',
       top: 20,
       margin: theme.spacing(0,2,0,0),  
-      float: "right"
+      float: "right",
+      objectFit: 'cover',
     },
     gridRight: {
       width: '100%',

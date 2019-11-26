@@ -52,8 +52,7 @@ const styles = (theme) => createStyles({
     maxHeight: '120vh',
   },
   date: {
-    marginLeft: 10,
-    marginTop: 10,
+    marginTop: 5,
   },
   dateMonth: {
     textAlign: 'center',
@@ -71,6 +70,10 @@ const styles = (theme) => createStyles({
     textAlign: 'center',
     fontWeight: 100,
     fontSize: 12,
+  },
+  description: {
+    fontWeight: 300,
+    fontSize: 15,
   },
 });
 
