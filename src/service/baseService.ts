@@ -48,6 +48,7 @@ export default class BaseService {
     public static currentFName : string;
     public static currentLName : string;
     public static currentUserPic : string;
+    public static updateProfile : void;
 
     public static isAuthenticated(): boolean {
         return !!localStorage.getItem("refresh_token");

@@ -37,6 +37,11 @@ class NavBar extends Component {
             BaseService.currentUserPic = res.data.data.picture;
             BaseService.currentFName = res.data.data.first_name;
             BaseService.currentLName = res.data.data.last_name;
+
+            let self = this;
+            BaseService.updateProfile = function (pic, name) {
+                self.setState({ profileName: name, profilePic: pic });
+            }
         });
 
         this._ss.getInvites().then(res => {

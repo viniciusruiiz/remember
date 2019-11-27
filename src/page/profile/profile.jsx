@@ -23,7 +23,7 @@ class Profile extends Component {
             username: BaseService.currentUsername,
             fname: BaseService.currentFName,
             lname: BaseService.currentLName,
-            pic: BaseService.currentUserPic || perfil,
+            pic: BaseService.currentUserPic,
             disableSubmit: true,
             file: '',
         }
@@ -35,7 +35,7 @@ class Profile extends Component {
                     fname: res.data.data.first_name,
                     lname: res.data.data.last_name,
                     username: res.data.data.username,
-                    //pic: res.data.data.picture,
+                    pic: res.data.data.picture,
                     loading: false
                 })
             })
@@ -66,12 +66,15 @@ class Profile extends Component {
     }
 
     handleSubmit = (e) => {
+        this.setState({ loading: true })
         this._fs.getPreSignedUrl(this.state.file).then(res => {
             if (res.data.success)
                 this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
+                    this.setState({ loading: false })
+
                     alert("coisado com sucesso");
-                }).catch(err => alert('erro no put:', err))
-        }).catch(err => alert('erro na criacao da presigned url'));
+                }).catch(err => { alert('erro no put:', err); this.setState({ loading: false }) })
+        }).catch(err => { alert('erro na criacao da presigned url'); this.setState({ loading: false }) });
 
         // this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
         //     this.setState({ "moments": res.data.data })
@@ -116,7 +119,7 @@ class Profile extends Component {
                         <input type="file" id="file-input" style={{ display: "none" }} onChange={this.handleFile}></input>
                         <Button
                             fullWidth
-                            disabled={this.state.disableSubmit}
+                            disabled={this.state.disableSubmit || this.state.loading}
                             className={classes.btn}
                             id="submit"
                             color="primary"
