@@ -45,6 +45,8 @@ export default class BaseService {
 
     public static currentUsername : string;
     public static currentName : string;
+    public static currentFName : string;
+    public static currentLName : string;
     public static currentUserPic : string;
 
     public static isAuthenticated(): boolean {

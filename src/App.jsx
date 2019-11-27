@@ -10,6 +10,7 @@ import PrivateRoute from './service/access/PrivateRoute';
 import PublicRoute from './service/access/PublicRoute';
 import BaseService from './service/baseService';
 import NavBar from './components/navbar/navbar';
+import Profile from './page/profile/profile';
 
 export default class App extends Component {
 
@@ -25,24 +26,24 @@ export default class App extends Component {
         if (BaseService.isAuthenticated()) {
             BaseService.setRefreshToken(true);
             BaseService.refreshToken().then(res => {
-                this.setState({ "showscreen": true, authenticated:true })
+                this.setState({ "showscreen": true, authenticated: true })
             }).catch(err => {
                 BaseService.setRefreshTokenOnLocalStorage("");
                 BaseService.setTokenOnLocalStorage("");
-                this.setState({ "showscreen": true, authenticated:false })
+                this.setState({ "showscreen": true, authenticated: false })
             });
         } else {
             BaseService.setRefreshToken(false);
-            this.setState({ "showscreen": true, authenticated:false });
+            this.setState({ "showscreen": true, authenticated: false });
         }
     }
 
     handleLogin = () => {
-        this.setState({authenticated:true})
+        this.setState({ authenticated: true })
     }
 
     handleLogout = () => {
-        this.setState({authenticated:false})
+        this.setState({ authenticated: false })
     }
 
     render() {
@@ -51,12 +52,13 @@ export default class App extends Component {
             <>
                 {this.state.showscreen &&
                     <Router>
-                        {this.state.authenticated && <NavBar handler = {this.handleLogout} />}
+                        {this.state.authenticated && <NavBar handler={this.handleLogout} />}
                         <Switch>
-                            <PublicRoute restricted={true} exact path="/" component={(props) => <Login {...props} handler = {this.handleLogin} />} />
+                            <PublicRoute restricted={true} exact path="/" component={(props) => <Login {...props} handler={this.handleLogin} />} />
                             <PublicRoute restricted={true} exact path="/signup" component={SignUp} />
                             <PrivateRoute path="/userhome" exact component={UserHome} />
                             <PrivateRoute path="/memoryline" exact component={MemoryLine} />
+                            <PrivateRoute path="/profile" exact component={Profile} />
                             <PublicRoute restricted={true} exact path="/singupconfirmation" component={SignUpConfirmation} />
                             <PublicRoute restricted={false} component={Error} />
                         </Switch>

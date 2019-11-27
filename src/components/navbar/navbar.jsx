@@ -35,6 +35,8 @@ class NavBar extends Component {
             BaseService.currentUsername = res.data.data.username;
             BaseService.currentName = res.data.data.first_name + " " + res.data.data.last_name;
             BaseService.currentUserPic = res.data.data.picture;
+            BaseService.currentFName = res.data.data.first_name;
+            BaseService.currentLName = res.data.data.last_name;
         });
 
         this._ss.getInvites().then(res => {
@@ -47,15 +49,15 @@ class NavBar extends Component {
     componentDidMount() {
         this.updatePredicate();
         window.addEventListener("resize", this.updatePredicate);
-      }
-    
-      componentWillUnmount() {
+    }
+
+    componentWillUnmount() {
         window.removeEventListener("resize", this.updatePredicate);
-      }
-    
-      updatePredicate() {
+    }
+
+    updatePredicate() {
         this.setState({ mobile: window.innerWidth < 650 });
-      }
+    }
 
     handleClick = (event) => {
         this.setState({ open: !this.state.open })
@@ -90,7 +92,7 @@ class NavBar extends Component {
             alert("Convite aceito!")
 
             let newState = Object.assign({}, this.state);
-            newState.notifications.splice(newState.notifications.map(e => {return e.idInvite}).indexOf(idInvite), 1);
+            newState.notifications.splice(newState.notifications.map(e => { return e.idInvite }).indexOf(idInvite), 1);
             this.setState(newState);
         })
     }
@@ -103,32 +105,35 @@ class NavBar extends Component {
                 <AppBar className={classes.bar} position="fixed">
                     <Container >
                         <Toolbar className={classes.toolbar}>
-                            
-                            <img alt='' src={logo} className={this.state.mobile ? classes.logoIconMob : classes.logoIcon} />
-                            <Typography className={this.state.mobile ? classes.logoTextMob : classes.logoText}>remember</Typography>
+
+                            <img alt='' src={logo} className={this.state.mobile ? classes.logoIconMob : classes.logoIcon} style={{ cursor: "pointer" }} onClick={() => this.props.history.push('/userhome')} />
+
+                            <Typography to="/userhome" className={this.state.mobile ? classes.logoTextMob : classes.logoText} style={{ cursor: "pointer" }} onClick={() => this.props.history.push('/userhome')}>
+                                remember
+                            </Typography>
                             <ClickAwayListener onClickAway={this.handleClickAway}>
                                 <div>
-                                <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
-                                    {!this.state.mobile && <Typography className={classes.user}>{this.state.profileName ? this.state.profileName : "..."}</Typography>}
-                                    {
-                                        this.state.loadingProfile ?  
-                                        <div className={classes.perfil}><CircularProgress size={24} style={{marginTop:3}}/></div> 
-                                        :
-                                        <img alt='' src={this.state.profilePic || perfil} className={this.state.mobile ? classes.perfilMob : classes.perfil} />
-                                    }
-                                    {this.state.open &&
-                                        <Paper className={classes.paper}>
-                                            <MenuList>
-                                                <MenuItem onClick={this.handleClose}>Minha conta</MenuItem>
-                                                <MenuItem id="sair" onClick={this.handleLogout}>Sair</MenuItem>
-                                            </MenuList>
-                                        </Paper>
-                                    }
-                                </Button>
+                                    <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
+                                        {!this.state.mobile && <Typography className={classes.user}>{this.state.profileName ? this.state.profileName : "..."}</Typography>}
+                                        {
+                                            this.state.loadingProfile ?
+                                                <div className={classes.perfil}><CircularProgress size={24} style={{ marginTop: 3 }} /></div>
+                                                :
+                                                <img alt='' src={this.state.profilePic || perfil} className={this.state.mobile ? classes.perfilMob : classes.perfil} />
+                                        }
+                                        {this.state.open &&
+                                            <Paper className={classes.paper}>
+                                                <MenuList>
+                                                    <MenuItem onClick={() => { this.props.history.push('/profile') }}>Minha conta</MenuItem>
+                                                    <MenuItem id="sair" onClick={this.handleLogout}>Sair</MenuItem>
+                                                </MenuList>
+                                            </Paper>
+                                        }
+                                    </Button>
                                 </div>
                             </ClickAwayListener>
                             {this.state.notifications.length > 0 &&
-                                <Paper className={this.state.mobile ? classes.notificationCountMob : classes.notificationCount }>{this.state.notifications.length}</Paper>
+                                <Paper className={this.state.mobile ? classes.notificationCountMob : classes.notificationCount}>{this.state.notifications.length}</Paper>
                             }
                             <ClickAwayListener onClickAway={this.handleClickAwayNotif}>
                                 <div>
@@ -136,32 +141,32 @@ class NavBar extends Component {
                                         <NotificationsOutlined className={classes.notifications} />
                                     </Button>
                                     {this.state.openNotif &&
-                                            <Paper className={classes.paperNotif} style={this.state.notifications.length > 0 ? {} : {padding:10}}>
-                                                {this.state.notifications.length > 0 ?
-                                                        this.state.notifications.map((item, index) => (
-                                                            <Grid container key={index} className={classes.invite} spacing={2} >
-                                                                <Grid alignItems="center" container>
-                                                                    <Grid item xs={9}>
-                                                                            <Typography>
-                                                                                <span className={classes.bold}>{item.usernameOwner}</span>
-                                                                                <span className={classes.font14} > está te convidando para </span>
-                                                                                <span className={classes.bold}>{item.nameMemoryLine}</span>
-                                                                            </Typography>
-                                                                    </Grid>
-                                                                    <Grid item xs={3}>
-                                                                        <Button style={{color:'#45d34f'}} className={classes.btnInvite} onClick={() => {this.acceptInvite(item.idInvite, true)}} ><DoneRounded /></Button><br/>
-                                                                        <Button style={{color:'#a3a3a3'}} className={classes.btnInvite} onClick={() => {this.acceptInvite(item.idInvite, false)}} ><ClearRounded /></Button>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                { index == this.state.notifications.length-1 ?
-                                                                    <span></span> : <hr style={{width:'100%', border: '1px solid #dbdbdb'}} />
-                                                                    }
+                                        <Paper className={classes.paperNotif} style={this.state.notifications.length > 0 ? {} : { padding: 10 }}>
+                                            {this.state.notifications.length > 0 ?
+                                                this.state.notifications.map((item, index) => (
+                                                    <Grid container key={index} className={classes.invite} spacing={2} >
+                                                        <Grid alignItems="center" container>
+                                                            <Grid item xs={9}>
+                                                                <Typography>
+                                                                    <span className={classes.bold}>{item.usernameOwner}</span>
+                                                                    <span className={classes.font14} > está te convidando para </span>
+                                                                    <span className={classes.bold}>{item.nameMemoryLine}</span>
+                                                                </Typography>
                                                             </Grid>
-                                                        ))
-                                                    : <span>Não há notificações novas.</span>
-                                                }
-                                            </Paper>
-                                        }
+                                                            <Grid item xs={3}>
+                                                                <Button style={{ color: '#45d34f' }} className={classes.btnInvite} onClick={() => { this.acceptInvite(item.idInvite, true) }} ><DoneRounded /></Button><br />
+                                                                <Button style={{ color: '#a3a3a3' }} className={classes.btnInvite} onClick={() => { this.acceptInvite(item.idInvite, false) }} ><ClearRounded /></Button>
+                                                            </Grid>
+                                                        </Grid>
+                                                        {index == this.state.notifications.length - 1 ?
+                                                            <span></span> : <hr style={{ width: '100%', border: '1px solid #dbdbdb' }} />
+                                                        }
+                                                    </Grid>
+                                                ))
+                                                : <span>Não há notificações novas.</span>
+                                            }
+                                        </Paper>
+                                    }
                                 </div>
                             </ClickAwayListener>
                         </Toolbar>
