@@ -59,23 +59,23 @@ class MemoryLine extends Component {
         let page = this.state.curPage;
         this._ms.getAllMoments(this._queryString.get("ref"), page).then(res => {
 
-                let newState = Object.assign({}, this.state);
-                newState.moments.push(...res.data.data.moments);
-                newState.hasMore = res.data.data.hasNextPage;
-                newState.curPage = page + 1;
-                this.setState(newState)
+            let newState = Object.assign({}, this.state);
+            newState.moments.push(...res.data.data.moments);
+            newState.hasMore = res.data.data.hasNextPage;
+            newState.curPage = page + 1;
+            this.setState(newState)
 
 
-                //TODO: Paginate by scroll
-                if(this.state.hasMore){
-                    this.getMoments();
-                    console.log("dnv")
-                    //this.setState({loading:false})
-                } else {
-                    console.log("acabou")
-                    this.setState({loading:false})
-                }
-            
+            //TODO: Paginate by scroll
+            if (this.state.hasMore) {
+                this.getMoments();
+                console.log("dnv")
+                //this.setState({loading:false})
+            } else {
+                console.log("acabou")
+                this.setState({ loading: false })
+            }
+
         })
     }
 
@@ -92,15 +92,14 @@ class MemoryLine extends Component {
             function scrollHorizontally(e) {
                 e = window.event || e;
                 var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-                document.documentElement.scrollLeft -= (delta*75);
-                document.body.scrollLeft -= (delta*60);
+                document.documentElement.scrollLeft -= (delta * 75);
+                document.body.scrollLeft -= (delta * 60);
             }
             // Chrome
             document.documentElement.addEventListener("mousewheel", scrollHorizontally, false);
             // Firefox
             document.documentElement.addEventListener("DOMMouseScroll", scrollHorizontally, false);
         })();
-
     }
 
     componentWillUnmount = () => {
@@ -365,33 +364,21 @@ class MemoryLine extends Component {
                 {/* <NavBar /> */}
 
                 {/* <div className={classes.bodyRoot}> */}
-                    {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
+                {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
                 {
                     !this.state.loading && this.state.moments.length > 0 ?
-                    <Line data={this.state.moments} /> : !this.state.loading && this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : !this.state.loading && <Typography className={classes.not}>Nenhum momento salvo.</Typography>
+                        <Line data={this.state.moments} /> : !this.state.loading && this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : !this.state.loading && <Typography className={classes.not}>Nenhum momento salvo.</Typography>
                 }
 
-                    <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
-                        <Add />
-                    </Fab>
+                <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
+                    <Add />
+                </Fab>
                 {/* </div> */}
 
                 {/* MODAL ADD MOMENT */}
                 <Dialog open={this.state.openModal} onClose={this.handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
                     <DialogContent>
-                        {/* <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We will send updates
-                            occasionally.
-                </DialogContentText> */}
-                        {/* <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="Email Address"
-                            type="email"
-                            fullWidth
-                        /> */}
                         <input
                             accept="image/*"
                             style={{ display: 'block' }}

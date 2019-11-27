@@ -51,7 +51,7 @@ export default class BaseService {
         return !!localStorage.getItem("refresh_token");
     }
 
-    protected readonly baseUrl: string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/beta'
+    protected readonly baseUrl: string = 'https://1kamokmd96.execute-api.us-east-1.amazonaws.com/dev'
 
     protected static setTokenOnLocalStorage(token: string): void {
         localStorage.setItem("access_token", token);

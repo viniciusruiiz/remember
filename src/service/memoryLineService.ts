@@ -17,8 +17,8 @@ export default class MemoryLineService extends BaseService {
         return super.get(`${this.baseUrl}/memory-line/private/${page}`);
     }
 
-    add() : Promise<AxiosResponse<MemoryLineEntity>> {
-        return super.post(`${this.baseUrl}/memory-line`, undefined);
+    add(memoryLine: Object) : Promise<AxiosResponse<MemoryLineEntity>> {
+        return super.post(`${this.baseUrl}/memory-line`, JSON.stringify(memoryLine));
     }
 
     changeName(memoryLineId: string, newName: string) : Promise<AxiosResponse<any>> {
