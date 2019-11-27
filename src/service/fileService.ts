@@ -4,9 +4,9 @@ import PreSignedUrlResponse from "../model/response/preSignedUrlResponse";
 
 export default class FileService extends BaseService {
 
-    getPreSignedUrl(data: File, memoryLineId: string): Promise<AxiosResponse<PreSignedUrlResponse>> {
+    getPreSignedUrl(data: File, memoryLineId?: string): Promise<AxiosResponse<PreSignedUrlResponse>> {
 
-        return super.get(this.baseUrl + '/bucket/presigned-put/?object_name=' + data.name + '&id_memory_line=' + memoryLineId );
+        return super.get(this.baseUrl + '/bucket/presigned-put/?object_name=' + data.name + (!!memoryLineId ? ('&id_memory_line=' + memoryLineId) : ""));
     }
 
     uploadFile(presigned_url : string, data: File, mimeType: string) {
