@@ -279,7 +279,7 @@ class UserHome extends Component {
                                 }
                             </Grid>
 
-                            <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen}>
+                            <Fab id="button_new" color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen}>
                                 <Add />
                             </Fab>
                         </div>
