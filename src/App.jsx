@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from './page/login/login';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch, withRouter } from 'react-router-dom'
 import SignUp from './page/signup/signup';
 import SignUpConfirmation from './page/signup/signupConfirmation';
 import Error from './page/error/error';
@@ -12,14 +12,19 @@ import BaseService from './service/baseService';
 import NavBar from './components/navbar/navbar';
 import Profile from './page/profile/profile';
 
-export default class App extends Component {
+class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             showscreen: false,
-            authenticated: false,
+            authenticated: false
         }
+
+        this.currentPathname = null;
+        this.currentSearch = null;
+
+        this.memoryLineRef = React.createRef();
     }
 
     componentWillMount() {
@@ -36,6 +41,48 @@ export default class App extends Component {
             BaseService.setRefreshToken(false);
             this.setState({ "showscreen": true, authenticated: false });
         }
+
+        // const { history } = this.props;
+
+        // history.listen((newLocation, action) => {
+        //     if (action === "PUSH") {
+        //         if (
+        //             newLocation.pathname.indexOf('memoryline') > -1 &&
+        //             (newLocation.pathname !== this.currentPathname ||
+        //                 newLocation.search !== this.currentSearch)
+        //         ) {
+        //             console.log("watashi ga kitta!")
+
+        //             this.currentPathname = newLocation.pathname;
+        //             this.currentSearch = newLocation.search;
+
+        //             history.push({
+        //                 pathname: newLocation.pathname,
+        //                 search: newLocation.search
+        //             });
+        //         }
+        //     } else {
+        //         console.log("here")
+
+        //         if (this.currentPathname != null) {
+        //             console.log("222222", BaseService.openedModal)
+        //             if (BaseService.openedModal) {
+        //                 console.log("modal esta aberto")
+        //                 history.go(1);
+        //                 this.memoryLineRef.current.handleClose()
+        //                 this.memoryLineRef.current.handleCloseParticipants()
+        //                 //adicionar mais eventos depois, principalmente de comentario
+        //             }
+        //             else {
+        //                 console.log("modal nao esta aberto")
+        //                 history.push('/userhome')
+        //                 this.currentPathname = null;
+        //                 this.currentSearch = null;
+        //             }
+        //         }
+
+        //     }
+        // });
     }
 
     handleLogin = () => {
@@ -46,12 +93,18 @@ export default class App extends Component {
         this.setState({ authenticated: false })
     }
 
+    // handleOpenedModal = () => {
+    //     let newState = !this.state.openedModal;
+    //     this.setState({ openedModal: newState })
+    //     console.log(this.state.openedModal)
+    // }
+
     render() {
 
         return (
             <>
                 {this.state.showscreen &&
-                    <Router>
+                    <>
                         {this.state.authenticated && <NavBar handler={this.handleLogout} />}
                         <Switch>
                             <PublicRoute restricted={true} exact path="/" component={(props) => <Login {...props} handler={this.handleLogin} />} />
@@ -62,9 +115,11 @@ export default class App extends Component {
                             <PublicRoute restricted={true} exact path="/singupconfirmation" component={SignUpConfirmation} />
                             <PublicRoute restricted={false} component={Error} />
                         </Switch>
-                    </Router>
+                    </>
                 }
             </>
         )
     }
 }
+
+export default withRouter(App)

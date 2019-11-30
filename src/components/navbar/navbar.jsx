@@ -61,7 +61,7 @@ class NavBar extends Component {
     }
 
     updatePredicate() {
-        this.setState({ mobile: window.innerWidth < 650 });
+        this.setState({ mobile: window.innerWidth < 650 || window.screen.width < 650 });
     }
 
     handleClick = (event) => {

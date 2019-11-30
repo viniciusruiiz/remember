@@ -3,8 +3,7 @@ import { red, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
   root: {
-    padding: 20,
-    paddingTop: 0,
+    padding: "0 20px 5px 20px",
     maxWidth: '100%',
     // '&::after': {
     //   display: 'inline-block',
@@ -48,7 +47,7 @@ const styles = (theme) => createStyles({
     outline: 'none',
   },
   imgLightBox: {
-    maxWidth:'70%',
+    maxWidth: '70%',
     maxHeight: '120vh',
   },
   date: {
@@ -73,7 +72,20 @@ const styles = (theme) => createStyles({
   },
   description: {
     fontWeight: 300,
-    fontSize: 15,
+    fontSize: 13,
+  },
+  numbers: {
+    marginTop: 8,
+    display: 'flex',
+    alignItems: 'center',
+    fontWeight: 300,
+    fontSize: 16,
+  },
+  ownerPic: {
+    width: 50,
+    height: 50,
+    borderRadius: '50%',
+    objectFit: 'cover',
   },
 });
 

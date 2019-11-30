@@ -8,7 +8,7 @@ import MomentModal from '../momentModal/momentModal';
 import img404 from '../../images/not_found.png'
 
 class Moment extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -18,14 +18,14 @@ class Moment extends Component {
   }
 
   handleOpen = () => {
-    this.setState({open: true})
+    this.setState({ open: true })
   }
 
   handleClose = () => {
-    this.setState({open: false})
+    this.setState({ open: false })
     setTimeout(() => {
-      document.body.style.overflowY = 'hidden'      
-    },100)
+      document.body.style.overflowY = 'hidden'
+    }, 100)
   }
 
   handleImageLoaded = () => {
@@ -88,27 +88,29 @@ class Moment extends Component {
     return (
       <>
         <span className={classes.filter} />
-        <CircularProgress className={classes.load}/>
+        <CircularProgress className={classes.load} />
       </>
     );
   }
-  
-  render() {
-        const { classes } = this.props
 
-        return (
-        <>
+  render() {
+    const { classes } = this.props
+
+    let date = this.formatDate(new Date(this.props.creationDate));
+
+    return (
+      <>
         <div className={classes.circle}>
           {this.renderSpinner()}
-          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} onError={(e) => e.target.src = img404} id={"moment-"+this.props.reference} />
-          <Typography className={classes.date}>{this.formatDate(new Date(this.props.creationDate))}</Typography>
-          { this.state.open ?
-            <MomentModal moment={this.props.moment} handleClose={this.handleClose} desc={this.props.desc} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> : <span hidden></span>
+          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} onError={(e) => e.target.src = img404} id={"moment-" + this.props.reference} />
+          <Typography className={classes.date}>{date}</Typography>
+          {this.state.open &&
+            <MomentModal moment={this.props.moment} handleClose={this.handleClose} desc={this.props.desc} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} date={this.props.creationDate} />
           }
         </div>
-        </>
-        )
-    }
+      </>
+    )
+  }
 }
 
 export default withStyles(styles)(Moment)

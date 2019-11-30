@@ -3,8 +3,7 @@ import { red, purple } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
   root: {
-    padding: 20,
-    paddingTop: 0,
+    padding: "0 20px 5px 20px",
     maxWidth: '100%',
     // '&::after': {
     //   display: 'inline-block',
@@ -17,6 +16,11 @@ const styles = (theme) => createStyles({
     //   borderTop: '1px solid black',
     //   zIndex: -1,
     // },
+    opacity: 0.4,
+    animation: `flickerAnimation 1.5s infinite`,
+    '-webkit-animation': "flickerAnimation 1.5s infinite",
+    '-moz-animation': "flickerAnimation 1.5s infinite",
+    '-o-animation': "flickerAnimation 1.5s infinite",
   },
   img: {
     backgroundColor: "rgba(0,0,0,.2)",

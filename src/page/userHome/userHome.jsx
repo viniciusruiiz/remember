@@ -301,8 +301,8 @@ class UserHome extends Component {
                                 onChange={this.handleChange}
                                 style={{ width: "100%" }}
                             >
-                                <MenuItem value={"public"}><Group /> Pública</MenuItem>
-                                <MenuItem value={"private"}><Person /> Compartilhada</MenuItem>
+                                <MenuItem value={"public"}><Group /> Compartilhada</MenuItem>
+                                <MenuItem value={"private"}><Person /> Privada</MenuItem>
                             </Select>
                         </FormControl>
                     </DialogContent>

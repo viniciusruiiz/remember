@@ -3,10 +3,13 @@ import { withStyles, Grid, Typography } from '@material-ui/core';
 import styles from './lineStyles'
 import Moment from '../moment/moment';
 import MomentMobile from '../momentMobile/momentMobile';
+import MomentMobileLoading from '../lineLoading/momentMobile';
 import MomentDown from '../moment/momentDown';
+import MomentDownLoading from '../lineLoading/momentDown';
+import MomentLoading from '../lineLoading/moment';
 
 class Line extends Component {
-  
+
   constructor(props) {
     super(props)
 
@@ -18,7 +21,7 @@ class Line extends Component {
 
     this.updatePredicate = this.updatePredicate.bind(this);
   }
-  
+
   componentDidMount() {
     this.updatePredicate();
     window.addEventListener("resize", this.updatePredicate);
@@ -40,14 +43,25 @@ class Line extends Component {
     document.body.style.overflowY = 'hidden'
 
     return (
-    <Grid alignItems="center" className={classes.root}>
-    {this.props.data.map((moment) => (
-            i++ % 2 === 0 ?
+      <Grid alignItems="center" className={classes.root}>
+        {this.props.data.map((moment) => (
+          i++ % 2 === 0 ?
             <Moment moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} desc={moment.description} reference={moment.idMoment} />
             :
-            <MomentDown moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} person={'Yudi'} desc={moment.description} reference={moment.idMoment}/>
+            <MomentDown moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} person={'Yudi'} desc={moment.description} reference={moment.idMoment} />
         ))}
-    </Grid>
+        {
+          this.props.hasMore &&
+          <>
+            <MomentLoading>
+
+            </MomentLoading>
+            <MomentDownLoading>
+
+            </MomentDownLoading>
+          </>
+        }
+      </Grid>
     )
   }
 
@@ -58,25 +72,30 @@ class Line extends Component {
 
     return (
 
-        <Grid alignItems="center">
+      <Grid alignItems="center">
         {this.props.data.map((moment) => (
-                <MomentMobile moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} reference={moment.idMoment} />
-            ))}
-        </Grid>
+          <MomentMobile moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} reference={moment.idMoment} />
+        ))}
+        {this.props.hasMore &&
+          <MomentMobileLoading>
+
+          </MomentMobileLoading>
+        }
+      </Grid>
 
     )
   }
 
   render() {
-        const { classes } = this.props
-        let i = 0
+    const { classes } = this.props
+    let i = 0
 
-        return (
-          <>
-            {this.state.mobile ? this.mobileView() : this.desktopView()}
-          </>
-        )
-    }
+    return (
+      <>
+        {this.state.mobile ? this.mobileView() : this.desktopView()}
+      </>
+    )
+  }
 }
 
 export default withStyles(styles)(Line)

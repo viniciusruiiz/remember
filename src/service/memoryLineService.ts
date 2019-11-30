@@ -5,6 +5,10 @@ import MemoryLineEntity from "../model/entity/memoryLineEntity";
 
 export default class MemoryLineService extends BaseService {
 
+    getOne(memoryLineId: string) : Promise<AxiosResponse<any>> {
+        return super.get(`${this.baseUrl}/memory-line/${memoryLineId}`);
+    }
+
     getAllMemoryLine() : Promise<AxiosResponse<GetMemoryLinesResponse>> {
         return super.get(`${this.baseUrl}/memory-line/all`);
     }

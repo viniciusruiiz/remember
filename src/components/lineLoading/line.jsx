@@ -71,12 +71,20 @@ class LineLoading extends Component {
     document.body.style.overflowY = null
 
     return (
+      <>
+        <Grid alignItems="center">
+          <MomentMobile />
 
-      <Grid alignItems="center">
-        <MomentMobile />
+        </Grid>
+        <Grid alignItems="center">
+          <MomentMobile />
 
-      </Grid>
+        </Grid>
+        <Grid alignItems="center">
+          <MomentMobile />
 
+        </Grid>
+      </>
     )
   }
 

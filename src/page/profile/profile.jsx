@@ -48,14 +48,15 @@ class Profile extends Component {
         let self = this;
 
         const options = {
-            maxSizeMB: 0.5,
+            maxSizeMB: 0.01,
             maxWidthOrHeight: 1920,
             useWebWorker: true
         };
-        console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
         let compressedFile = await imageCompression(file, options);
         //this.setState({ loading: false })
-        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+
+        this.setState({ 'file': file.size > compressedFile.size ? compressedFile : e[0] })
+
         this.setState({ file: compressedFile })
 
         var fr = new FileReader();
@@ -99,7 +100,7 @@ class Profile extends Component {
                             className={classes.ipt}
                             label="Username"
                             value={this.state.username}
-                            disabled={this.state.loading}
+                            disabled={true}
                             defaultValue=" "
                         />
                         <TextField

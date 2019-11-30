@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
 import LineLoading from '../../components/lineLoading/line';
 import MomentService from '../../service/momentService';
-import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid } from '@material-ui/core';
+import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid, CircularProgress } from '@material-ui/core';
 import { Add, NavigateBefore, PersonAdd, MoreVert, Edit, DeleteOutline } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -25,6 +25,10 @@ import SearchService from '../../service/searchService';
 import imageCompression from 'browser-image-compression';
 import ParticipantsService from '../../service/participantsService';
 import ReactTooltip from 'react-tooltip'
+import Dropzone from 'react-dropzone'
+import { height, maxHeight } from '@material-ui/system';
+import BaseService from '../../service/baseService';
+import App from '../../App';
 
 class MemoryLine extends Component {
 
@@ -44,25 +48,38 @@ class MemoryLine extends Component {
 
         this.state = {
             moments: [],
-            title: this._queryString.get("title") || 'Memoryline Title',
+            title: '...',
             openModal: false,
             openModalParticipants: false,
             openMenu: false,
             mobile: false,
             loading: false,//careful
             loadingMoments: true,
+            ftLoadingMoments: true,
             membersearch: '',
             members: [],
             candidatos: [],
             curPage: 1,
             hasMore: false,
             loadingMembers: true,
+            type: "private",
+            pic: '',
+            description: '',
         }
 
+        this._mls.getOne(this._queryString.get("ref")).then(res => {
+            console.log(res.data.data.type)
+            this.setState({ title: res.data.data.name, type: res.data.data.type })
+            console.log(this.state.type !== 'private');
+            if (!this.state.mobile)
+                this.resize();
+
+        })
+
         this._mls.participants(this._queryString.get("ref")).then(res => {
-            console.log(res.data.data)
             if (res.data.data.participants.length)
                 this.setState({ members: res.data.data.participants, loadingMembers: false })
+            console.log(!this.state.loadingMembers)
         })
 
         this.getMoments();
@@ -77,6 +94,15 @@ class MemoryLine extends Component {
         );
     }
 
+    getDocHeight() {
+        var D = document;
+        return Math.max(
+            D.body.scrollHeight, D.documentElement.scrollHeight,
+            D.body.offsetHeight, D.documentElement.offsetHeight,
+            D.body.clientHeight, D.documentElement.clientHeight
+        );
+    }
+
     getMoments = () => {
         this.setState({ loadingMoments: true })
         let page = this.state.curPage;
@@ -87,6 +113,7 @@ class MemoryLine extends Component {
             newState.hasMore = res.data.data.hasNextPage;
             newState.curPage = page + 1;
             newState.loadingMoments = false;
+            newState.ftLoadingMoments = false;
             this.setState(newState)
 
 
@@ -121,17 +148,25 @@ class MemoryLine extends Component {
             }
 
             function scroll() {
-                console.log("im scroling")
 
-                let windowWidth = this.getDocWidth();
-                console.log((window.innerWidth + window.pageXOffset + 475) >= windowWidth);
 
-                if ((window.innerWidth + window.pageXOffset + 475) >= windowWidth) {
-                    if (!this.state.loadingMoments) {
-                        if (this.state.hasMore) {
-                            this.getMoments();
-                        } else {
-                            console.log("no next sorry")
+                if (this.state.mobile) {
+                    let windowHeight = this.getDocHeight();
+                    if ((window.innerHeight + window.pageYOffset + 300) >= windowHeight) {
+                        if (!this.state.loadingMoments) {
+                            if (this.state.hasMore) {
+                                console.log("paginate!")
+                                this.getMoments();
+                            }
+                        }
+                    }
+                } else {
+                    let windowWidth = this.getDocWidth();
+                    if ((window.innerWidth + window.pageXOffset + 750) >= windowWidth) {
+                        if (!this.state.loadingMoments) {
+                            if (this.state.hasMore) {
+                                this.getMoments();
+                            }
                         }
                     }
                 }
@@ -153,7 +188,7 @@ class MemoryLine extends Component {
     }
 
     updatePredicate() {
-        this.setState({ mobile: window.screen.innerWidth < 650 || window.innerWidth < 650 });
+        this.setState({ mobile: window.screen.innerWidth < 650 || window.screen.width < 650 });
     }
 
     handleClickOpen = () => {
@@ -223,7 +258,7 @@ class MemoryLine extends Component {
                     ipt.parentNode.replaceChild(new_element, ipt);
                     new_element.setAttribute('readonly', true);
                     new_element.addEventListener('input', this.resize);
-                    alert('alterado com sucesso!');
+                    //alert('alterado com sucesso!');
                 });
 
             });
@@ -259,26 +294,54 @@ class MemoryLine extends Component {
         })
     }
 
+    handleDescription = (e) => {
+        this.setState({ "description": e.target.value })
+    }
+
     handleFile = async (e) => {
+        let self = this;
         this.setState({ loading: true })
         const options = {
-            maxSizeMB: 0.1,
+            maxSizeMB: 0.01,
             maxWidthOrHeight: 1920,
             useWebWorker: true
         };
-        console.log(`originalFile size ${e.target.files[0].size / 1024 / 1024} MB`);
-        let compressedFile = await imageCompression(e.target.files[0], options);
+        console.log(`originalFile size ${e[0].size / 1024 / 1024} MB`);
+        let compressedFile = await imageCompression(e[0], options);
         this.setState({ loading: false })
         console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
-        this.setState({ 'file': compressedFile })
+
+        this.setState({ 'file': e[0].size > compressedFile.size ? compressedFile : e[0] })
+
+        var fr = new FileReader();
+        fr.onload = function () {
+            self.setState({ pic: this.result });
+            console.log(self.state.pic)
+        }
+        fr.readAsDataURL(this.state.file);
     }
 
     handleSubmit = (e) => {
         if (e) e.preventDefault()
-        this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref")).then(res => {
+        this.setState({ loading: true })
+        this._fs.getPreSignedUrl(this.state.file, this._queryString.get("ref"), this.state.description).then(res => {
             if (res.data.success)
                 this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
-                    alert("coisado com sucesso");
+                    let newMoment = {
+                        urlBucket: this.state.pic,
+                        description: this.state.description,
+                        creationDate: new Date().toString(),
+                        ownerName: BaseService.currentName,
+                        ownerPicture: BaseService.currentUserPic
+                    }
+
+                    let newState = Object.assign({}, this.state)
+                    newState.moments.unshift(newMoment)
+                    newState.openModal = false;
+                    newState.loading = false;
+                    this.setState(newState)
+
+                    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
                 }).catch(err => alert('erro no put:', err))
         }).catch(err => alert('erro na criacao da presigned url'));
 
@@ -322,31 +385,35 @@ class MemoryLine extends Component {
                     </Grid>
                     <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
                         <Grid item className={classes.membros}>
-                            <TextField
-                                className={classes.adicionar}
-                                margin="dense"
-                                hiddenLabel
-                                variant="filled"
-                                placeholder="Adicionar"
-                                onKeyDown={this.handleEnter}
-                                onChange={this.handleSearch}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
-                                    className: classes.adicionarInput,
-                                }}
-                            />
-                            {this.state.candidatos.length > 0 &&
-                                <ul className={classes.candidatos}>
-                                    {this.state.candidatos.map(item => (
-                                        <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
-                                    ))}
-                                </ul>
-                            }
-
                             {
-                                participantsRow
-                            }
+                                !this.state.loadingMembers && this.state.type !== 'private' &&
+                                <>
+                                    <TextField
+                                        className={classes.adicionar}
+                                        margin="dense"
+                                        hiddenLabel
+                                        variant="filled"
+                                        placeholder="Adicionar"
+                                        onKeyDown={this.handleEnter}
+                                        onChange={this.handleSearch}
+                                        InputProps={{
+                                            startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                                            className: classes.adicionarInput,
+                                        }}
+                                    />
+                                    {this.state.candidatos.length > 0 &&
+                                        <ul className={classes.candidatos}>
+                                            {this.state.candidatos.map(item => (
+                                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
+                                            ))}
+                                        </ul>
+                                    }
 
+                                    {
+                                        participantsRow
+                                    }
+                                </>
+                            }
                             <ClickAwayListener onClickAway={this.handleClickAway}>
                                 <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
                                     <MoreVert />
@@ -370,13 +437,35 @@ class MemoryLine extends Component {
     mobileHeader() {
         const { classes } = this.props
 
+        let participantsRow = [];
+        for (let i = 0; i < 2 && this.state.members.length > 0; i++) {
+            console.log("row")
+            if (i == 0) {
+                participantsRow.push(
+                    <>
+                        <img alt=''
+                            data-tip={this.state.members.length > 4 ? "" : this.state.members[i].name}
+                            src={this.state.members[i].profileImage}
+                            className={this.state.members.length > 4 ? classes.lastMemberIconMob : classes.membersIconsMob}
+                            onClick={this.handleClickOpenParticipants}
+                        />
+                        {this.state.members.length > 4 && <div className={classes.plusiconmob} style={this.state.openModal || this.state.openModalParticipants ? { right: "85px!important" } : {}} onClick={this.handleClickOpenParticipants}>+</div>}
+                        <ReactTooltip place="bottom" type="success" effect="solid" />
+                    </>
+                );
+            } else {
+
+                participantsRow.push(<img alt='' data-tip={this.state.members[i].name} src={this.state.members[i].profileImage} className={classes.membersIconsMob} />)
+            }
+        }
+
         return (
             <Grid container spacing={1} className={classes.gridMobile}>
 
                 <div>
 
                     <Typography className={classes.titleMob}>
-                        {this._queryString.get("title") || 'Memoryline Title'}
+                        {this.state.title}
                     </Typography>
                 </div>
 
@@ -393,8 +482,10 @@ class MemoryLine extends Component {
                             }
                         </IconButton>
                     </ClickAwayListener>
-                    <img alt='' src={perfil} className={classes.membersIconsMob} />
-                    <img alt='' src={perfil} className={classes.membersIconsMob} />
+
+                    {
+                        participantsRow
+                    }
                 </div>
 
 
@@ -415,7 +506,13 @@ class MemoryLine extends Component {
                     {this.state.candidatos.length > 0 &&
                         <ul className={classes.candidatos}>
                             {this.state.candidatos.map(item => (
-                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
+                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>
+                                    <img className={classes.membersIconModal} src={item.picture}>
+                                    </img>
+                                    <span>
+                                        {`${item.first_name} ${item.last_name ? item.last_name : ""}`}
+                                    </span>
+                                </li>
                             ))}
                         </ul>
                     }
@@ -428,24 +525,27 @@ class MemoryLine extends Component {
     render() {
         const { classes } = this.props
 
-        document.title = this._queryString.get("title") // passar o nome da memory line
+        document.title = this.state.title // passar o nome da memory line
+
+        document.body.style.overflowX = this.state.ftLoadingMoments ? "hidden" : "visible";
+
 
         return (
             <div className={classes.root} id="root">
 
-                <LinearLoading style={this.state.loading || this.state.loadingMoments ? { visibility: 'visible' } : { visibility: 'hidden' }} />
+                <LinearLoading style={this.state.loading || this.state.ftLoadingMoments ? { visibility: 'visible' } : { visibility: 'hidden' }} />
                 {/* <NavBar /> */}
 
                 {/* <div className={classes.bodyRoot}> */}
                 {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
                 {
-                    this.state.loadingMoments ?
+                    this.state.ftLoadingMoments ?
                         <>
                             <LineLoading />
                         </>
                         :
-                        !this.state.loadingMoments && this.state.moments.length > 0 ?
-                            <Line data={this.state.moments} /> : !this.state.loadingMoments && this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : !this.state.loadingMoments && <Typography className={classes.not}>Nenhum momento salvo.</Typography>
+                        this.state.moments.length > 0 ?
+                            <Line data={this.state.moments} hasMore={this.state.hasMore} /> : this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : <Typography className={classes.not}>Nenhum momento salvo.</Typography>
                 }
 
                 <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
@@ -455,28 +555,58 @@ class MemoryLine extends Component {
 
                 {/* MODAL ADD MOMENT */}
                 <Dialog open={this.state.openModal} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                    <DialogTitle id="form-dialog-title" style={{ textAlign: "center" }}>Adicione um momento!</DialogTitle>
                     <DialogContent>
-                        <input
+                        {/* <input
                             accept="image/*"
-                            style={{ display: 'block' }}
+                            style={{ display: 'none' }}
                             id="raised-button-file"
                             // multiple
                             type="file"
                             onChange={this.handleFile}
-                        />
-                        <label htmlFor="raised-button-file">
-                            <Button variant="raised" component="span">
-                                Upload
-                            </Button>
-                        </label>
+                            
+                        /> */}
+                        {
+                            !this.state.pic ?
+
+                                <Dropzone onDrop={acceptedFiles => this.handleFile(acceptedFiles)}>
+                                    {({ getRootProps, getInputProps }) => (
+                                        <section>
+                                            <div {...getRootProps()} style={{ height: 300, display: "flex", alignItems: "center", textAlign: "center", wordBreak: "break-word", border: "1px dashed black", cursor: "pointer", padding: 40 }}>
+                                                <input {...getInputProps()} />
+                                                <p style={{ textAlign: "center" }}>
+                                                    {!this.state.loading ?
+                                                        "Arraste uma imagem, ou clique para selecionar um arquivo do seu dispositivo!" :
+                                                        <span>
+                                                            <CircularProgress style={{ marginLeft: "45px" }} />
+                                                        </span>
+                                                    }
+                                                </p>
+                                            </div>
+                                        </section>
+                                    )}
+                                </Dropzone>
+                                :
+                                <>
+                                    <Typography>Preview:</Typography>
+                                    <div style={{ textAlign: "center" }}>
+                                        <img src={this.state.pic} style={{ maxHeight: 300, maxWidth: "100%", objectFit: "cover" }}></img>
+                                    </div>
+                                    <TextField
+                                        onChange={this.handleDescription}
+                                        label="Descreva esse momento!"
+                                        style={{ margin: "15px 0" }}
+                                        fullWidth
+                                    />
+                                </>
+                        }
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
-                            Cancel
+                            Cancelar
                 </Button>
-                        <Button onClick={this.handleSubmit} color="primary">
-                            Subscribe
+                        <Button onClick={this.handleSubmit} disabled={!this.state.pic} color="primary">
+                            ADICIONAR
                 </Button>
                     </DialogActions>
                 </Dialog>
