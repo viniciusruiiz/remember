@@ -5,7 +5,7 @@ import styles from './userHomeStyles.jsx';
 import { withStyles } from '@material-ui/styles';
 import LineBox from '../../components/lineBox/lineBox';
 import clsx from 'clsx';
-import { ArrowDownwardRounded, ArrowDropDown, KeyboardArrowDownRounded, Add, LockOpenOutlined, LockOutlined } from '@material-ui/icons';
+import { ArrowDownwardRounded, ArrowDropDown, KeyboardArrowDownRounded, Add, LockOpenOutlined, LockOutlined, Group, Person } from '@material-ui/icons';
 import MemoryLineService from '../../service/memoryLineService';
 import LinearLoading from '../../components/linearLoading/linearLoading';
 import LineBoxLoading from '../../components/lineBoxLoading/lineBoxLoading';
@@ -41,16 +41,15 @@ class UserHome extends Component {
 
         function scroll() {
             console.log("im scroling")
-            let nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+
             let windowHeight = this.getDocHeight();
-            if (nVScroll + windowHeight > windowHeight - 400) {
+
+            if ((window.innerHeight + window.pageYOffset + 250) >= windowHeight) {
                 if (!this.state.loadingPrivates && !this.state.loadingPublics) {
                     if (this.state.showPublics && this.state.hasNextPublic) {
                         this.getAllPublics();
                     } else if (!this.state.showPublics && this.state.hasNextPrivate) {
                         this.getAllPrivates();
-                    } else {
-                        console.log("no next sorry")
                     }
                 }
             }
@@ -61,9 +60,9 @@ class UserHome extends Component {
         onscroll = scroll;
     }
 
-    componentWillUnmount() {
-        onscroll = null;
-    }
+    // componentWillUnmount() {
+    //     onscroll = null;
+    // }
 
     getDocHeight() {
         var D = document;
@@ -187,11 +186,11 @@ class UserHome extends Component {
 
                     <div className={classes.headerChange}>
                         <div className={`${classes.divChange} ${this.state.showPublics ? classes.selected : 'notSelected'}`} onClick={this.handleShowPublic}>
-                            <LockOpenOutlined className={classes.iconChange} />
+                            <Group className={classes.iconChange} />
                             {/* <span>Públicas</span> */}
                         </div>
                         <div className={`${classes.divChange} ${!this.state.showPublics ? classes.selected : 'notSelected'}`} onClick={this.handleShowPrivate}>
-                            <LockOutlined className={classes.iconChange} />
+                            <Person className={classes.iconChange} />
                             {/* <span>Privadas</span> */}
                         </div>
                     </div>
@@ -302,8 +301,8 @@ class UserHome extends Component {
                                 onChange={this.handleChange}
                                 style={{ width: "100%" }}
                             >
-                                <MenuItem value={"public"}><LockOpenOutlined /> Pública</MenuItem>
-                                <MenuItem value={"private"}><LockOutlined /> Privada</MenuItem>
+                                <MenuItem value={"public"}><Group /> Pública</MenuItem>
+                                <MenuItem value={"private"}><Person /> Compartilhada</MenuItem>
                             </Select>
                         </FormControl>
                     </DialogContent>

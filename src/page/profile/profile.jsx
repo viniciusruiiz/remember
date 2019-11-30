@@ -71,7 +71,7 @@ class Profile extends Component {
             if (res.data.success)
                 this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
                     this.setState({ loading: false })
-
+                    BaseService.updateProfile(this.state.pic)
                     alert("coisado com sucesso");
                 }).catch(err => { alert('erro no put:', err); this.setState({ loading: false }) })
         }).catch(err => { alert('erro na criacao da presigned url'); this.setState({ loading: false }) });

@@ -16,14 +16,14 @@ const styles = (theme) => createStyles({
     perfil: {
         height: theme.spacing(4),
         width: theme.spacing(4),
-        margin: theme.spacing(1,1,1,2),
+        margin: theme.spacing(1, 1, 1, 2),
         borderRadius: 50,
         objectFit: 'cover',
     },
     perfilMob: {
         height: theme.spacing(4),
         width: theme.spacing(4),
-        margin: theme.spacing(0,0,0,1),
+        margin: theme.spacing(0, 0, 0, 1),
         borderRadius: 50,
         objectFit: 'cover',
     },
@@ -55,7 +55,7 @@ const styles = (theme) => createStyles({
         right: 0,
     },
     button: {
-        padding: theme.spacing(0,1,0,2),
+        padding: theme.spacing(0, 1, 0, 2),
         height: 48,
         textTransform: 'none',
     },
@@ -71,11 +71,12 @@ const styles = (theme) => createStyles({
         minWidth: 48
     },
     toolbar: {
-        padding: (16,0,16,0),
+        padding: (16, 0, 16, 0),
         minHeight: 0,
     },
     font14: {
         fontSize: 14,
+        wordBreak: "break-word"
     },
     invite: {
         marginBottom: 10,
@@ -93,6 +94,7 @@ const styles = (theme) => createStyles({
     bold: {
         fontWeight: 500,
         fontSize: 15,
+        wordBreak: "break-word"
     },
     btnInvite: {
         borderRadius: '100%',
@@ -101,7 +103,7 @@ const styles = (theme) => createStyles({
         width: 36,
     },
     notificationCount: {
-        zIndex:2,
+        zIndex: 2,
         position: 'absolute',
         color: 'white',
         fontSize: 11,
@@ -114,9 +116,9 @@ const styles = (theme) => createStyles({
         textAlign: 'center',
         verticalAlign: 'middle',
         lineHeight: '18px',
-      },
-      notificationCountMob: {
-        zIndex:2,
+    },
+    notificationCountMob: {
+        zIndex: 2,
         position: 'absolute',
         color: 'white',
         fontSize: 11,
@@ -129,10 +131,21 @@ const styles = (theme) => createStyles({
         textAlign: 'center',
         verticalAlign: 'middle',
         lineHeight: '18px',
-      },
-      userMob: {
-          fontSize: 12
-      }
+    },
+    userMob: {
+        fontSize: 12
+    },
+    picOwner: {
+        height: theme.spacing(4),
+        width: theme.spacing(4),
+        borderRadius: 50,
+        objectFit: 'cover',
+        float: 'left',
+        margin: "5px 8px 0 0"
+    },
+    span: {
+        wordBreak: "break-word"
+    }
 });
 
 export default styles

@@ -3,6 +3,7 @@ import NavBar from '../../components/navbar/navbar';
 import styles from './memoryLineStyles.jsx';
 import { withStyles } from '@material-ui/core/styles';
 import Line from '../../components/line/line';
+import LineLoading from '../../components/lineLoading/line';
 import MomentService from '../../service/momentService';
 import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid } from '@material-ui/core';
 import { Add, NavigateBefore, PersonAdd, MoreVert, Edit, DeleteOutline } from '@material-ui/icons';
@@ -22,6 +23,8 @@ import FileService from '../../service/fileService';
 import LinearLoading from '../../components/linearLoading/linearLoading';
 import SearchService from '../../service/searchService';
 import imageCompression from 'browser-image-compression';
+import ParticipantsService from '../../service/participantsService';
+import ReactTooltip from 'react-tooltip'
 
 class MemoryLine extends Component {
 
@@ -29,6 +32,7 @@ class MemoryLine extends Component {
     _mls = new MemoryLineService();
     _fs = new FileService();
     _ss = new SearchService();
+    _ps = new ParticipantsService();
     _queryString;
 
     constructor(props) {
@@ -42,20 +46,39 @@ class MemoryLine extends Component {
             moments: [],
             title: this._queryString.get("title") || 'Memoryline Title',
             openModal: false,
+            openModalParticipants: false,
             openMenu: false,
             mobile: false,
-            loading: true,
+            loading: false,//careful
+            loadingMoments: true,
             membersearch: '',
             members: [],
             candidatos: [],
             curPage: 1,
             hasMore: false,
+            loadingMembers: true,
         }
+
+        this._mls.participants(this._queryString.get("ref")).then(res => {
+            console.log(res.data.data)
+            if (res.data.data.participants.length)
+                this.setState({ members: res.data.data.participants, loadingMembers: false })
+        })
 
         this.getMoments();
     }
 
+    getDocWidth() {
+        var D = document;
+        return Math.max(
+            D.body.scrollWidth, D.documentElement.scrollWidth,
+            D.body.offsetWidth, D.documentElement.offsetWidth,
+            D.body.clientWidth, D.documentElement.clientWidth
+        );
+    }
+
     getMoments = () => {
+        this.setState({ loadingMoments: true })
         let page = this.state.curPage;
         this._ms.getAllMoments(this._queryString.get("ref"), page).then(res => {
 
@@ -63,18 +86,19 @@ class MemoryLine extends Component {
             newState.moments.push(...res.data.data.moments);
             newState.hasMore = res.data.data.hasNextPage;
             newState.curPage = page + 1;
+            newState.loadingMoments = false;
             this.setState(newState)
 
 
-            //TODO: Paginate by scroll
-            if (this.state.hasMore) {
-                this.getMoments();
-                console.log("dnv")
-                //this.setState({loading:false})
-            } else {
-                console.log("acabou")
-                this.setState({ loading: false })
-            }
+            // //TODO: Paginate by scroll
+            // if (this.state.hasMore) {
+            //     this.getMoments();
+            //     console.log("dnv")
+            //     //this.setState({loading:false})
+            // } else {
+            //     console.log("acabou")
+            //     this.setState({ loading: false })
+            // }
 
         })
     }
@@ -87,7 +111,7 @@ class MemoryLine extends Component {
 
     componentWillMount = () => {
         //document.body.style.overflowY = 'hidden';
-
+        let self = this;
         (function () {
             function scrollHorizontally(e) {
                 e = window.event || e;
@@ -95,6 +119,27 @@ class MemoryLine extends Component {
                 document.documentElement.scrollLeft -= (delta * 75);
                 document.body.scrollLeft -= (delta * 60);
             }
+
+            function scroll() {
+                console.log("im scroling")
+
+                let windowWidth = this.getDocWidth();
+                console.log((window.innerWidth + window.pageXOffset + 475) >= windowWidth);
+
+                if ((window.innerWidth + window.pageXOffset + 475) >= windowWidth) {
+                    if (!this.state.loadingMoments) {
+                        if (this.state.hasMore) {
+                            this.getMoments();
+                        } else {
+                            console.log("no next sorry")
+                        }
+                    }
+                }
+            }
+
+            scroll = scroll.bind(self);
+
+            onscroll = scroll;
             // Chrome
             document.documentElement.addEventListener("mousewheel", scrollHorizontally, false);
             // Firefox
@@ -115,11 +160,19 @@ class MemoryLine extends Component {
         this.setState({ "openModal": true })
     };
 
+    handleClickOpenParticipants = () => {
+        this.setState({ "openModalParticipants": true })
+    };
+
     handleClose = () => {
         this.setState({ "openModal": false })
         setTimeout(() => {
             document.body.style.overflowY = 'hidden'
         }, 100)
+    };
+
+    handleCloseParticipants = () => {
+        this.setState({ "openModalParticipants": false })
     };
 
     handleClick = (event) => {
@@ -209,7 +262,7 @@ class MemoryLine extends Component {
     handleFile = async (e) => {
         this.setState({ loading: true })
         const options = {
-            maxSizeMB: 1,
+            maxSizeMB: 0.1,
             maxWidthOrHeight: 1920,
             useWebWorker: true
         };
@@ -236,6 +289,26 @@ class MemoryLine extends Component {
 
     desktopHeader() {
         const { classes } = this.props
+
+        let participantsRow = [];
+        for (let i = 0; i < 4 && this.state.members.length > 0; i++) {
+            if (i == Math.min(3, this.state.members.length - 1)) {
+                participantsRow.push(
+                    <>
+                        <img alt=''
+                            data-tip={this.state.members.length > 4 ? "" : this.state.members[i].name}
+                            src={this.state.members[i].profileImage}
+                            className={this.state.members.length > 4 ? classes.lastMemberIcon : classes.membersIcons}
+                            onClick={this.handleClickOpenParticipants}
+                        />
+                        {this.state.members.length > 4 && <div className={classes.plusicon} onClick={this.handleClickOpenParticipants}>+</div>}
+                        <ReactTooltip place="bottom" type="success" effect="solid" />
+                    </>
+                );
+                break;
+            }
+            participantsRow.push(<img alt='' data-tip={this.state.members[i].name} src={this.state.members[i].profileImage} className={classes.membersIcons} />)
+        }
 
         return (
             <>
@@ -270,11 +343,10 @@ class MemoryLine extends Component {
                                 </ul>
                             }
 
+                            {
+                                participantsRow
+                            }
 
-                            <img alt='' src={perfil} className={classes.membersIcons} />
-                            <img alt='' src={perfil} className={classes.membersIcons} />
-                            <img alt='' src={perfil} className={classes.membersIcons} />
-                            <img alt='' src={perfil} className={classes.membersIcons} />
                             <ClickAwayListener onClickAway={this.handleClickAway}>
                                 <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
                                     <MoreVert />
@@ -290,6 +362,7 @@ class MemoryLine extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
+
             </>
         )
     }
@@ -360,14 +433,19 @@ class MemoryLine extends Component {
         return (
             <div className={classes.root} id="root">
 
-                <LinearLoading style={this.state.loading ? { visibility: 'visible' } : { visibility: 'hidden' }} />
+                <LinearLoading style={this.state.loading || this.state.loadingMoments ? { visibility: 'visible' } : { visibility: 'hidden' }} />
                 {/* <NavBar /> */}
 
                 {/* <div className={classes.bodyRoot}> */}
                 {this.state.mobile ? this.mobileHeader() : this.desktopHeader()}
                 {
-                    !this.state.loading && this.state.moments.length > 0 ?
-                        <Line data={this.state.moments} /> : !this.state.loading && this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : !this.state.loading && <Typography className={classes.not}>Nenhum momento salvo.</Typography>
+                    this.state.loadingMoments ?
+                        <>
+                            <LineLoading />
+                        </>
+                        :
+                        !this.state.loadingMoments && this.state.moments.length > 0 ?
+                            <Line data={this.state.moments} /> : !this.state.loadingMoments && this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : !this.state.loadingMoments && <Typography className={classes.not}>Nenhum momento salvo.</Typography>
                 }
 
                 <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
@@ -401,6 +479,21 @@ class MemoryLine extends Component {
                             Subscribe
                 </Button>
                     </DialogActions>
+                </Dialog>
+
+
+                <Dialog maxWidth={"xs"} open={this.state.openModalParticipants} onClose={this.handleCloseParticipants} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title" style={{ textAlign: "center" }}>Participantes</DialogTitle>
+                    <DialogContent>
+                        {
+                            this.state.members.map(item => (
+                                <div className={classes.membersModal}>
+                                    <img className={classes.membersIconModal} src={item.profileImage}></img>
+                                    <p className={classes.memberName}>{item.name}</p>
+                                </div>
+                            ))
+                        }
+                    </DialogContent>
                 </Dialog>
             </div>
         )

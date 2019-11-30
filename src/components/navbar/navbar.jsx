@@ -39,8 +39,8 @@ class NavBar extends Component {
             BaseService.currentLName = res.data.data.last_name;
 
             let self = this;
-            BaseService.updateProfile = function (pic, name) {
-                self.setState({ profileName: name, profilePic: pic });
+            BaseService.updateProfile = function (pic) {
+                self.setState({ profilePic: pic });
             }
         });
 
@@ -152,9 +152,10 @@ class NavBar extends Component {
                                                     <Grid container key={index} className={classes.invite} spacing={2} >
                                                         <Grid alignItems="center" container>
                                                             <Grid item xs={9}>
+                                                                <img className={classes.picOwner} src={item.ownerPic}></img>
                                                                 <Typography>
                                                                     <span className={classes.bold}>{item.usernameOwner}</span>
-                                                                    <span className={classes.font14} > está te convidando para </span>
+                                                                    <span className={classes.font14}> te convida para a memory line </span>
                                                                     <span className={classes.bold}>{item.nameMemoryLine}</span>
                                                                 </Typography>
                                                             </Grid>

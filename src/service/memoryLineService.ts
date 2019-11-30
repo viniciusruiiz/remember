@@ -28,4 +28,8 @@ export default class MemoryLineService extends BaseService {
     delete(memoryLineId: string) : Promise<AxiosResponse<any>> {
         return super.delete(`${this.baseUrl}/memory-line/${memoryLineId}`);
     }
+
+    participants(memoryLineId: string) : Promise<AxiosResponse<any>> {
+        return super.get(`${this.baseUrl}/memory-line/participants/${memoryLineId}`);
+    }
 }

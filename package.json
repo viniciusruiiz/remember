@@ -28,6 +28,7 @@
     "react-scroll-box": "^0.3.5",
     "react-scrollbars-custom": "^4.0.20",
     "react-text-mask": "^5.4.3",
+    "react-tooltip": "^3.11.1",
     "recompose": "^0.30.0",
     "typescript": "3.6.2"
   },

@@ -8,7 +8,7 @@ import MomentModal from '../momentModal/momentModal';
 import img404 from '../../images/not_found.png'
 
 class MomentMobile extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -18,14 +18,14 @@ class MomentMobile extends Component {
   }
 
   handleOpen = () => {
-    this.setState({open: true})
+    this.setState({ open: true })
   }
 
   handleClose = () => {
-    this.setState({open: false})
+    this.setState({ open: false })
     setTimeout(() => {
-      document.body.style.overflowY = 'hidden'      
-    },100)
+      document.body.style.overflowY = 'hidden'
+    }, 100)
   }
 
   handleImageLoaded = () => {
@@ -41,7 +41,7 @@ class MomentMobile extends Component {
     return (
       <>
         <span className={classes.filter} />
-        <CircularProgress className={classes.load}/>
+        <CircularProgress className={classes.load} />
       </>
     );
   }
@@ -86,15 +86,15 @@ class MomentMobile extends Component {
         break;
     }
   }
-  
-  render() {
-        const { classes } = this.props
 
-        return (
-        <>
+  render() {
+    const { classes } = this.props
+
+    return (
+      <>
         <div className={classes.root}>
           {/* {this.renderSpinner()} */}
-          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} onError={(e) => e.target.src = img404} className={classes.img} id={"moment-"+this.props.reference} />
+          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} onError={(e) => e.target.src = img404} className={classes.img} id={"moment-" + this.props.reference} />
           <Grid container alignContent='center' alignItems='center'>
             <Grid className={classes.date} item xs={2}>
               <Typography className={classes.dateMonth}>{this.formatMonth(new Date(this.props.creationDate))}</Typography>
@@ -102,7 +102,7 @@ class MomentMobile extends Component {
               <Typography className={classes.dateYear}>{new Date(this.props.creationDate).getFullYear()}</Typography>
             </Grid>
             <Grid xs={1}>
-              <div style={{borderLeft: "3px solid black", height: "500px"}} /> 
+              <div style={{ borderLeft: "3px solid black", height: "100px" }} />
             </Grid>
             <Grid item xs={9}>
               <Typography display='inline' className={classes.description}>{this.props.moment.description}</Typography>
@@ -110,9 +110,9 @@ class MomentMobile extends Component {
           </Grid>
           {/* <MomentModal handleClose={this.handleClose} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> */}
         </div>
-        </>
-        )
-    }
+      </>
+    )
+  }
 }
 
 export default withStyles(styles)(MomentMobile)
