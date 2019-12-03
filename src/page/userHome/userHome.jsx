@@ -42,7 +42,6 @@ class UserHome extends Component {
         this.getAllPublics();
 
         function scroll() {
-            console.log("im scroling")
 
             let windowHeight = this.getDocHeight();
 
@@ -79,7 +78,6 @@ class UserHome extends Component {
         this.setState({ loadingPublics: true })
         let page = this.state.curPagePublic;
         this._mls.getAllPublics(page).then(res => {
-            console.log(res);
             this.setState({ curPagePublic: page + 1 });
 
             let newState = Object.assign({}, this.state);
@@ -105,7 +103,6 @@ class UserHome extends Component {
         this.setState({ loadingPrivates: true })
         let page = this.state.curPagePrivate;
         this._mls.getAllPrivates(page).then(res => {
-            console.log(res);
             this.setState({ curPagePrivate: page + 1 });
 
             let newState = Object.assign({}, this.state);
@@ -228,7 +225,7 @@ class UserHome extends Component {
                                         <>
                                             {
                                                 this.state.publicMemoryLines.map(item => (
-                                                    <LineBox isNew={item.isNew} title={item.name} urlMoments={item.urlMoments} participants={item.urlParticipants} hasMoreParticipants={item.quantityParticipants > 2} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                                    <LineBox lastChangeInTimestamp={item.lastTimestamp} isNew={item.isNew} title={item.name} urlMoments={item.urlMoments} participants={item.urlParticipants} hasMoreParticipants={item.quantityParticipants > 2} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
                                                 ))
                                             }
                                         </>
@@ -255,7 +252,7 @@ class UserHome extends Component {
 
                                         {
                                             this.state.privateMemoryLines.map(item => (
-                                                <LineBox title={item.name} urlMoments={item.urlMoments} participants={[]} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                                <LineBox lastChangeInTimestamp={item.lastTimestamp} isNew={item.isNew} title={item.name} urlMoments={item.urlMoments} participants={[]} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
                                             ))
                                         }
 
@@ -324,10 +321,10 @@ class UserHome extends Component {
                         </FormControl>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} disable={this.state.disable} color="primary">
+                        <Button onClick={this.handleClose} disabled={this.state.disable} color="primary">
                             Cancelar
                 </Button>
-                        <Button onClick={this.handleSubmit} disable={this.state.disable} color="primary">
+                        <Button onClick={this.handleSubmit} disabled={this.state.disable} color="primary">
                             Criar
                 </Button>
                     </DialogActions>

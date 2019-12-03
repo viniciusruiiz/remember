@@ -92,13 +92,20 @@ class NavBar extends Component {
     }
 
     acceptInvite = (idInvite, isAccepted) => {
-        this.setState({ openNotif: false })
-        this._ss.answerInvite(idInvite, isAccepted).then(res => {
-            alert("Convite aceito!")
+        if (!isAccepted) {
 
             let newState = Object.assign({}, this.state);
             newState.notifications.splice(newState.notifications.map(e => { return e.idInvite }).indexOf(idInvite), 1);
             this.setState(newState);
+        }
+        this._ss.answerInvite(idInvite, isAccepted).then(res => {
+            if (res.data.data.answer) {
+                let newState = Object.assign({}, this.state);
+                newState.notifications.splice(newState.notifications.map(e => { return e.idInvite }).indexOf(idInvite), 1);
+                this.setState(newState);
+                this.props.history.push('/memoryline/?ref=' + res.data.data.memoryLine)
+            }
+
         })
     }
 

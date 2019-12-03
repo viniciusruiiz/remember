@@ -23,8 +23,6 @@ export default class BaseService {
 
             BaseService.flRefreshToken = false;
             
-            console.log("REFRESH TOKEN BE CAREFUUUUUUUUUUUUUUUUL")
-            
             let refreshToken = await this.getRefreshToken(localStorage.getItem("refresh_token"));
 
             this.setTokenOnLocalStorage(refreshToken.data.data.access_token);

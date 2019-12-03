@@ -69,18 +69,14 @@ class MemoryLine extends Component {
         }
 
         this._mls.getOne(this._queryString.get("ref")).then(res => {
-            console.log(res.data.data.type)
             this.setState({ title: res.data.data.name, type: res.data.data.type })
-            console.log(this.state.type !== 'private');
             if (!this.state.mobile)
                 this.resize();
-
-        })
-
-        this._mls.participants(this._queryString.get("ref")).then(res => {
-            if (res.data.data.participants.length)
-                this.setState({ members: res.data.data.participants, loadingMembers: false })
-            console.log(!this.state.loadingMembers)
+            if (this.state.type != 'private')
+                this._mls.participants(this._queryString.get("ref")).then(res => {
+                    if (res.data.data.participants.length)
+                        this.setState({ members: res.data.data.participants, loadingMembers: false })
+                })
         })
 
         this.getMoments();
@@ -117,17 +113,6 @@ class MemoryLine extends Component {
             newState.ftLoadingMoments = false;
             this.setState(newState)
 
-
-            // //TODO: Paginate by scroll
-            // if (this.state.hasMore) {
-            //     this.getMoments();
-            //     console.log("dnv")
-            //     //this.setState({loading:false})
-            // } else {
-            //     console.log("acabou")
-            //     this.setState({ loading: false })
-            // }
-
         })
     }
 
@@ -159,7 +144,6 @@ class MemoryLine extends Component {
                     if ((window.innerHeight + window.pageYOffset + 300) >= windowHeight) {
                         if (!this.state.loadingMoments) {
                             if (this.state.hasMore) {
-                                console.log("paginate!")
                                 this.getMoments();
                             }
                         }
@@ -333,17 +317,14 @@ class MemoryLine extends Component {
             maxWidthOrHeight: 1920,
             useWebWorker: true
         };
-        console.log(`originalFile size ${e[0].size / 1024 / 1024} MB`);
         let compressedFile = await imageCompression(e[0], options);
         this.setState({ loading: false })
-        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
 
         this.setState({ 'file': e[0].size > compressedFile.size ? compressedFile : e[0] })
 
         var fr = new FileReader();
         fr.onload = function () {
             self.setState({ pic: this.result });
-            console.log(self.state.pic)
         }
         fr.readAsDataURL(this.state.file);
     }
@@ -359,7 +340,8 @@ class MemoryLine extends Component {
                         description: this.state.description,
                         creationDate: new Date().toString(),
                         ownerName: BaseService.currentName,
-                        ownerPicture: BaseService.currentUserPic
+                        ownerPicture: BaseService.currentUserPic,
+                        commentsNumber: 0
                     }
 
                     let newState = Object.assign({}, this.state)
@@ -381,7 +363,7 @@ class MemoryLine extends Component {
         const { classes } = this.props
 
         let participantsRow = [];
-        for (let i = 0; i < 4 && this.state.members.length > 0; i++) {
+        for (let i = 0; i < 4 && this.state.members[i] != null; i++) {
             if (i == Math.min(3, this.state.members.length - 1)) {
                 participantsRow.push(
                     <>
@@ -465,8 +447,7 @@ class MemoryLine extends Component {
         const { classes } = this.props
 
         let participantsRow = [];
-        for (let i = 0; i < 2 && this.state.members.length > 0; i++) {
-            console.log("row")
+        for (let i = 0; i < 2 && this.state.members[i] != null; i++) {
             if (i == 0) {
                 participantsRow.push(
                     <>

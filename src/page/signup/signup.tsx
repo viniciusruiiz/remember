@@ -107,9 +107,6 @@ class SignUp extends Component<any, any> {
     }
 
     validatePasswordConfirmation = () => {
-        console.log(this._pwdConfirmation)
-        console.log(this.state.password)
-        console.log(this._pwdConfirmation != this.state.password)
         this.setState({ errorPasswordConfirmation: this._pwdConfirmation != this.state.password });
     }
 

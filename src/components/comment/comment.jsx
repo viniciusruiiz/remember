@@ -17,7 +17,6 @@ class Comment extends Component {
   }
 
   formatDate(date) {
-    console.log("formatei!")
     let dateFormated = date.getDate() + ' de ';
 
     switch (date.getMonth()) {

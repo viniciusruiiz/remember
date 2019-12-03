@@ -20,8 +20,6 @@ class Line extends Component {
     }
 
     this.updatePredicate = this.updatePredicate.bind(this);
-    console.log(this.props.handlerClose)
-    console.log(this.props.handlerOpen)
   }
 
   componentDidMount() {

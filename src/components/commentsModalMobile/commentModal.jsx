@@ -25,8 +25,6 @@ class CommentModal extends Component {
     this._cs.getComments(this.props.reference).then(res => {
       this.setState({ comments: res.data.data });
     }).catch(err => { alert("ERRO AO PEGAR OS COMENTARIOS") });
-
-    console.log(this.props)
   }
 
   componentWillMount() {
@@ -67,8 +65,6 @@ class CommentModal extends Component {
       })
       this.setState(newState);
     }).catch(err => { alert("ERRO AO COMENTAR") });
-
-    console.log(this.props)
   }
 
   handleCommentContent = (e) => {

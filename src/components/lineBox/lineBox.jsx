@@ -12,7 +12,7 @@ class LineBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      relativeChangeMinutes: Math.abs((new Date().getTime() - this.props.lastChangeInTimestamp) / 60000) || 0,
+      relativeChangeMinutes: Math.abs((new Date().getTime() - (this.props.lastChangeInTimestamp * 1000)) / 60000) || 0,
       open: false,
     }
   }

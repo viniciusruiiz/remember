@@ -17,7 +17,6 @@ class MomentHeader extends Component {
   }
 
   formatDate(date) {
-    console.log("formatei!")
     let dateFormated = date.getDate() + ' de ';
 
     switch (date.getMonth()) {
@@ -66,8 +65,6 @@ class MomentHeader extends Component {
 
   render() {
     const { classes } = this.props
-
-    console.log(this.props.date);
 
     let date = this.formatDate(new Date(this.props.date));
 

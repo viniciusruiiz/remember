@@ -41,48 +41,6 @@ class App extends Component {
             BaseService.setRefreshToken(false);
             this.setState({ "showscreen": true, authenticated: false });
         }
-
-        // const { history } = this.props;
-
-        // history.listen((newLocation, action) => {
-        //     if (action === "PUSH") {
-        //         if (
-        //             newLocation.pathname.indexOf('memoryline') > -1 &&
-        //             (newLocation.pathname !== this.currentPathname ||
-        //                 newLocation.search !== this.currentSearch)
-        //         ) {
-        //             console.log("watashi ga kitta!")
-
-        //             this.currentPathname = newLocation.pathname;
-        //             this.currentSearch = newLocation.search;
-
-        //             history.push({
-        //                 pathname: newLocation.pathname,
-        //                 search: newLocation.search
-        //             });
-        //         }
-        //     } else {
-        //         console.log("here")
-
-        //         if (this.currentPathname != null) {
-        //             console.log("222222", BaseService.openedModal)
-        //             if (BaseService.openedModal) {
-        //                 console.log("modal esta aberto")
-        //                 history.go(1);
-        //                 this.memoryLineRef.current.handleClose()
-        //                 this.memoryLineRef.current.handleCloseParticipants()
-        //                 //adicionar mais eventos depois, principalmente de comentario
-        //             }
-        //             else {
-        //                 console.log("modal nao esta aberto")
-        //                 history.push('/userhome')
-        //                 this.currentPathname = null;
-        //                 this.currentSearch = null;
-        //             }
-        //         }
-
-        //     }
-        // });
     }
 
     handleLogin = () => {
@@ -92,12 +50,6 @@ class App extends Component {
     handleLogout = () => {
         this.setState({ authenticated: false })
     }
-
-    // handleOpenedModal = () => {
-    //     let newState = !this.state.openedModal;
-    //     this.setState({ openedModal: newState })
-    //     console.log(this.state.openedModal)
-    // }
 
     render() {
 
