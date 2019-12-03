@@ -1,5 +1,5 @@
 import { Theme, createStyles } from "@material-ui/core";
-import { teal, grey } from "@material-ui/core/colors";
+import { teal, grey, green } from "@material-ui/core/colors";
 
 const styles = (theme: Theme) => createStyles({
     fullHeight: {
@@ -16,18 +16,18 @@ const styles = (theme: Theme) => createStyles({
         borderRadius: 20
     },
     inputLogin: {
-        margin: theme.spacing(1,6,3,6),
+        margin: theme.spacing(1,6,1,6),
     },
     inputEsquerda: {
       maxWidth: "40%",
-      margin: theme.spacing(1,1,3,6),
+      margin: theme.spacing(1,1,1,6),
     },
     inputDireita: {
       maxWidth: "40%",
-      margin: theme.spacing(1,6,3,1),
+      margin: theme.spacing(1,6,1,1),
     },
     inputSenha: {
-        margin: theme.spacing(0,6,6,6),
+        margin: theme.spacing(0,6,4,6),
     },
     loginButton: {
         color: "white",
@@ -59,6 +59,11 @@ const styles = (theme: Theme) => createStyles({
         marginBottom: 10,
         fontSize: 14,
         color: '#FA8072',
+    },
+    inputOk: {
+      '& .MuiFilledInput-underline:after': {
+        borderBottomColor: green[300],
+      },
     }
 });
 

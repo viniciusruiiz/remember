@@ -18,7 +18,7 @@ class LinearLoading extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      hidden: this.props.hidden
+      hidden: this.props.hidden || false
     }
   }
 

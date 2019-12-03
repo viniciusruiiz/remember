@@ -35,6 +35,8 @@ class UserHome extends Component {
             memoryLineNameIpt: '',
             loadingCreation: false,
             newMemoryLineIds: [],
+            disable: false,
+            linearLoading: false
         }
 
         this.getAllPublics();
@@ -143,21 +145,35 @@ class UserHome extends Component {
         if (e.preventDefault)
             e.preventDefault();
 
-        console.log("handle submit")
-
         let body = {
             "name": this.state.memoryLineNameIpt,
             "type": this.state.selected
         }
 
+        this.setState({ disable: true, linearLoading: true })
+
         this._mls.add(body).then(res => {
+            res.data.data.isNew = true;
             let newState = Object.assign({}, this.state)
-            if (body.type === "private")
-                newState.privateMemoryLines.push(res.data.data);
-            else
-                newState.publicMemoryLines.push(res.data.data);
+            if (body.type === "private") {
+                newState.privateMemoryLines.unshift(res.data.data);
+            }
+            else {
+                newState.publicMemoryLines.unshift(res.data.data);
+            }
             newState.newMemoryLineIds.push(res.data.data.idMemoryLine);
+            newState.openModal = false;
+            newState.disable = false;
+            newState.linearLoading = false;
             this.setState(newState);
+
+            if (body.type === "private") {
+                this.handleShowPrivate();
+            } else {
+                this.handleShowPublic();
+            }
+
+            window.scrollTo({ top: 0, behavior: "smooth" })
         })
     }
 
@@ -182,7 +198,7 @@ class UserHome extends Component {
             <>
                 <div className={classes.root}>
                     {/* <NavBar /> */}
-                    {/* <LinearLoading style={this.state.loadingPrivates || this.state.loadingPublics ? { visibility: 'visible' } : { visibility: 'hidden' }} /> */}
+                    {this.state.linearLoading && <LinearLoading />}
 
                     <div className={classes.headerChange}>
                         <div className={`${classes.divChange} ${this.state.showPublics ? classes.selected : 'notSelected'}`} onClick={this.handleShowPublic}>
@@ -212,7 +228,7 @@ class UserHome extends Component {
                                         <>
                                             {
                                                 this.state.publicMemoryLines.map(item => (
-                                                    <LineBox title={item.name} urlMoments={item.urlMoments} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                                    <LineBox isNew={item.isNew} title={item.name} urlMoments={item.urlMoments} participants={item.urlParticipants} hasMoreParticipants={item.quantityParticipants > 2} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
                                                 ))
                                             }
                                         </>
@@ -239,7 +255,7 @@ class UserHome extends Component {
 
                                         {
                                             this.state.privateMemoryLines.map(item => (
-                                                <LineBox title={item.name} urlMoments={item.urlMoments} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
+                                                <LineBox title={item.name} urlMoments={item.urlMoments} participants={[]} key={item.idMemoryLine} reference={item.idMemoryLine} id={item.idMemoryLine} />
                                             ))
                                         }
 
@@ -288,15 +304,16 @@ class UserHome extends Component {
                 <Dialog open={this.state.openModal} onClose={this.handleClose} aria-labelledby="form-dialog-title" fullWidth={true} maxWidth="xs">
                     <DialogTitle id="form-dialog-title">Criar memory line</DialogTitle>
                     <DialogContent>
-                        <FormControl style={{ margin: "0 0 10px 0", width: "100%" }}>
+                        <FormControl style={{ margin: "0 0 10px 0", width: "100%" }} className={classes.input}>
                             <TextField label="Nome da MemoryLine" onChange={this.handleMemoryLineNameIpt} />
                         </FormControl>
                         <br />
-                        <FormControl style={{ margin: "22px 0", width: "100%" }}>
+                        <FormControl style={{ margin: "22px 0", width: "100%" }} className={classes.input}>
                             <InputLabel id="demo-simple-select-helper-label" onChange={this.handleMemoryLineNameIpt}>Privacidade</InputLabel>
                             <Select
                                 labelId="demo-simple-select-helper-label"
                                 id="demo-simple-select-helper"
+                                className={classes.input}
                                 value={this.state.selected}
                                 onChange={this.handleChange}
                                 style={{ width: "100%" }}
@@ -307,10 +324,10 @@ class UserHome extends Component {
                         </FormControl>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleClose} disable={this.state.disable} color="primary">
                             Cancelar
                 </Button>
-                        <Button onClick={this.handleSubmit} color="primary">
+                        <Button onClick={this.handleSubmit} disable={this.state.disable} color="primary">
                             Criar
                 </Button>
                     </DialogActions>

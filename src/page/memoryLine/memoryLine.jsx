@@ -28,7 +28,7 @@ import ReactTooltip from 'react-tooltip'
 import Dropzone from 'react-dropzone'
 import { height, maxHeight } from '@material-ui/system';
 import BaseService from '../../service/baseService';
-import App from '../../App';
+import Confirmation from '../../components/confirmation/confirmation'
 
 class MemoryLine extends Component {
 
@@ -65,6 +65,7 @@ class MemoryLine extends Component {
             type: "private",
             pic: '',
             description: '',
+            deleteConfirmation: false,
         }
 
         this._mls.getOne(this._queryString.get("ref")).then(res => {
@@ -136,16 +137,19 @@ class MemoryLine extends Component {
         this.resize();
     }
 
+    scrollHorizontally(e) {
+        {
+            e = window.event || e;
+            var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+            document.documentElement.scrollLeft -= (delta * 75);
+            document.body.scrollLeft -= (delta * 75);
+        }
+    }
+
     componentWillMount = () => {
         //document.body.style.overflowY = 'hidden';
         let self = this;
         (function () {
-            function scrollHorizontally(e) {
-                e = window.event || e;
-                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-                document.documentElement.scrollLeft -= (delta * 75);
-                document.body.scrollLeft -= (delta * 60);
-            }
 
             function scroll() {
 
@@ -176,9 +180,9 @@ class MemoryLine extends Component {
 
             onscroll = scroll;
             // Chrome
-            document.documentElement.addEventListener("mousewheel", scrollHorizontally, false);
+            document.documentElement.addEventListener("mousewheel", self.scrollHorizontally, false);
             // Firefox
-            document.documentElement.addEventListener("DOMMouseScroll", scrollHorizontally, false);
+            document.documentElement.addEventListener("DOMMouseScroll", self.scrollHorizontally, false);
         })();
     }
 
@@ -193,10 +197,12 @@ class MemoryLine extends Component {
 
     handleClickOpen = () => {
         this.setState({ "openModal": true })
+        this.removeEventListenerScroll()
     };
 
     handleClickOpenParticipants = () => {
         this.setState({ "openModalParticipants": true })
+        this.removeEventListenerScroll()
     };
 
     handleClose = () => {
@@ -204,11 +210,23 @@ class MemoryLine extends Component {
         setTimeout(() => {
             document.body.style.overflowY = 'hidden'
         }, 100)
+        this.addEventListenerScroll()
     };
 
     handleCloseParticipants = () => {
         this.setState({ "openModalParticipants": false })
+        this.addEventListenerScroll()
     };
+
+    removeEventListenerScroll = () => {
+        document.documentElement.removeEventListener("mousewheel", this.scrollHorizontally, false);
+        document.documentElement.removeEventListener("DOMMouseScroll", this.scrollHorizontally, false);
+    }
+
+    addEventListenerScroll = () => {
+        document.documentElement.addEventListener("mousewheel", this.scrollHorizontally, false);
+        document.documentElement.addEventListener("DOMMouseScroll", this.scrollHorizontally, false);
+    }
 
     handleClick = (event) => {
         this.setState({ anchorEl: event.currentTarget })
@@ -216,6 +234,7 @@ class MemoryLine extends Component {
     };
 
     handleCloseMenu = () => {
+        this.setState({ loading: true })
         this._mls.delete(this._queryString.get("ref")).then(res => {
             this.props.history.push('/userhome')
         }).catch(err => alert('erro inesperado ao deletar'))
@@ -279,6 +298,14 @@ class MemoryLine extends Component {
                 this.setState({ "candidatos": [] });
             }
         }
+    }
+
+    handleDeleteConfirmation = () => [
+        this.setState({ deleteConfirmation: true })
+    ]
+
+    handleCloseDeleteConfirmation = () => {
+        this.setState({ deleteConfirmation: false })
     }
 
     handleSearch = (e) => {
@@ -364,7 +391,7 @@ class MemoryLine extends Component {
                             className={this.state.members.length > 4 ? classes.lastMemberIcon : classes.membersIcons}
                             onClick={this.handleClickOpenParticipants}
                         />
-                        {this.state.members.length > 4 && <div className={classes.plusicon} onClick={this.handleClickOpenParticipants}>+</div>}
+                        {this.state.members.length > 4 && <div className={classes.plusicon} onClick={this.handleClickOpenParticipants}><MoreVert /></div>}
                         <ReactTooltip place="bottom" type="success" effect="solid" />
                     </>
                 );
@@ -420,7 +447,7 @@ class MemoryLine extends Component {
                                     {this.state.openMenu &&
                                         <Paper className={classes.paper}>
                                             <MenuList>
-                                                <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
+                                                <MenuItem className={classes.apagar} onClick={this.handleDeleteConfirmation}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
                                             </MenuList>
                                         </Paper>
                                     }
@@ -449,7 +476,7 @@ class MemoryLine extends Component {
                             className={this.state.members.length > 4 ? classes.lastMemberIconMob : classes.membersIconsMob}
                             onClick={this.handleClickOpenParticipants}
                         />
-                        {this.state.members.length > 4 && <div className={classes.plusiconmob} style={this.state.openModal || this.state.openModalParticipants ? { right: "85px!important" } : {}} onClick={this.handleClickOpenParticipants}>+</div>}
+                        {this.state.members.length > 4 && <div className={classes.plusiconmob} style={this.state.openModal || this.state.openModalParticipants ? { right: "85px!important" } : {}} onClick={this.handleClickOpenParticipants}><MoreVert /></div>}
                         <ReactTooltip place="bottom" type="success" effect="solid" />
                     </>
                 );
@@ -476,7 +503,7 @@ class MemoryLine extends Component {
                             {this.state.openMenu &&
                                 <Paper className={classes.paper}>
                                     <MenuList>
-                                        <MenuItem className={classes.apagar} onClick={this.handleCloseMenu}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
+                                        <MenuItem className={classes.apagar} onClick={this.handleDeleteConfirmation}><DeleteOutline style={{ marginRight: 5 }} /> Apagar MemoryLine</MenuItem>
                                     </MenuList>
                                 </Paper>
                             }
@@ -531,7 +558,7 @@ class MemoryLine extends Component {
 
 
         return (
-            <div className={classes.root} id="root">
+            <div className={classes.root} id="root-memoryline">
 
                 <LinearLoading style={this.state.loading || this.state.ftLoadingMoments ? { visibility: 'visible' } : { visibility: 'hidden' }} />
                 {/* <NavBar /> */}
@@ -545,7 +572,7 @@ class MemoryLine extends Component {
                         </>
                         :
                         this.state.moments.length > 0 ?
-                            <Line data={this.state.moments} hasMore={this.state.hasMore} /> : this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : <Typography className={classes.not}>Nenhum momento salvo.</Typography>
+                            <Line handlerOpen={this.removeEventListenerScroll} handlerClose={this.addEventListenerScroll} data={this.state.moments} hasMore={this.state.hasMore} /> : this.state.mobile ? <Typography className={classes.notMobile}>Nenhum momento salvo.</Typography> : <Typography className={classes.not}>Nenhum momento salvo.</Typography>
                 }
 
                 <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
@@ -595,6 +622,7 @@ class MemoryLine extends Component {
                                     <TextField
                                         onChange={this.handleDescription}
                                         label="Descreva esse momento!"
+                                        className={classes.input}
                                         style={{ margin: "15px 0" }}
                                         fullWidth
                                     />
@@ -625,6 +653,8 @@ class MemoryLine extends Component {
                         }
                     </DialogContent>
                 </Dialog>
+
+                {this.state.deleteConfirmation && <Confirmation handler={this.handleCloseMenu} handleClose={this.handleCloseDeleteConfirmation}></Confirmation>}
             </div>
         )
     }

@@ -128,7 +128,7 @@ class MomentMobile extends Component {
             </Grid>
           </Grid>
           {
-            this.state.open && <CommentModal reference={this.props.moment.idMoment} open={this.state.open} />
+            this.state.open && <CommentModal reference={this.props.moment.idMoment} open={true} handler={this.handleClose} />
           }
           {/* <MomentModal handleClose={this.handleClose} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> */}
         </div>

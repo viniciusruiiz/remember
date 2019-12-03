@@ -3,7 +3,7 @@ import { green, teal } from "@material-ui/core/colors";
 
 const styles = (theme) => createStyles({
     root: {
-        paddingTop: 75,
+        paddingTop: 49,
         color: 'rgba(0,0,0,0.8)',
     },
     img: {
@@ -37,6 +37,12 @@ const styles = (theme) => createStyles({
         width: "100%",
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(2),
+        '& label.Mui-focused': {
+            color: green[400],
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: green[400],
+        },
     },
     btn: {
         color: "white",

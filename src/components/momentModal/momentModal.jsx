@@ -19,7 +19,8 @@ class MomentModal extends Component {
 
     this.state = {
       comment: '',
-      comments: []
+      comments: [],
+      open: this.props.open
     }
 
     this._cs.getComments(this.props.reference).then(res => {
@@ -59,7 +60,7 @@ class MomentModal extends Component {
 
     return (
       <>
-        <Modal BackdropProps={{ style: { background: 'rgba(0,0,0,0.8)' } }} style={modalStyle} className={classes.modal} open={this.props.open} onClose={this.props.handleClose}>
+        <Modal BackdropProps={{ style: { background: 'rgba(0,0,0,0.8)' } }} style={modalStyle} className={classes.modal} open={this.state.open} onClose={this.props.handleClose}>
           <Grid style={{ outline: 'none' }} justify='center' container >
             <Grid container alignItems='center' style={{ width: 'initial', textAlign: 'center', backgroundColor: "rgba(0, 0, 0, 0.8)" }}>
               <Grid item>
@@ -74,7 +75,7 @@ class MomentModal extends Component {
 
                   this.state.comments.map(comment => (
                     // <Comment key={comment.owner} person={comment.owner} date={() => this.formatDate(new Date(comment.creationDate))}  content={comment.content}/>
-                    <Comment key={this.idComment++} person={comment.ownerName || comment.ownerUsername} date={this.props.date} ownerPic={comment.ownerPic} content={comment.content} />
+                    <Comment key={this.idComment++} person={comment.ownerName || comment.ownerUsername} date={comment.creationDate} ownerPic={comment.ownerPic} content={comment.content} />
                   ))
                 }
                 {/* <Comment person='Vinicius Ruiz' date='2 de março de 2019' content='Foi demais mano!'/>
@@ -92,6 +93,7 @@ class MomentModal extends Component {
                   hiddenLabel
                   value={this.state.comment}
                   variant="filled"
+                  autoComplete={false}
                   onChange={this.handleCommentContent}
                   placeholder="Comentário..." />
               </form>

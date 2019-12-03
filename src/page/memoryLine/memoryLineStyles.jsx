@@ -193,15 +193,15 @@ const styles = (theme) => createStyles({
   },
   plusicon: {
     position: 'absolute',
-    top: 14,
-    right: 74,
+    top: 17,
+    right: 70,
     fontSize: '26px',
     cursor: 'pointer',
   },
   plusiconmob: {
     position: 'absolute',
-    top: 65,
-    right: 76,
+    top: 69,
+    right: 71,
     fontSize: '26px',
     cursor: 'pointer',
   },
@@ -263,6 +263,14 @@ const styles = (theme) => createStyles({
     fontWeight: '100',
     whiteSpace: 'pre-wrap',
   },
+  input: {
+    '& label.Mui-focused': {
+      color: '#38B49D',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#38B49D',
+    },
+  }
 });
 
 export default styles

@@ -79,6 +79,14 @@ const styles = (theme) => createStyles({
       background: green[500],
     },
   },
+  input: {
+    '& label.Mui-focused': {
+      color: green[400],
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: green[400],
+    },
+  }
 });
 
 export default styles

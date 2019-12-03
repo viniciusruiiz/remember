@@ -56,8 +56,10 @@ const styles = (theme) => createStyles({
   },
   member: {
     height: theme.spacing(4),
+    width: theme.spacing(4),
     margin: 5,
     borderRadius: 50,
+    objectFit: 'cover'
   },
   right: {
     alignItems: 'center',
@@ -66,7 +68,7 @@ const styles = (theme) => createStyles({
     alignItems: 'right',
   },
   notification: {
-    zIndex:2,
+    zIndex: 2,
     position: 'absolute',
     color: 'white',
     fontSize: 12,
@@ -84,7 +86,15 @@ const styles = (theme) => createStyles({
     width: '100%',
     padding: 0,
     margin: 0,
-  }
+  },
+  plusicon: {
+    position: 'absolute',
+    top: 17,
+    right: 19,
+    fontSize: '26px',
+    cursor: 'pointer',
+    color: 'black',
+  },
 });
 
 export default styles

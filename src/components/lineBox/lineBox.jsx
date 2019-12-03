@@ -34,13 +34,26 @@ class LineBox extends Component {
   render() {
     const { classes } = this.props
 
+    let participants = [];
+    for (let i = 0; i < 2 && this.props.participants[i] != null; i++) {
+      if (i == 1 && this.props.hasMoreParticipants) {
+        participants.push(
+          <>
+            <img alt='' src={this.props.participants[i]} className={classes.member} style={{ filter: 'blur(1px)' }} />
+            <div className={classes.plusicon}><MoreVert /></div>
+          </>)
+        break;
+      }
+      participants.push(<img alt='' src={this.props.participants[i]} className={classes.member} />)
+    }
+
     return (
       <>
         <Grid item xs={12} sm={6} md={4} className={classes.root}>
           {this.props.notificationCount > 0 &&
             <Paper className={classes.notification}>{this.props.notificationCount}</Paper>
           }
-          <Card className={classes.card}>
+          <Card className={classes.card} style={this.props.isNew ? { border: "2px solid green" } : {}}>
             <Link to={`memoryline/?ref=${this.props.reference}&title=${this.props.title}`}>
               <Button id="linebox" className={classes.mediaButton}>
 
@@ -95,9 +108,7 @@ class LineBox extends Component {
                 </Grid>
                 <Grid container xs={6} alignItems="flex-end" justify="flex-end" className={classes.right} >
                   {
-                    this.props.participants && this.props.participants.map(participant => (
-                      <img alt='' src={participant} className={classes.member} />
-                    ))
+                    participants
                   }
                   {/* <IconButton className={classes.options} aria-label="settings" onClick={this.handleClick}>
                       <MoreVert/>

@@ -20,6 +20,8 @@ class Line extends Component {
     }
 
     this.updatePredicate = this.updatePredicate.bind(this);
+    console.log(this.props.handlerClose)
+    console.log(this.props.handlerOpen)
   }
 
   componentDidMount() {
@@ -46,9 +48,9 @@ class Line extends Component {
       <Grid alignItems="center" className={classes.root}>
         {this.props.data.map((moment) => (
           i++ % 2 === 0 ?
-            <Moment moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} desc={moment.description} reference={moment.idMoment} />
+            <Moment handlerOpen={this.props.handlerOpen} handlerClose={this.props.handlerClose} moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} desc={moment.description} reference={moment.idMoment} />
             :
-            <MomentDown moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} person={'Yudi'} desc={moment.description} reference={moment.idMoment} />
+            <MomentDown handlerOpen={this.props.handlerOpen} handlerClose={this.props.handlerClose} moment={moment} urlBucket={moment.urlBucket} creationDate={moment.creationDate} person={'Yudi'} desc={moment.description} reference={moment.idMoment} />
         ))}
         {
           this.props.hasMore &&

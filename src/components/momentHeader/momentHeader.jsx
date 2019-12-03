@@ -5,6 +5,7 @@ import Moment from '../moment/moment';
 import perfil from './../../images/perfil.jpg'
 import MomentDown from '../moment/momentDown';
 import { Typography, Grid } from '@material-ui/core';
+import { MoreVert } from '@material-ui/icons';
 
 class MomentHeader extends Component {
 
@@ -73,6 +74,7 @@ class MomentHeader extends Component {
     return (
       <>
         <div className={classes.root}>
+          {/* <MoreVert style={{ float: 'right' }}></MoreVert> */}
           <Grid container>
             <Grid>
               <img alt='' src={this.props.ownerPicture} className={classes.donoImg} />

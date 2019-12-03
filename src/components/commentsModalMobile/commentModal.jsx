@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './commentModalStyles'
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, TextField, InputAdornment } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, TextField, InputAdornment, Grid } from '@material-ui/core';
 import { Favorite, NavigateNext } from '@material-ui/icons';
 import perfil from './../../images/perfil.jpg'
 import CommentService from '../../service/commentService';
@@ -29,7 +29,7 @@ class CommentModal extends Component {
     console.log(this.props)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { history } = this.props;
 
     if (!this.state.pushed) {
@@ -43,7 +43,7 @@ class CommentModal extends Component {
 
     window.addEventListener("popstate", () => {
       if (this.state.open) {
-        this.handleClose()
+        this.props.handler()
         //history.go(1);
       }
     });
@@ -96,18 +96,26 @@ class CommentModal extends Component {
               Let Google help apps determine location. This means sending anonymous location data to
               Google, even when no apps are running.
           </DialogContentText> */}
-            {this.state.comments.map(comment => (
-              <div className={classes.comment}>
-                <img className={classes.ownerPic} src={comment.ownerPic}></img>
-                <Typography className={classes.content} style={{ fontWeight: "bold" }}>
-                  {comment.ownerName}
-                </Typography>
-                <Typography className={classes.content}>
-                  {comment.content}
-                </Typography>
-              </div>
-            ))
-            }
+            <Grid container>
+              <Grid xs={12}>
+                {this.state.comments.map(comment => (
+                  <>
+                    <div className={classes.comment}>
+                      <img className={classes.ownerPic} src={comment.ownerPic}></img>
+                      <Typography style={{ fontWeight: "bold" }}>
+                        {comment.ownerName}
+                      </Typography>
+                      <Typography>
+                        {comment.content}
+                      </Typography>
+                    </div>
+                    <br />
+                  </>
+                ))
+                }
+              </Grid>
+            </Grid>
+
           </DialogContent>
           <DialogActions>
             <TextField

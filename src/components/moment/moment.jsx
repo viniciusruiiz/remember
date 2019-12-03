@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import perfil from './../../images/perfil.jpg'
 import MomentModal from '../momentModal/momentModal';
 import img404 from '../../images/not_found.png'
+import { Favorite, ChatBubbleOutline } from '@material-ui/icons';
 
 class Moment extends Component {
 
@@ -19,6 +20,7 @@ class Moment extends Component {
 
   handleOpen = () => {
     this.setState({ open: true })
+    this.props.handlerOpen();
   }
 
   handleClose = () => {
@@ -26,6 +28,7 @@ class Moment extends Component {
     setTimeout(() => {
       document.body.style.overflowY = 'hidden'
     }, 100)
+    this.props.handlerClose();
   }
 
   handleImageLoaded = () => {
@@ -104,6 +107,9 @@ class Moment extends Component {
           {this.renderSpinner()}
           <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} src={this.props.urlBucket} className={classes.img} onError={(e) => e.target.src = img404} id={"moment-" + this.props.reference} />
           <Typography className={classes.date}>{date}</Typography>
+          <Typography className={classes.date} style={{ left: 97 }}>
+            <span className={classes.description}>{this.props.moment.commentsNumber}</span><ChatBubbleOutline style={{ fontSize: "inherit", marginLeft: 3 }} />
+          </Typography>
           {this.state.open &&
             <MomentModal moment={this.props.moment} handleClose={this.handleClose} desc={this.props.desc} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} date={this.props.creationDate} />
           }

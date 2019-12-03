@@ -5,9 +5,10 @@ import { CircularProgress, Modal, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import MomentModal from '../momentModal/momentModal';
 import img404 from '../../images/not_found.png'
+import { ChatBubbleOutline } from '@material-ui/icons';
 
 class MomentDown extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -16,14 +17,16 @@ class MomentDown extends Component {
   }
 
   handleOpen = () => {
-    this.setState({open: true})
+    this.setState({ open: true })
+    this.props.handlerOpen()
   }
 
   handleClose = () => {
-    this.setState({open: false})
+    this.setState({ open: false })
     setTimeout(() => {
-      document.body.style.overflowY = 'hidden'      
-    },100)
+      document.body.style.overflowY = 'hidden'
+    }, 100)
+    this.props.handlerClose()
   }
 
   formatDate(date) {
@@ -79,36 +82,39 @@ class MomentDown extends Component {
 
   renderSpinner() {
     const { classes } = this.props
-    
+
     if (!this.state.loading) {
       return null;
     }
     return (
       <>
         <span className={classes.filter} />
-        <CircularProgress className={classes.load}/>
+        <CircularProgress className={classes.load} />
       </>
     );
   }
-  
-  render() {
-        const { classes } = this.props
 
-        return (
-        <>
+  render() {
+    const { classes } = this.props
+
+    let date = this.formatDate(new Date(this.props.creationDate));
+
+    return (
+      <>
         <div className={classes.circle}>
-        {this.renderSpinner()}
-          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} onError={(e) => e.target.src = img404} src={this.props.urlBucket} className={classes.img} id={"moment-"+this.props.reference} />
+          {this.renderSpinner()}
+          <img alt='' onClick={this.handleOpen} onLoad={this.handleImageLoaded.bind(this)} onError={(e) => e.target.src = img404} src={this.props.urlBucket} className={classes.img} id={"moment-" + this.props.reference} />
           <Typography className={classes.date}>{this.formatDate(new Date(this.props.creationDate))}</Typography>
-          { this.state.open ?
-            <MomentModal moment={this.props.moment} handleClose={this.handleClose} desc={this.props.desc} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} /> 
-            : 
-            <span hidden></span>
+          <Typography className={classes.date} style={{ left: 97, top: 197 }}>
+            <span className={classes.description}>{this.props.moment.commentsNumber > 99 ? "+99" : this.props.moment.commentsNumber}</span><ChatBubbleOutline style={{ fontSize: "inherit", marginLeft: 3 }} />
+          </Typography>
+          {this.state.open &&
+            <MomentModal moment={this.props.moment} handleClose={this.handleClose} desc={this.props.desc} reference={this.props.reference} urlBucket={this.props.urlBucket} open={this.state.open} date={this.props.creationDate} />
           }
         </div>
-        </>
-        )
-    }
+      </>
+    )
+  }
 }
 
 export default withStyles(styles)(MomentDown)
