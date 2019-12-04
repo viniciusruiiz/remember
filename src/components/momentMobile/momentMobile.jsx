@@ -101,7 +101,7 @@ class MomentMobile extends Component {
               <Typography className={classes.dateYear}>{new Date(this.props.creationDate).getFullYear()}</Typography>
             </Grid>
             <Grid xs={1}>
-              <div style={{ borderLeft: "3px solid black", height: "100px" }} />
+              <div style={{ borderLeft: "3px solid black", height: "135px" }} />
             </Grid>
             <Grid item xs={9} className={classes.date}>
               <Grid container>
@@ -112,15 +112,15 @@ class MomentMobile extends Component {
                   <Typography className={classes.description} style={{ fontWeight: "bold" }}>{this.props.moment.ownerName}</Typography>
                   <Typography className={classes.description}>{this.props.moment.description}</Typography>
                   <div className={classes.numbers}>
-                    <span className={classes.description}>4</span><Favorite style={{ color: "red", fontSize: "inherit", margin: "0 12px 0 3px" }} />
-                    <span className={classes.description}>{this.props.moment.commentsNumber}</span><ChatBubbleOutline style={{ fontSize: "inherit", marginLeft: 3 }} />
+                    {/* <span className={classes.description}>4</span><Favorite style={{ color: "red", fontSize: "inherit", margin: "0 12px 0 3px" }} /> */}
+                    <span className={classes.description}>{this.props.moment.commentsNumber}</span><ChatBubbleOutline style={{ fontSize: "inherit", marginLeft: 3, marginRight: 24 }} />
                   </div>
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={12} className={classes.date}>
                   <div className={classes.numbers}>
-                    <FavoriteBorder style={{ marginRight: 3 }} /> <Typography style={{ display: "inline", marginRight: 16 }}>Curtir</Typography>
+                    {/* <FavoriteBorder style={{ marginRight: 3 }} /> <Typography style={{ display: "inline", marginRight: 16 }}>Curtir</Typography> */}
                     <ChatBubbleOutline /> <Typography style={{ marginRight: 5 }} onClick={this.handleOpen} >Comentar</Typography>
                   </div>
                 </Grid>

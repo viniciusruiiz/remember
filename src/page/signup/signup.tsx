@@ -5,7 +5,6 @@ import SignUpRequest from '../../model/request/signUpRequest';
 import SignUpService from '../../service/signUpService';
 import { withStyles, Grid, Paper, Button, Typography, TextField, FormControl, FormHelperText } from '@material-ui/core';
 import LinearLoading from '../../components/linearLoading/linearLoading';
-import { green } from '@material-ui/core/colors';
 
 const CssTextField = withStyles({
     root: {
@@ -71,7 +70,8 @@ class SignUp extends Component<any, any> {
     //a
     validateUsername = () => {
 
-        let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.username)
+        //let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.username)
+        let validation = /[@]/gm.test(this.state.username);
         this.setState({ errorUsername: !validation});
 
     }

@@ -86,7 +86,7 @@ class CommentModal extends Component {
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title" style={{ marginBottom: "1px solid rgba(0,0,0,.4)" }}><div style={{ float: "left" }}>Comentários</div><Favorite style={{ float: "right", color: "red", marginTop: 3 }} /></DialogTitle>
+          <DialogTitle id="responsive-dialog-title" style={{ marginBottom: "1px solid rgba(0,0,0,.4)" }}><div style={{ float: "left" }}>Comentários</div>{/*<Favorite style={{ float: "right", color: "red", marginTop: 3 }} />*/}</DialogTitle>
           <DialogContent>
             {/* <DialogContentText>
               Let Google help apps determine location. This means sending anonymous location data to

@@ -80,6 +80,7 @@ const styles = (theme) => createStyles({
     alignItems: 'center',
     fontWeight: 300,
     fontSize: 16,
+    marginBottom: 15
   },
   ownerPic: {
     width: 50,
