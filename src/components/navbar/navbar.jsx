@@ -39,14 +39,25 @@ class NavBar extends Component {
             BaseService.currentLName = res.data.data.last_name;
 
             let self = this;
-            BaseService.updateProfile = function (pic) {
+
+            BaseService.updateProfile = pic => {
                 self.setState({ profilePic: pic });
+            }
+
+            BaseService.updateProfileName = newName => {
+                self.setState({ profileName: newName })
             }
         });
 
-        this._ss.getInvites().then(res => {
-            this.setState({ notifications: res.data.data });
-        })
+        // this._ss.getInvites().then(res => {
+        //     this.setState({ notifications: res.data.data });
+        // })
+
+        BaseService.getNotifications = () => {
+            this._ss.getInvites().then(res => {
+                this.setState({ notifications: res.data.data });
+            })
+        }
 
         this.updatePredicate = this.updatePredicate.bind(this);
     }

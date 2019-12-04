@@ -39,7 +39,7 @@ class LineBox extends Component {
       if (i == 1 && this.props.hasMoreParticipants) {
         participants.push(
           <>
-            <img alt='' src={this.props.participants[i]} className={classes.member} style={{ filter: 'blur(1px)' }} />
+            <img alt='' src={this.props.participants[i]} className={classes.member} style={{ filter: 'brightness(25%)' }} />
             <div className={classes.plusicon}><MoreVert /></div>
           </>)
         break;

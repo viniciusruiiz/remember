@@ -47,6 +47,8 @@ export default class BaseService {
     public static currentLName : string;
     public static currentUserPic : string;
     public static updateProfile : void;
+    public static updateProfileName: void;
+    public static getNotifications: void;
     // public static openedModal : boolean;
 
     public static isAuthenticated(): boolean {

@@ -6,7 +6,7 @@ import Line from '../../components/line/line';
 import LineLoading from '../../components/lineLoading/line';
 import MomentService from '../../service/momentService';
 import { Fab, Typography, InputAdornment, IconButton, Paper, MenuList, MenuItem, ClickAwayListener, Grid, CircularProgress } from '@material-ui/core';
-import { Add, NavigateBefore, PersonAdd, MoreVert, Edit, DeleteOutline } from '@material-ui/icons';
+import { Add, NavigateBefore, PersonAdd, MoreVert, Edit, DeleteOutline, Brush, AddAPhoto } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -53,12 +53,14 @@ class MemoryLine extends Component {
             openModalParticipants: false,
             openMenu: false,
             mobile: false,
-            loading: false,//careful
+            loading: false,
             loadingMoments: true,
             ftLoadingMoments: true,
             membersearch: '',
             members: [],
             candidatos: [],
+            loadingCandidatos: false,
+            candidatos204: false,
             curPage: 1,
             hasMore: false,
             loadingMembers: true,
@@ -66,20 +68,23 @@ class MemoryLine extends Component {
             pic: '',
             description: '',
             deleteConfirmation: false,
+            isOwner: false
         }
 
         this._mls.getOne(this._queryString.get("ref")).then(res => {
-            this.setState({ title: res.data.data.name, type: res.data.data.type })
+            this.setState({ title: res.data.data.name, type: res.data.data.type, isOwner: res.data.data.isOwner })
             if (!this.state.mobile)
                 this.resize();
-            if (this.state.type != 'private')
-                this._mls.participants(this._queryString.get("ref")).then(res => {
-                    if (res.data.data.participants.length)
-                        this.setState({ members: res.data.data.participants, loadingMembers: false })
-                })
+
+        })
+
+        this._mls.participants(this._queryString.get("ref")).then(res => {
+            if (res.data.data.participants.length)
+                this.setState({ members: res.data.data.participants, loadingMembers: false })
         })
 
         this.getMoments();
+        BaseService.getNotifications();
     }
 
     getDocWidth() {
@@ -271,12 +276,14 @@ class MemoryLine extends Component {
     handleEnter = (event) => {
         if (event.keyCode == 13) {
             if (this.state.membersearch) {
+                this.setState({ loadingCandidatos: true })
                 this._ss.search(this.state.membersearch).then(res => {
                     if (res.status === 201 || res.status === 200)
                         this.setState({ "candidatos": res.data.data });
                     else if (res.status === 204)
-                        this.setState({ "candidatos": [{ first_name: "Nenhum resultado encontrado." }] });
+                        this.setState({ "candidatos204": true });
 
+                    this.setState({ loadingCandidatos: false })
                 })
             } else {
                 this.setState({ "candidatos": [] });
@@ -294,14 +301,20 @@ class MemoryLine extends Component {
 
     handleSearch = (e) => {
         this.setState({ "membersearch": e.target.value })
-        if (this.state.membersearch.length === 0) this.setState({ "candidatos": [] });
+        if (e.target.value.length === 0) this.setState({ "candidatos": [] });
+        this.setState({ candidatos204: false })
     }
 
     handleInvite = (_id, name) => {
-        this.setState({ loading: true })
+
+        let newState = Object.assign({}, this.state);
+        newState.candidatos[newState.candidatos.map(i => { return i._id }).indexOf(_id)].is_invited = true;
+        //newState.loading = true;
+        this.setState(newState)
+
         this._ss.invite(this._queryString.get("ref"), _id).then(res => {
             this.setState({ loading: false })
-            alert(`${name} convidado(a) para memory line ${this.state.title}!`)
+            //alert(`${name} convidado(a) para memory line ${this.state.title}!`)
         })
     }
 
@@ -336,6 +349,7 @@ class MemoryLine extends Component {
             if (res.data.success)
                 this._fs.uploadFile(res.data.data.presigned_url, this.state.file, res.data.data.mime_type).then(uploadRes => {
                     let newMoment = {
+                        idMoment: res.data.data.moment_id,
                         urlBucket: this.state.pic,
                         description: this.state.description,
                         creationDate: new Date().toString(),
@@ -351,12 +365,11 @@ class MemoryLine extends Component {
                     this.setState(newState)
 
                     window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-                }).catch(err => alert('erro no put:', err))
-        }).catch(err => alert('erro na criacao da presigned url'));
-
-        this._ms.getAllMoments(this._queryString.get("ref")).then(res => {
-            this.setState({ "moments": res.data.data })
-        })
+                })
+        }).catch(err => {
+            alert("Ocorreu um erro inesperado")
+            this.setState({ loading: false })
+        });
     }
 
     desktopHeader() {
@@ -389,7 +402,7 @@ class MemoryLine extends Component {
                         <Typography className={classes.title}>
                             <Link className={classes.link} to='/userhome'><NavigateBefore className={classes.back} /></Link>
                             <span className={classes.hideSpan} id="hide"></span><input readOnly maxLength="28" onInput={this.resize} id="txt" value={this.state.title} className={classes.titleIpt}></input>
-                            <Edit onClick={this.handleEdit} className={classes.editIcon} id="edit-icon"></Edit>
+                            {this.state.isOwner && <Brush onClick={this.handleEdit} className={classes.editIcon} id="edit-icon" />}
                         </Typography>
                     </Grid>
                     <Grid alignItems='right' alignContent='right' item md={7} sm={12}>
@@ -410,14 +423,38 @@ class MemoryLine extends Component {
                                             className: classes.adicionarInput,
                                         }}
                                     />
-                                    {this.state.candidatos.length > 0 &&
-                                        <ul className={classes.candidatos}>
-                                            {this.state.candidatos.map(item => (
-                                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>{`${item.first_name} ${item.last_name ? item.last_name : ""}`}</li>
-                                            ))}
-                                        </ul>
-                                    }
+                                    {
+                                        this.state.loadingCandidatos ?
+                                            <ul className={classes.candidatos}>
+                                                <li className={classes.candidato}>
+                                                    <CircularProgress></CircularProgress>
+                                                </li>
+                                            </ul>
+                                            :
+                                            (this.state.candidatos204 ?
+                                                <ul className={classes.candidatos}>
+                                                    <li className={classes.candidato}>
+                                                        Nenhum resultado encontrado.
+                                            </li>
+                                                </ul>
+                                                : (
+                                                    this.state.candidatos.length > 0 &&
+                                                    <ul className={classes.candidatos}>
+                                                        {
+                                                            this.state.candidatos.map(item => (
+                                                                <li key={item._id} className={classes.candidato}>
+                                                                    <img className={classes.candidatoImg} src={item.picture}></img>
+                                                                    <span>
+                                                                        {`${item.first_name} ${item.last_name || ""}`}
+                                                                    </span>
+                                                                    <PersonAdd style={item.is_invited ? { color: 'green', marginLeft: 'auto' } : { color: 'black', marginLeft: 'auto' }} onClick={() => this.handleInvite(item._id, item.first_name)} />
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>)
 
+                                            )
+                                    }
                                     {
                                         participantsRow
                                     }
@@ -496,35 +533,57 @@ class MemoryLine extends Component {
                     }
                 </div>
 
+                {this.state.type !== 'private' &&
 
-                <Grid item xs={12} sm={12}>
-                    <TextField
-                        className={classes.adicionarMob}
-                        margin="dense"
-                        hiddenLabel
-                        variant="filled"
-                        placeholder="Adicionar"
-                        onKeyUp={this.handleEnter}
-                        onChange={this.handleSearch}
-                        InputProps={{
-                            startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
-                            className: classes.adicionarInput,
-                        }}
-                    />
-                    {this.state.candidatos.length > 0 &&
-                        <ul className={classes.candidatos}>
-                            {this.state.candidatos.map(item => (
-                                <li key={item._id} onClick={() => this.handleInvite(item._id, item.first_name)} className={classes.candidato}>
-                                    <img className={classes.membersIconModal} src={item.picture}>
-                                    </img>
-                                    <span>
-                                        {`${item.first_name} ${item.last_name ? item.last_name : ""}`}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                    }
-                </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            className={classes.adicionarMob}
+                            margin="dense"
+                            hiddenLabel
+                            variant="filled"
+                            placeholder="Adicionar"
+                            onKeyUp={this.handleEnter}
+                            onChange={this.handleSearch}
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start"><PersonAdd /></InputAdornment>,
+                                className: classes.adicionarInput,
+                            }}
+                        />
+                        {
+                            this.state.loadingCandidatos ?
+                                <ul className={classes.candidatosMobile}>
+                                    <li className={classes.candidato}>
+                                        <CircularProgress></CircularProgress>
+                                    </li>
+                                </ul>
+                                :
+                                (this.state.candidatos204 ?
+                                    <ul className={classes.candidatosMobile}>
+                                        <li className={classes.candidato}>
+                                            Nenhum resultado encontrado.
+                                            </li>
+                                    </ul>
+                                    : (
+                                        this.state.candidatos.length > 0 &&
+                                        <ul className={classes.candidatosMobile}>
+                                            {
+                                                this.state.candidatos.map(item => (
+                                                    <li key={item._id} className={classes.candidato}>
+                                                        <img className={classes.candidatoImg} src={item.picture}></img>
+                                                        <span>
+                                                            {`${item.first_name} ${item.last_name || ""}`}
+                                                        </span>
+                                                        <PersonAdd style={item.is_invited ? { color: 'green', marginLeft: 'auto' } : { color: 'black', marginLeft: 'auto' }} onClick={() => this.handleInvite(item._id, item.first_name)} />
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>)
+
+                                )
+                        }
+                    </Grid>
+
+                }
 
             </Grid>
         )
@@ -557,7 +616,7 @@ class MemoryLine extends Component {
                 }
 
                 <Fab color="primary" aria-label="add" className={classes.fab} onClick={this.handleClickOpen} >
-                    <Add />
+                    <AddAPhoto />
                 </Fab>
                 {/* </div> */}
 
@@ -614,7 +673,7 @@ class MemoryLine extends Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancelar
                 </Button>
-                        <Button onClick={this.handleSubmit} disabled={!this.state.pic} color="primary">
+                        <Button onClick={this.handleSubmit} disabled={!this.state.pic || this.state.loading} color="primary">
                             ADICIONAR
                 </Button>
                     </DialogActions>

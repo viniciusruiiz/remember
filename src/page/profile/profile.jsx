@@ -107,6 +107,7 @@ class Profile extends Component {
                 let loading = this.state.loading;
                 this.setState({ alterado: this.state.newPhoto ? alterado : true, disableSubmit: this.state.newPhoto ? disableSubmit : true, loading: this.state.newPhoto ? loading : true, oldfname: this.state.fname, oldlname: this.state.lname })
 
+                BaseService.updateProfileName(this.state.fname);
                 BaseService.currentFName = this.state.fname;
                 BaseService.currentLName = this.state.lname;
             })

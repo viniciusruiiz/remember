@@ -89,11 +89,11 @@ const styles = (theme) => createStyles({
   },
   plusicon: {
     position: 'absolute',
-    top: 17,
+    top: 18,
     right: 19,
     fontSize: '26px',
     cursor: 'pointer',
-    color: 'black',
+    color: 'rgba(255,255,255,.9)',
   },
 });
 

@@ -176,7 +176,7 @@ const styles = (theme) => createStyles({
     top: 20,
     margin: theme.spacing(0, 2, 0, 0),
     objectFit: 'cover',
-    filter: 'brightness(75%) blur(1px)',
+    filter: 'brightness(25%)',
     cursor: 'pointer',
   },
   lastMemberIconMob: {
@@ -188,22 +188,24 @@ const styles = (theme) => createStyles({
     margin: theme.spacing(0, 1, 0, 0),
     float: "right",
     objectFit: 'cover',
-    filter: 'brightness(200%) blur(1px)',
+    filter: 'brightness(25%)',
     cursor: 'pointer',
   },
   plusicon: {
     position: 'absolute',
     top: 17,
-    right: 70,
+    right: 69,
     fontSize: '26px',
     cursor: 'pointer',
+    color: 'rgba(255,255,255,.9)'
   },
   plusiconmob: {
     position: 'absolute',
     top: 69,
-    right: 71,
+    right: 73,
     fontSize: '26px',
     cursor: 'pointer',
+    color: 'rgba(255,255,255,.9)'
   },
   options: {
     marginBottom: 28,
@@ -227,8 +229,18 @@ const styles = (theme) => createStyles({
     position: "absolute",
     padding: 0,
     margin: 0,
-    top: "48px",
+    top: 48,
     width: "257px",
+  },
+  candidatosMobile: {
+    listStyleType: "none",
+    position: "absolute",
+    padding: 0,
+    margin: 0,
+    top: 157,
+    width: "auto",
+    minWidth: 250,
+    maxWidth: 360
   },
   candidato: {
     border: "1px solid #ddd",
@@ -238,10 +250,18 @@ const styles = (theme) => createStyles({
     display: "flex",
     alignItems: "center",
     zIndex: 999,
-    cursor: "pointer",
     "&:hover": {
       backgroundColor: "#D2D2D2",
     }
+  },
+  candidatoImg: {
+    marginRight: 12,
+    float: 'left',
+    width: 35,
+    height: 35,
+    borderRadius: '50%',
+    objectFit: 'cover',
+    cursor: "pointer",
   },
   apagar: {
     color: '#fc5340',

@@ -9,6 +9,7 @@ import { ArrowDownwardRounded, ArrowDropDown, KeyboardArrowDownRounded, Add, Loc
 import MemoryLineService from '../../service/memoryLineService';
 import LinearLoading from '../../components/linearLoading/linearLoading';
 import LineBoxLoading from '../../components/lineBoxLoading/lineBoxLoading';
+import BaseService from '../../service/baseService';
 
 
 class UserHome extends Component {
@@ -59,6 +60,8 @@ class UserHome extends Component {
         scroll = scroll.bind(this);
 
         onscroll = scroll;
+
+        BaseService.getNotifications();
     }
 
     // componentWillUnmount() {
