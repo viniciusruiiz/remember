@@ -3,6 +3,7 @@ import Login from './page/login/login';
 import { Route, BrowserRouter as Router, Switch, withRouter } from 'react-router-dom'
 import SignUp from './page/signup/signup';
 import SignUpConfirmation from './page/signup/signupConfirmation';
+import SignUpConfirming from './page/signup/signupConfirming';
 import Error from './page/error/error';
 import UserHome from './page/userHome/userHome';
 import MemoryLine from './page/memoryLine/memoryLine';
@@ -65,6 +66,7 @@ class App extends Component {
                             <PrivateRoute path="/memoryline" exact component={MemoryLine} />
                             <PrivateRoute path="/profile" exact component={Profile} />
                             <PublicRoute restricted={true} exact path="/singupconfirmation" component={SignUpConfirmation} />
+                            <PublicRoute restricted={true} exact path="/singupconfirming" component={SignUpConfirming} />
                             <PublicRoute restricted={false} component={Error} />
                         </Switch>
                     </>
