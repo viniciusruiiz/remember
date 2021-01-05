@@ -13,7 +13,7 @@
     "@types/react-router-dom": "^4.3.5",
     "@types/react-text-mask": "^5.4.6",
     "@types/recompose": "^0.30.7",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "browser-image-compression": "^1.0.6",
     "clsx": "^1.0.4",
     "install": "^0.13.0",
