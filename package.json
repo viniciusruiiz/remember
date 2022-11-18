@@ -25,7 +25,7 @@
     "react-modal": "^3.10.1",
     "react-responsive-modal": "^4.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.2",
+    "react-scripts": "5.0.1",
     "react-scroll-box": "^0.3.5",
     "react-scrollbars-custom": "^4.0.20",
     "react-text-mask": "^5.4.3",
